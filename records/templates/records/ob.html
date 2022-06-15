@@ -1,0 +1,24 @@
+{% extends "records/base.html" %}
+{% block content %}
+     <h2 style="text-align:center";>Welcome Back</h2>
+     <small style="text-align:center";>Welcome Back!Please fill in your details</small>
+ <form method="post">
+        <div class="inputContainer">
+        	<label for="" class="label">National ID</label>
+            <input type="text" name="text" class="text" placeholder="Enter Your National ID" required>
+        </div>
+<br>
+        <div class="inputContainer">
+          <label for="" class="label">Crime</label>
+          <input type="text" name="text"  id="text" class="text" placeholder="Briefly describe the crime... " required>
+        </div>
+ <br>
+      <div class="inputContainer">
+          <label for="" class="label">ACtion Taken</label>
+          <input type="text" name="text"  id="text" class="text" placeholder="Action taken on the crime " required>
+        </div>
+ <br>
+    
+       <button>Login</button>
+</div>
+{% endblock content %}

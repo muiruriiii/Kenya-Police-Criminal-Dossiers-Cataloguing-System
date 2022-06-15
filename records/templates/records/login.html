@@ -1,0 +1,25 @@
+{% extends "records/base.html" %}
+{% block content %}
+     <h2 style="text-align:center";>Welcome Back</h2>
+     <small style="text-align:center";>Welcome Back!Please fill in your details</small>
+ <form method="post">
+        <div class="inputContainer">
+        	<label for="" class="label">Email</label>
+            <input type="text" name="email" class="input" placeholder="Enter Your Email" required>
+        </div>
+<br>
+        <div class="inputContainer">
+          <label for="" class="label">Password</label>
+          <input type="password" name="password"  id="myInput" class="input" placeholder="Enter Your Password" required>
+        </div>
+ <br>
+    <input type="checkbox" id="remember" name="remember" value="remember">
+<label for="remember">Remember Me</label><br>
+     
+
+<label for="forgot">Forgot Password?</label><br>
+<div class="button">
+
+       <button>Login</button>
+</div>
+{% endblock content %}

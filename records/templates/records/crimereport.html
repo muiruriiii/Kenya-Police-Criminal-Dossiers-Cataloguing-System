@@ -1,0 +1,17 @@
+{% extends "records/base.html" %}
+{% block content %}
+     <h2 style="text-align:center";>Crime Report</h2>
+     <small style="text-align:center";>Welcome Back!Please fill in the details</small>
+ <form method="post">
+        <div class="inputContainer">
+            <label for="" class="label">Crime Description</label>
+            <input type="text" name="text" class="input" placeholder="Describe the crime" required>
+        </div>
+<br>
+        <div class="inputContainer">
+          <label for="" class="label">Nature of the Crime</label>
+          <input type="text" name="text"  id="myInput" class="input" placeholder="" required>
+        </div>
+       <button>Submit</button>
+
+{% endblock content %}
