@@ -29,7 +29,7 @@ urlpatterns = [
    path('casetracking/',record_views.casetracking, name='casetracking'),
    path('ob/',record_views.ob, name='ob'),
    path('signup/',record_views.signup, name='signup'),
-   path('landingpage/',record_views.landingpage, name='landingpage'),
+   path('',record_views.landingpage, name='landingpage'),
    path('dashboard/',record_views.dashboard, name='dashboard'),
 
 ]
