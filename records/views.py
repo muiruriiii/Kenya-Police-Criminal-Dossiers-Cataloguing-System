@@ -31,4 +31,4 @@ def dashboard(request):
     return render(request, 'records/dashboard.html',{'title':'Dashboard'})
 
 def landingpage(request):
-    return render(request, 'records/landingpage.html',{'title':'Landing Page '})
+    return render(request, 'records/landingpage.html', {'title':'Landing Page', 'pageId': 8})

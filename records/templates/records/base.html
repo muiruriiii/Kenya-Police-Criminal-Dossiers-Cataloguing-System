@@ -1,48 +1,70 @@
+{% load static %}
 
-<header class="site-header">
-  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-    <div class="container">
-      <a class="navbar-brand mr-4" href="">Police System</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="navbar-nav mr-auto">
-          <a class="nav-item nav-link" href="">Login</a>
-          <a class="nav-item nav-link" href="">News</a>
-            <a class="nav-item nav-link" href="">Crimes</a>
-    <a class="nav-item nav-link" href="">Contact Us</a>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header class="navbar w-full">
+        <nav class="{% if '8' == '{{pageId}}' %} '{{pageId}}' absolute text-white {% endif %} flex flex-row w-full p-2 bg-gray-200 justify-between items-center sticky top-0">
+            <div class="nav-brand w-1/4">
+                <img src="{% static 'navBrand.png' %}" alt="Navbar brand">
+            </div>
+            <div class="nav-main w-3/4 mx-4 flex flex-row-reverse md:flex-row md:justify-around items-center">
+                <div class="nav-links w-full hidden md:contents flex flex-row justify-around items-center">
+                    <div class="nav-link">
+                        <span class="text-2xl">
+                            Login
+                        </span>
+                    </div>
+                    <div class="nav-link">
+                        <span class="text-2xl">
+                            News
+                        </span>
+                    </div>
+                    <div class="nav-link">
+                        <span class="text-2xl">
+                            Crime
+                        </span>
+                    </div>
+                    <div class="nav-link">
+                        <span class="text-2xl">
+                            Contact Us
+                        </span>
+                    </div>
+                    <div class="nav-link">
+                        <button class="rounded p-2 bg-red-600 text-white text-xl text-center">
+                            Report crime
+                        </button>
+                    </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 md:hidden cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="flex flex-col w-full">
+        {% if messages %}
+            {% for messages in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="w-full overflow-x-hidden">
+            {% block content %}
+            <!-- body of the page you have selected -->
+            {% endblock %}
         </div>
-        <!-- Navbar Right Side -->
-<div class="navbar-nav">
+    </main>
+    <footer class="sticky top-0">
 
-    <a class="nav-item nav-link" href="">Report Crime</a>
-    <a class="nav-item nav-link" href="">Find Police Station</a>
-
-
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
-<main role="main" class="container">
-  <div class="row">
-    <div class="col-md-8">
-      {% if messages %}
-        {% for messages in messages %}
-          <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
-      {% block content %}
-<!-- body of the page you have selected -->
-      {% endblock %}
-    </div>
-  </div>
-</main>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </footer>
 </body>
 </html>
