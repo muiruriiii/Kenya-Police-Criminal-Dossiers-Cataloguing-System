@@ -5,12 +5,12 @@
  <form action="" method="post">{% csrf_token %}
         <div class="inputContainer">
         	<label for="" class="label">First Name</label>
-            <input type="text" name="fname" class="input" placeholder="Enter Your First Name" required>
+            <input type="text" name="fName" class="input" placeholder="Enter Your First Name" required>
         </div>
 <br>
        <div class="inputContainer">
             <label for="" class="label">Last Name</label>
-            <input type="text" name="lname" class="input" placeholder="Enter Your Last Name" required>
+            <input type="text" name="lName" class="input" placeholder="Enter Your Last Name" required>
         </div>
 <br>
        <div class="inputContainer">
@@ -20,33 +20,37 @@
 <br>
        <div class="inputContainer">
             <label for="" class="label">Telephone Number</label>
-            <input type="number" name="tel" class="input" placeholder="Enter Your Telephone Numer" required>
+            <input type="text" name="tel" class="input" placeholder="Enter Your Telephone Number" required>
+        </div>
+<br>
+            <div class="inputContainer">
+            <label for="" class="label">National ID</label>
+            <input type="text" name="nationalID" class="input" placeholder="Enter Your National ID" required>
         </div>
 <br>
 
-<!--     <div class="inputContainer">-->
-<!--            <label for="" class="label">Gender </label>-->
-<!--            <select>-->
-<!--                <option name="gender">-->
-<!--                    Female-->
-<!--                </option>-->
-<!--                <option name="gender">-->
-<!--                    Male-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
+    <div class="inputContainer">
+           <label for="">Gender:</label>
+
+<select name="gender" id="gender">
+  <option value="female">Female</option>
+  <option value="male">Male</option>
+</select>
+        </div>
 <br>
-<!--       <div class="inputContainer">-->
-<!--            <label for="" class="label">Rank </label>-->
-<!--            <select>-->
-<!--                <option>-->
-<!--                    Officer-->
-<!--                </option>-->
-<!--                <option>-->
-<!--                    OCS-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
+          <div class="inputContainer">
+           <label for="" class="label">Date of Birth:</label>
+           <input type="date" id="label" name="DOB">
+       </div>
+     <br>
+    <div class="inputContainer">
+           <label for="">Rank:</label>
+
+<select name="rank" id="rank">
+  <option value="OCS">OCS</option>
+  <option value="officer">Officer</option>
+</select>
+        </div>
 <br>
        <div class="inputContainer">
             <label for="" class="label">Password </label>
@@ -55,11 +59,30 @@
 <br>
        <div class="inputContainer">
             <label for="" class="label">Confirm Password</label>
-            <input type="password" name="cpassword" class="input" placeholder="Kindly Confirm Password" required>
+            <input type="password" name="password" class="input" placeholder="Kindly Confirm Password" required>
         </div>
 <br>
+    <div class="inputContainer">
+           <label for="">Employment Status:</label>
 
-
-
-       <button>Submit</button>
-{% endblock content %}
+<select name="employmentStatus" id="employmentStatus">
+  <option value="employed">Employed</option>
+  <option value="retired">Retired</option>
+      <option value="terminated">Terminated</option>
+      <option value="courtMartialed">Court Martialed</option>
+      <option value="other">Other</option>
+</select>
+        </div>
+<br>
+     <div class="inputContainer">
+           <label for="" class="label">Employment Date:</label>
+           <input type="date" id="label" name="employmentDate">
+       </div>
+     <br>
+      <input type="submit" value=" Submit "/>
+{% if messages %}
+    {% for message in messages%}
+    <h2 style="color:red;">{{message}}</h2>
+    {% endfor %}
+    {% endif%}
+    {% endblock content %}

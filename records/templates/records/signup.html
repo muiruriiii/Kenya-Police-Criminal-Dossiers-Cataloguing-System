@@ -60,7 +60,9 @@
 
        <input type="submit" value="Sign Up"/>
        <div>
-         <label for="account">Already Have An Account?Login</label><br>
+         <label for="account">Already Have An Account?
+         <a href="{% url 'login' %}" >Login </a>
+         </label><br>
        </div>
    {% if messages %}
     {% for message in messages%}
