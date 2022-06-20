@@ -2,15 +2,15 @@
 {% block content %}
      <h2 style="text-align:center";>Officer SignUp</h2>
      <small style="text-align:center";>Welcome Back!Please fill in your details</small>
- <form method="post">
+ <form action="" method="post">{% csrf_token %}
         <div class="inputContainer">
         	<label for="" class="label">First Name</label>
-            <input type="text" name="text" class="input" placeholder="Enter Your First Name" required>
+            <input type="text" name="fname" class="input" placeholder="Enter Your First Name" required>
         </div>
 <br>
        <div class="inputContainer">
             <label for="" class="label">Last Name</label>
-            <input type="text" name="text" class="input" placeholder="Enter Your Last Name" required>
+            <input type="text" name="lname" class="input" placeholder="Enter Your Last Name" required>
         </div>
 <br>
        <div class="inputContainer">
@@ -20,51 +20,42 @@
 <br>
        <div class="inputContainer">
             <label for="" class="label">Telephone Number</label>
-            <input type="text" name="text" class="input" placeholder="Enter Your Telephone Numer" required>
+            <input type="number" name="tel" class="input" placeholder="Enter Your Telephone Numer" required>
         </div>
 <br>
-       <div class="inputContainer">
-            <label for="" class="label">National ID</label>
-            <input type="text" name="text" class="input" placeholder="Enter Your National ID" required>
-        </div>
+
+<!--     <div class="inputContainer">-->
+<!--            <label for="" class="label">Gender </label>-->
+<!--            <select>-->
+<!--                <option name="gender">-->
+<!--                    Female-->
+<!--                </option>-->
+<!--                <option name="gender">-->
+<!--                    Male-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
 <br>
-     <div class="inputContainer">
-            <label for="" class="label">Gender </label>
-            <select>
-                <option>
-                    Female
-                </option>
-                <option>
-                    Male
-                </option>
-            </select>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Station Name</label>
-            <input type="text" name="text" class="input" placeholder="Enter Your Station Name" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Rank </label>
-            <select>
-                <option>
-                    Officer
-                </option>
-                <option>
-                    OCS
-                </option>
-            </select>
-        </div>
+<!--       <div class="inputContainer">-->
+<!--            <label for="" class="label">Rank </label>-->
+<!--            <select>-->
+<!--                <option>-->
+<!--                    Officer-->
+<!--                </option>-->
+<!--                <option>-->
+<!--                    OCS-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
 <br>
        <div class="inputContainer">
             <label for="" class="label">Password </label>
-            <input type="text" name="password" class="input" placeholder="Enter Your Password" required>
+            <input type="password" name="password" class="input" placeholder="Enter Your Password" required>
         </div>
 <br>
        <div class="inputContainer">
             <label for="" class="label">Confirm Password</label>
-            <input type="text" name="password" class="input" placeholder="Kindly Confirm Password" required>
+            <input type="password" name="cpassword" class="input" placeholder="Kindly Confirm Password" required>
         </div>
 <br>
 

@@ -2,16 +2,25 @@
 {% block content %}
      <h2 style="text-align:center";>Crime Report</h2>
      <small style="text-align:center";>Welcome Back!Please fill in the details</small>
- <form method="post">
+ <form action="" method="POST">
+    {% csrf_token %}
         <div class="inputContainer">
-            <label for="" class="label">Crime Description</label>
-            <input type="text" name="text" class="input" placeholder="Describe the crime" required>
+            <label for="" class="label">Nature of the Crime</label>
+            <input type="text" name="crimeNature" class="input" placeholder="Nature of the Crime" required>
         </div>
 <br>
         <div class="inputContainer">
-          <label for="" class="label">Nature of the Crime</label>
-          <input type="text" name="text"  id="myInput" class="input" placeholder="" required>
+          <label for="" class="label">Crime Description</label>
+          <textarea id="myInput" name="description" rows="4" cols="50" required>
+          </textarea>
         </div>
-       <button>Submit</button>
+        <br>
+       <input type="submit" value="Submit"/>
+    {% if messages %}
+    {% for message in messages%}
+    <h2 style="color:red;">{{message}}</h2>
+    {% endfor %}
+    {% endif%}
+    {% endblock content %}
 
-{% endblock content %}
+</form>
