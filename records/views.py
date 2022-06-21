@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from records.models import CrimeInsert
@@ -98,7 +99,9 @@ def signup(request):
                 saverecord.lName = request.POST.get('regLName')
                 saverecord.email = request.POST.get('regEmail')
                 saverecord.tel = request.POST.get('regPhone')
-                saverecord.password = request.POST.get('regPassword')
+
+                #Hash password before recording in the DB
+                saverecord.password = make_password(request.POST.get('regPassword'))
                 saverecord.nationalID = request.POST.get('regIDNo')
                 saverecord.gender = request.POST.get('regGender')
                 saverecord.address = request.POST.get('regAddress')
