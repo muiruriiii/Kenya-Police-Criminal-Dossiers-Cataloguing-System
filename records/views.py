@@ -82,21 +82,33 @@ def ob(request):
 
 def signup(request):
     if request.method == 'POST':
-        if request.POST.get('fName') and request.POST.get('lName') and request.POST.get('email') and request.POST.get(
-                'tel') and request.POST.get('password') and request.POST.get('nationalID') and request.POST.get(
-                'gender') and request.POST.get('address'):
-            saverecord = InsertUser()
-            saverecord.fName = request.POST.get('fName')
-            saverecord.lName = request.POST.get('lName')
-            saverecord.email = request.POST.get('email')
-            saverecord.tel = request.POST.get('tel')
-            saverecord.password = request.POST.get('password')
-            saverecord.nationalID = request.POST.get('nationalID')
-            saverecord.gender = request.POST.get('gender')
-            saverecord.address = request.POST.get('address')
-            saverecord.save()
-            messages.success(request, 'Record Saved Successfully...!')
-            return render(request, 'records/signup.html')
+        if request.POST.get('regFName') and\
+                request.POST.get('regLName') and\
+                request.POST.get('regEmail') and\
+                request.POST.get('regPhone') and\
+                request.POST.get('regPassword') and\
+                request.POST.get('regConPassword') and\
+                request.POST.get('regIDNo') and\
+                request.POST.get('regGender') and\
+                request.POST.get('regAddress'):
+            # If the password and confirm password are same then the data will be saved in the database else an error message will be sent
+            if request.POST.get('regPassword') == request.POST.get('regConPassword'):
+                saverecord = InsertUser()
+                saverecord.fName = request.POST.get('regFName')
+                saverecord.lName = request.POST.get('regLName')
+                saverecord.email = request.POST.get('regEmail')
+                saverecord.tel = request.POST.get('regPhone')
+                saverecord.password = request.POST.get('regPassword')
+                saverecord.nationalID = request.POST.get('regIDNo')
+                saverecord.gender = request.POST.get('regGender')
+                saverecord.address = request.POST.get('regAddress')
+                saverecord.save()
+                messages.success(request, 'Record Saved Successfully...!')
+                return render(request, 'records/signup.html')
+            else:
+                # TODO add password not same error alert
+                messages.error(request, 'Password does not match')
+                return render(request, 'records/signup.html', {'title': 'Sign Up'})
     else:
         return render(request, 'records/signup.html', {'title': 'Sign Up'})
 
