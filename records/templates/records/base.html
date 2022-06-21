@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header class="navbar w-full relative">
@@ -18,9 +19,11 @@
             <div class="nav-main w-3/4 mx-4 flex flex-row-reverse md:flex-row md:justify-around items-center">
                 <div class="nav-links w-full hidden md:contents flex flex-row justify-around items-center">
                     <div class="nav-link">
-                        <span class="text-xl">
-                            Login
-                        </span>
+                        <a href="{% url 'login' %}">
+                            <span class="text-xl">
+                                Login
+                            </span>
+                        </a>
                     </div>
                     <div class="nav-link">
                         <span class="text-xl">

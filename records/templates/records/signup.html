@@ -1,74 +1,203 @@
 {% extends "records/base.html" %}
 {% block content %}
-     <h2 style="text-align:center";>Welcome to Citizen Registration</h2>
-     <small style="text-align:center";>Please fill in the details below</small>
- <form method="POST">
-     {% csrf_token %}
-        <div class="inputContainer">
-        	<label for="" class="label">First Name</label>
-            <input type="text" name="fName" class="input" placeholder="Enter Your First Name" required>
+    {% if messages %}
+        {% for message in messages%}
+            <div class="flex justify-center">
+            <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                <span>
+                    {{message}}
+                </span>
+            </div>
         </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Last Name</label>
-            <input type="text" name="lName" class="input" placeholder="Enter Your Last Name" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Email </label>
-            <input type="email" name="email" class="input" placeholder="Enter Your Email" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Telephone Number</label>
-            <input type="text" name="tel" class="input" placeholder="Enter Your Telephone Number" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Address </label>
-            <input type="text" name="address" class="input" placeholder="Enter Your Address" required>
-        </div>
-<br>
-    <div class="inputContainer">
-           <label for="">Gender:</label>
-
-<select name="gender" id="gender">
-  <option value="female">Female</option>
-  <option value="male">Male</option>
-</select>
-        </div>
-<br>
-
-       <div class="inputContainer">
-            <label for="" class="label">National ID</label>
-            <input type="text" name="nationalID" class="input" placeholder="Enter Your National ID" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Password </label>
-            <input type="password" name="password" class="input" placeholder="Enter Your Password" required>
-        </div>
-<br>
-       <div class="inputContainer">
-            <label for="" class="label">Confirm Password</label>
-            <input type="password" name="password" class="input" placeholder="Kindly Confirm Password" required>
-        </div>
-<br>
-
-   <input type="checkbox" id="remember" name="remember" value="remember">
-<label for="remember">I agree to the terms and conditions of the privacy policy</label><br>
-
-       <input type="submit" value="Sign Up"/>
-       <div>
-         <label for="account">Already Have An Account?
-         <a href="{% url 'login' %}" >Login </a>
-         </label><br>
-       </div>
-   {% if messages %}
-    {% for message in messages%}
-    <h2 style="color:red;">{{message}}</h2>
-    {% endfor %}
+        {% endfor %}
     {% endif%}
-    {% endblock content %}
 
- 
+    <div class="flex justify-center">
+        <div class="my-2 mx-20 w-full rounded-lg flex flex-row">
+                <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
+                    <div class="form-container w-2/3 m-auto flex flex-col justify-center my-2">
+                        <div class="flex flex-col my-4">
+                            <div class="flex flex-col">
+                                <span class="text-4xl">
+                                    Welcome to Citizen Registration
+                                </span>
+                                <span class="text-sm text-gray-600 my-1">
+                                    Please fill in the details below
+                                </span>
+                            </div>
+                        </div>
+                        <hr class="text-black border-2 border-black my-4">
+                        <form action="" method="POST" class="flex flex-col w-full">
+                            {% csrf_token %}
+                            <div class="form-group w-full flex flex-row my-2 justify-between">
+                                <div class="w-1/2 mr-2 ">
+                                    <div class="form-label">
+                                        <label for="regFName" class="text-base my-2">
+                                            First Name
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="regFName" name="regFName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            John
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ml-2 w-1/2">
+                                    <div class="form-label">
+                                        <label for="regLName" class="text-base my-2">
+                                            Last Name
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="regLName" name="regLName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            Doe
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group w-full flex flex-row my-2 justify-between">
+                                <div class="w-1/2 mr-2 ">
+                                    <div class="form-label">
+                                        <label for="regPhone" class="text-base my-2">
+                                            Telephone
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="regPhone" name="regPhone" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            +254|
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ml-2 w-1/2">
+                                    <div class="form-label">
+                                        <label for="regAddress" class="text-base my-2">
+                                            Address
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="regAddress" name="regAddress" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            Embakasi, Nairobi
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="regIDNo" class="text-base my-2">
+                                        National ID/Passport/Birth Certificate Number
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="password" id="regIDNo" name="regIDNo" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="regGender" class="text-base my-2">
+                                        Gender
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <select name="regGender" id="regGender" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <option value="">-</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-4">
+                                <div class="form-label">
+                                    <label for="regEmail" class="text-base my-2">
+                                        Email
+                                    </label>
+                                </div>
+                                <div class="form-input my-2 flex">
+                                    <input type="email" id="regEmail" name="regEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="regPassword" class="text-base my-2">
+                                        Password
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="password" id="regPassword" name="regPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        Minimum length is 4 letters.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="regConPassword" class="text-base my-2">
+                                        Confirm Password
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="password" id="regConPassword" name="regConPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        Passwords must match.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-row my-4 justify-between">
+                                <div class="flex">
+                                    <div class="form-input flex items-center">
+                                        <input type="checkbox" id="loginRememberMe" class="w-full p-2 rounded hover:border-blue border-2">
+                                    </div>
+                                    <div class="form-label mx-2">
+                                        <label for="loginRememberMe" class="text-base">
+                                            I agree to the <span class="text-blue-600"> Terms and Conditions </span> of the privacy policy.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-button w-full flex flex-col my-4">
+                                <button name="regBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
+                                    Sign Up
+                                </button>
+                            </div>
+                            <div class="form-footer w-full flex flex-col my-4">
+                                <div class="form-label items-center flex">
+                                    <span class="text-base">
+                                        Already have an account?<span class="text-blue-600"> <a href="{% url 'login' %}">Sign in</a></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-1/3 p-4 bg-green-100 rounded-r-lg flex items-center justify-center p-16">
+                    <div>
+                        <p class="text-justify">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consectetur cum dignissimos dolorum excepturi, laudantium nam, necessitatibus nemo perferendis placeat quas quia quibusdam quos ratione repellendus repudiandae rerum totam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+{% endblock content %}

@@ -98,8 +98,7 @@ def signup(request):
             messages.success(request, 'Record Saved Successfully...!')
             return render(request, 'records/signup.html')
     else:
-
-        return render(request, 'records/signup.html', {'title': 'Sign Up '})
+        return render(request, 'records/signup.html', {'title': 'Sign Up'})
 
 
 def dashboard(request):
@@ -107,4 +106,4 @@ def dashboard(request):
 
 
 def landingpage(request):
-    return render(request, 'records/landingpage.html', {'title': 'Landing Page '})
+    return render(request, 'records/landingpage.html', {'title': 'Landing Page', 'pageId': 8})
