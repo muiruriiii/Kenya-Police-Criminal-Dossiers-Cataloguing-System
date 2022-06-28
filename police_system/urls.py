@@ -22,13 +22,13 @@ from records import views as record_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('policeofficer/', record_views.policeofficer, name='policeofficer'),
-    path('criminalbooking/',record_views.criminalbooking, name='criminalbooking'),
+    path('criminalBooking/', record_views.criminalBooking, name='criminalBooking'),
     path('evidence/',record_views.evidence, name='evidence'),
     path('login/',record_views.login, name='login'),
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
     path('ob/',record_views.ob, name='ob'),
-    path('signup/',record_views.signup, name='userSignUp'),
+    path('signup/', record_views.signup, name='userSignUp'),
     path('',record_views.landingpage, name='landingpage'),
     path('dashboard/',record_views.dashboard, name='dashboard'),
 

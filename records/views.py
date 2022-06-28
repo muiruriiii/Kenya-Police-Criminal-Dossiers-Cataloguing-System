@@ -31,25 +31,37 @@ def policeofficer(request):
         return render(request, 'records/policeofficer.html', {'title': 'Police Officer'})
 
 
-def criminalbooking(request):
+def criminalBooking(request):
     if request.method == 'POST':
-        if request.POST.get('fName') and request.POST.get('lName') and request.POST.get('tel') and request.POST.get('address') and request.POST.get('nationalID') and request.POST.get( 'gender') and request.POST.get('crimeID') and request.POST.get('criminalStatus') and request.POST.get('locationArrested') and request.POST.get('arrestDate'):
+        if request.POST.get('criminalFName') and\
+                request.POST.get('criminalLName') and\
+                request.POST.get('criminalPhone') and\
+                request.POST.get('criminalAddress') and\
+                request.POST.get('criminalIDNo') and\
+                request.POST.get('criminalGender') and\
+                request.POST.get('crimeID') and\
+                request.POST.get('criminalStatus') and\
+                request.POST.get('arrestLocation') and\
+                request.POST.get('arrestDate'):
             saverecord = InsertCriminal()
-            saverecord.fName = request.POST.get('fName')
-            saverecord.lName = request.POST.get('lName')
-            saverecord.tel = request.POST.get('tel')
-            saverecord.address = request.POST.get('address')
-            saverecord.nationalID = request.POST.get('nationalID')
-            saverecord.gender = request.POST.get('gender')
+            saverecord.fName = request.POST.get('criminalFName')
+            saverecord.lName = request.POST.get('criminalLName')
+            saverecord.tel = request.POST.get('criminalPhone')
+            saverecord.address = request.POST.get('criminalAddress')
+            saverecord.nationalID = request.POST.get('criminalIDNo')
+            saverecord.gender = request.POST.get('criminalGender')
             saverecord.crimeID = request.POST.get('crimeID')
             saverecord.criminalStatus = request.POST.get('criminalStatus')
-            saverecord.locationArrested = request.POST.get('locationArrested')
+            saverecord.locationArrested = request.POST.get('arrestLocation')
             saverecord.arrestDate = request.POST.get('arrestDate')
             saverecord.save()
-            messages.success(request, 'Record Saved Successfully...!')
-            return render(request, 'records/criminalbooking.html')
+            messages.success(request, 'Criminal has been booked!')
+            return render(request, 'records/criminalBooking.html')
+        else:
+            messages.error(request, 'An error has occurred. Please contact an administrator.')
+            return render(request, 'records/criminalBooking.html')
     else:
-        return render(request, 'records/criminalbooking.html', {'title': 'Criminal Booking'})
+        return render(request, 'records/criminalBooking.html', {'title': 'Criminal Booking'})
 
 
 def evidence(request):
