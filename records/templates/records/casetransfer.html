@@ -1,7 +1,7 @@
 {% extends "records/base.html" %}
 {% block content %}
      <h2 style="text-align:center";>Welcome Back</h2>
-     <small style="text-align:center";>Welcome Back!Please fill in your details</small>
+     <small style="text-align:center";>Welcome Back!Please fill in the details</small>
  <form method="post">
         <div class="inputContainer">
            <label for="">Case ID:</label>
@@ -14,22 +14,35 @@
         </div>
 <br>
              <div class="inputContainer">
-           <label for="">Officer ID:</label>
+           <label for="">Current Station Name:</label>
 
 <select name="form" id="form">
-  <option value="officerid"> </option>
-     <option value="officerid"> </option>
-  <option value="officerid"> </option>
+  <option value="stationname"> </option>
+     <option value="stationname"> </option>
+  <option value="stationname"> </option>
 </select>
         </div>
 <br>
-           <div class="inputContainer">
-        	<label for="" class="label">National ID</label>
-            <input type="text" name="text" class="text" placeholder="Enter their National ID" required>
+                 <div class="inputContainer">
+           <label for="">New Station Name:</label>
+
+<select name="form" id="form">
+  <option value="stationname"> </option>
+     <option value="stationname"> </option>
+  <option value="stationname"> </option>
+</select>
         </div>
 <br>
         <div class="inputContainer">
-           <label for="">Case Status:</label>
+<label for="reason">Reason for transfer:</label>
+
+<textarea id="w3review" name="w3review" rows="4" cols="50">
+    </textarea>
+        </div>
+     <br>
+
+        <div class="inputContainer">
+           <label for="">Case Transfer Status:</label>
 
 <select name="caseStatus" id="caseStatus">
   <option value="approved">Approved</option>
