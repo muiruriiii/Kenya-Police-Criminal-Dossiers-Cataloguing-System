@@ -15,6 +15,7 @@
                         </div>
                     </div>
                     <form action="" method="POST" class="flex flex-col w-full">
+                        {% csrf_token %}
                         <div class="form-group w-full flex flex-col my-4">
                             <div class="form-label">
                                 <label for="loginEmail" class="text-base my-2">

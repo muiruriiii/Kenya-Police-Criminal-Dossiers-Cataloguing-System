@@ -28,6 +28,7 @@ urlpatterns = [
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
     path('ob/',record_views.ob, name='ob'),
+    path('issueforms/', record_views.issueforms, name='issueforms'),
     path('signup/',record_views.signup, name='userSignUp'),
     path('',record_views.landingpage, name='landingpage'),
     path('dashboard/',record_views.dashboard, name='dashboard'),

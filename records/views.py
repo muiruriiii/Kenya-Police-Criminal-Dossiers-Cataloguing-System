@@ -80,6 +80,9 @@ def casetracking(request):
 def ob(request):
     return render(request, 'records/ob.html', {'title': 'OB '})
 
+def issueforms(request):
+    return render(request, 'records/issueforms.html', {'title': 'Issue Forms '})
+
 
 def signup(request):
     if request.method == 'POST':
