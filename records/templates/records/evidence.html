@@ -3,7 +3,8 @@
 {% block content %}
      <h2 style="text-align:center";>Add Evidence </h2>
      <small style="text-align:center";>Welcome Back!Please fill in the details</small>
- <form method="post">
+ <form action="" method="post">
+     {% csrf_token %}
         <div class="inputContainer">
             <label for="" class="label">National ID</label>
             <input type="text" name="email" class="input" placeholder="Enter Your National ID" required>

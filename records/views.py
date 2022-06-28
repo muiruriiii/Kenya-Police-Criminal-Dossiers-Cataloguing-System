@@ -88,9 +88,18 @@ def crimereport(request):
 def casetracking(request):
     return render(request, 'records/casetracking.html', {'title': 'Case Tracking '})
 
+def casetransfer(request):
+    return render(request, 'records/casetransfer.html', {'title': 'Case Transfer '})
+
+
+def caseapproval(request):
+    return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
 
 def ob(request):
     return render(request, 'records/ob.html', {'title': 'OB '})
+
+def issueforms(request):
+    return render(request, 'records/issueforms.html', {'title': 'Issue Forms '})
 
 
 def signup(request):

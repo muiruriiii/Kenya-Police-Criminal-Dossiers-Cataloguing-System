@@ -1,0 +1,56 @@
+{% extends "records/base.html" %}
+{% block content %}
+     <h2 style="text-align:center";>Welcome Back</h2>
+     <small style="text-align:center";>Welcome Back!Please fill in the details</small>
+ <form method="post">
+        <div class="inputContainer">
+           <label for="">Case ID:</label>
+
+<select name="form" id="form">
+  <option value="caseid"> </option>
+     <option value="caseid"> </option>
+  <option value="caseid"> </option>
+</select>
+        </div>
+<br>
+             <div class="inputContainer">
+           <label for="">Current Station Name:</label>
+
+<select name="form" id="form">
+  <option value="stationname"> </option>
+     <option value="stationname"> </option>
+  <option value="stationname"> </option>
+</select>
+        </div>
+<br>
+                 <div class="inputContainer">
+           <label for="">New Station Name:</label>
+
+<select name="form" id="form">
+  <option value="stationname"> </option>
+     <option value="stationname"> </option>
+  <option value="stationname"> </option>
+</select>
+        </div>
+<br>
+        <div class="inputContainer">
+<label for="reason">Reason for transfer:</label>
+
+<textarea id="w3review" name="w3review" rows="4" cols="50">
+    </textarea>
+        </div>
+     <br>
+
+        <div class="inputContainer">
+           <label for="">Case Transfer Status:</label>
+
+<select name="caseStatus" id="caseStatus">
+  <option value="approved">Approved</option>
+     <option value="pending">Pending</option>
+  <option value="denied">Denied</option>
+</select>
+        </div>
+<br>
+       <button>Submit</button>
+</form>
+{% endblock content %}
