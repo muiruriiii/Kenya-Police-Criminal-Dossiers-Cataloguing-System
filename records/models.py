@@ -6,6 +6,8 @@ class CrimeInsert(models.Model):
 	 class Meta:
 	 	db_table="tbl_crime"
 
+
+
 class InsertUser(models.Model):
 	 fName=models.CharField(max_length=100)
 	 lName=models.CharField(max_length=100)
@@ -47,3 +49,4 @@ class InsertOfficer(models.Model):
 	employmentDate = models.DateTimeField(max_length=100)
 	class Meta:
 		db_table = "tbl_police_officer"
+

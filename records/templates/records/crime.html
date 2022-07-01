@@ -1,0 +1,33 @@
+<!--//to display the crime reported on the admin side(not complete)-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Display Crime</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Crime ID</th>
+		<th>Description</th>
+		<th>Crime Nature</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cr in form %}
+      <tr>
+        <td>{{cr.crimeID}}</td>
+        <td>{{cr.description}}</td>
+		<td>{{cr.crimeNature}}</td>
+      </tr>
+      {% endfor %}
+	</tbody>
+</table>
+</div>
+</body>
+</html>

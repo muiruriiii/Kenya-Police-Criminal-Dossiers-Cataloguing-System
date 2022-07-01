@@ -19,6 +19,13 @@
             <div class="nav-main w-3/4 mx-4 flex flex-row-reverse md:flex-row md:justify-around items-center">
                 <div class="nav-links w-full hidden md:contents flex flex-row justify-around items-center">
                     <div class="nav-link">
+                        <a href="{% url 'landingpage' %}">
+                            <span class="text-xl">
+                                Home
+                            </span>
+                        </a>
+                    </div>
+                    <div class="nav-link">
                         <a href="{% url 'login' %}">
                             <span class="text-xl">
                                 Login
@@ -42,7 +49,7 @@
                     </div>
                     <div class="nav-link">
                         <button class="rounded p-2 bg-red-600 text-white text-lg text-center">
-                              <a href="{% url 'ob' %}">
+                              <a href="{% url 'crimereport' %}">
                             Report crime
                                   </a>
                         </button>
@@ -98,8 +105,8 @@
                     </span>
                 </div>
                 <div class="flex flex-col">
-                    <a href="" class="text-sm md:text-base my-2">Login</a>
-                    <a href="" class="text-sm md:text-base my-2">Report Crime</a>
+                    <a href="{% url 'login' %}" class="text-sm md:text-base my-2">Login</a>
+                    <a href="{% url 'crimereport' %}" class="text-sm md:text-base my-2">Report Crime</a>
                     <a href="" class="text-sm md:text-base my-2">Officer Portal</a>
                     <a href="" class="text-sm md:text-base my-2">Find Police Station</a>
                 </div>
