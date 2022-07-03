@@ -1,35 +1,48 @@
-from django.contrib.auth.hashers import make_password, check_password
-from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from records.models import CrimeInsert
-from records.models import InsertUser
-from records.models import InsertCriminal
-from records.models import InsertOfficer
+from records.models import Crime
+from records.models import Citizen
+from records.models import Criminal
+from records.models import Officer
 
 
-def policeofficer(request):
+def policeOfficer(request):
     if request.method == 'POST':
-        if request.POST.get('fName') and request.POST.get('lName') and request.POST.get('email') and request.POST.get('tel')  and request.POST.get('nationalID') and request.POST.get('gender') and request.POST.get(
-                'DOB')  and request.POST.get(
-                'rank') and request.POST.get('password') and request.POST.get(
-                'employmentStatus') and request.POST.get('employmentDate'):
-            saverecord = InsertOfficer()
-            saverecord.fName = request.POST.get('fName')
-            saverecord.lName = request.POST.get('lName')
-            saverecord.email = request.POST.get('email')
-            saverecord.tel = request.POST.get('tel')
-            saverecord.nationalID = request.POST.get('nationalID')
-            saverecord.gender = request.POST.get('gender')
-            saverecord.DOB = request.POST.get('DOB')
-            saverecord.rank = request.POST.get('rank')
-            saverecord.password = request.POST.get('password')
-            saverecord.employmentStatus = request.POST.get('employmentStatus')
-            saverecord.employmentDate = request.POST.get('employmentDate')
-            saverecord.save()
-            messages.success(request, 'Record Saved Successfully...!')
-            return redirect('dashboard')
+        if request.POST.get('regFName') and \
+                request.POST.get('regLName') and \
+                request.POST.get('regEmail') and \
+                request.POST.get('regPhone') and \
+                request.POST.get('regRank') and \
+                request.POST.get('regIDNo') and \
+                request.POST.get('regGender') and \
+                request.POST.get('regAddress'):
+            saverecord = Officer()
+            saverecord.fName = request.POST.get('regFName')
+            saverecord.lName = request.POST.get('regLName')
+            saverecord.email = request.POST.get('regEmail')
+            saverecord.tel = request.POST.get('regPhone')
+            saverecord.rank = request.POST.get('regRank')
+
+            #default password is KenyaPolice2022
+            saverecord.password = make_password('KenyaPolice2022')
+            saverecord.nationalID = request.POST.get('regIDNo')
+            saverecord.gender = request.POST.get('regGender')
+            saverecord.address = request.POST.get('regAddress')
+            try:
+                saverecord.save()
+            except IntegrityError as e:
+                messages.error(request, "The email is already in use.")
+                return render(request, 'records/policeOfficer.html')
+            else:
+                messages.success(request, 'Officer successfully registered.')
+                return render(request, 'records/policeOfficer.html')
+        else:
+            messages.error(request, 'An error has occurred. Please contact an administrator.')
+            return render(request, 'records/policeOfficer.html')
     else:
-        return render(request, 'records/policeofficer.html', {'title': 'Police Officer'})
+        return render(request, 'records/policeOfficer.html', {'title': 'Police Officer Register'})
 
 
 def criminalBooking(request):
@@ -44,7 +57,7 @@ def criminalBooking(request):
                 request.POST.get('criminalStatus') and\
                 request.POST.get('arrestLocation') and\
                 request.POST.get('arrestDate'):
-            saverecord = InsertCriminal()
+            saverecord = Criminal()
             saverecord.fName = request.POST.get('criminalFName')
             saverecord.lName = request.POST.get('criminalLName')
             saverecord.tel = request.POST.get('criminalPhone')
@@ -52,13 +65,17 @@ def criminalBooking(request):
             saverecord.nationalID = request.POST.get('criminalIDNo')
             saverecord.gender = request.POST.get('criminalGender')
             saverecord.crimeID = request.POST.get('crimeID')
-            saverecord.password = make_password(request.POST.get('password'))
             saverecord.criminalStatus = request.POST.get('criminalStatus')
             saverecord.locationArrested = request.POST.get('arrestLocation')
             saverecord.arrestDate = request.POST.get('arrestDate')
-            saverecord.save()
-            messages.success(request, 'Criminal has been booked!')
-            return render(request, 'records/criminalBooking.html')
+            try:
+                saverecord.save()
+            except IntegrityError as e:
+                messages.error(request, "Criminal email is already in the system.")
+                return render(request, 'records/criminalBooking.html')
+            else:
+                messages.success(request, 'Criminal has been booked!')
+                return render(request, 'records/criminalBooking.html')
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
             return render(request, 'records/criminalBooking.html')
@@ -69,72 +86,29 @@ def criminalBooking(request):
 def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
-# to select crime information(not complete)
-def crime(request):
-    form = CrimeInsert.objects.all()
-    context = {'form': form}
-    return render(request, 'records/crime.html',context)
 
-# check password
 def login(request):
-    if request.method == 'POST':
-        request.POST['email']
-        encryptedpassword=make_password(request.POST['password'])
-        print(encryptedpassword)
-        checkpassword=check_password(request.POST['password'], encryptedpassword)
-
-        return redirect('landingpage')
+    if request.method == "POST":
+        if request.POST.get('loginEmail') and request.POST.get('loginPassword'):
+            return render(request, 'records/login.html', {'title': 'Login'})
     else:
-        return redirect('login')
-
-        return render(request, 'records/login.html', {'title': 'Sign Up'})
-
-def signup(request):
-    if request.method == 'POST':
-        if request.POST.get('regFName') and\
-                request.POST.get('regLName') and\
-                request.POST.get('regEmail') and\
-                request.POST.get('regPhone') and\
-                request.POST.get('regPassword') and\
-                request.POST.get('regConPassword') and\
-                request.POST.get('regIDNo') and\
-                request.POST.get('regGender') and\
-                request.POST.get('regAddress'):
-            # If the password and confirm password are same then the data will be saved in the database else an error message will be sent
-            if request.POST.get('regPassword') == request.POST.get('regConPassword'):
-                saverecord = InsertUser()
-                saverecord.fName = request.POST.get('regFName')
-                saverecord.lName = request.POST.get('regLName')
-                saverecord.email = request.POST.get('regEmail')
-                saverecord.tel = request.POST.get('regPhone')
-
-                #Hash password before recording in the DB
-                saverecord.password = make_password(request.POST.get('regPassword'))
-                saverecord.nationalID = request.POST.get('regIDNo')
-                saverecord.gender = request.POST.get('regGender')
-                saverecord.address = request.POST.get('regAddress')
-                saverecord.save()
-                messages.success(request, 'Record Saved Successfully...!')
-                return redirect('login')
-            else:
-                # TODO add password not same error alert
-                messages.error(request, 'Password does not match')
-                return redirect('signup')
-    else:
-        return render(request, 'records/signup.html', {'title': 'Sign Up'})
-
-
+        return render(request, 'records/login.html', {'title': 'Login'})
 
 
 def crimereport(request):
     if request.method == 'POST':
         if request.POST.get('description') and request.POST.get('crimeNature'):
-            saverecord = CrimeInsert()
+            saverecord = Crime()
             saverecord.description = request.POST.get('description')
             saverecord.crimeNature = request.POST.get('crimeNature')
-            saverecord.save()
-            messages.success(request, 'Record Saved Successfully...!')
-            return render(request, 'records/landingpage.html')
+            try:
+                saverecord.save()
+            except Exception as e:
+                messages.error(request, e)
+                return render(request, 'records/crimereport.html')
+            else:
+                messages.success(request, 'Crime has been reported successfully!')
+                return render(request, 'records/crimereport.html')
     else:
         return render(request, 'records/crimereport.html', {'title': 'Crime Report'})
 
@@ -155,11 +129,50 @@ def ob(request):
 def issueforms(request):
     return render(request, 'records/issueforms.html', {'title': 'Issue Forms '})
 
+
+def signup(request):
+    if request.method == 'POST':
+        if request.POST.get('regFName') and\
+                request.POST.get('regLName') and\
+                request.POST.get('regEmail') and\
+                request.POST.get('regPhone') and\
+                request.POST.get('regPassword') and\
+                request.POST.get('regConPassword') and\
+                request.POST.get('regIDNo') and\
+                request.POST.get('regGender') and\
+                request.POST.get('regAddress'):
+            # If the password and confirm password are same then the data will be saved in the database else an error message will be sent
+            if request.POST.get('regPassword') == request.POST.get('regConPassword'):
+                saverecord = Citizen()
+                saverecord.fName = request.POST.get('regFName')
+                saverecord.lName = request.POST.get('regLName')
+                saverecord.email = request.POST.get('regEmail')
+                saverecord.tel = request.POST.get('regPhone')
+
+                #Hash password before recording in the DB
+                saverecord.password = make_password(request.POST.get('regPassword'))
+                saverecord.nationalID = request.POST.get('regIDNo')
+                saverecord.gender = request.POST.get('regGender')
+                saverecord.address = request.POST.get('regAddress')
+                try:
+                    saverecord.save()
+                except IntegrityError as e:
+                    messages.error(request, "The email entered is already in use.")
+                    return render(request, 'records/signup.html')
+                else:
+                    messages.success(request, 'Record Saved Successfully...!')
+                    return render(request, 'records/signup.html')
+            else:
+                # TODO add password not same error alert
+                messages.error(request, 'Password does not match')
+                return render(request, 'records/signup.html', {'title': 'Sign Up'})
+    else:
+        return render(request, 'records/signup.html', {'title': 'Sign Up'})
+
+
 def dashboard(request):
     return render(request, 'records/dashboard.html', {'title': 'Dashboard'})
 
 
 def landingpage(request):
     return render(request, 'records/landingpage.html', {'title': 'Landing Page', 'pageId': 8})
-
-

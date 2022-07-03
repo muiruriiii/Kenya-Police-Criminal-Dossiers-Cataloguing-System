@@ -1,26 +1,89 @@
 {% extends "records/base.html" %}
 {% block content %}
-     <h2 style="text-align:center";>Crime Report</h2>
-     <small style="text-align:center";>Welcome Back!Please fill in the details</small>
- <form action="" method="POST">
-    {% csrf_token %}
-        <div class="inputContainer">
-            <label for="" class="label">Nature of the Crime</label>
-            <input type="text" name="crimeNature" class="input" placeholder="Nature of the Crime" required>
-        </div>
-<br>
-        <div class="inputContainer">
-          <label for="" class="label">Crime Description</label>
-          <textarea id="myInput" name="description" rows="4" cols="50" required>
-          </textarea>
-        </div>
-        <br>
-       <input type="submit" value="Submit"/>
-    {% if messages %}
-    {% for message in messages%}
-    <h2 style="color:red;">{{message}}</h2>
-    {% endfor %}
-    {% endif%}
-    {% endblock content %}
 
-</form>
+    {% if messages %}
+        {% for message in messages%}
+            {% if message.tags == 'error' %}
+                <div class="flex justify-center">
+                    <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                        <span>
+                            {{message}}
+                        </span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="flex justify-center">
+                    <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
+                        <span>
+                            {{message}}
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif%}
+
+    <div class="flex justify-center">
+        <div class="my-20 mx-20 w-full rounded-lg flex flex-row">
+            <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
+                <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
+                    <div class="flex flex-col my-10">
+                        <div class="flex flex-col">
+                            <span class="text-4xl">
+                                Welcome to the Report Crime Portal
+                            </span>
+                            <span class="text-sm text-gray-600">
+                                Fill in the form below, and we shall get back to you as soon as possible.
+                            </span>
+                        </div>
+                    </div>
+                    <form action="" method="POST" class="flex flex-col w-full">
+                        {% csrf_token %}
+                        <div class="form-group w-full flex flex-col my-4">
+                            <div class="form-label">
+                                <label for="crimeNature" class="text-base my-2">
+                                    Nature of the crime
+                                </label>
+                            </div>
+                            <div class="form-input my-2 flex">
+                                <input type="email" id="crimeNature" name="crimeNature" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    Enter the type of crime. Example theft, rape, accident etc.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-label">
+                                <label for="crimeDescription" class="text-base my-2">
+                                    Crime Description
+                                </label>
+                            </div>
+                            <div class="form-input my-2">
+                                <textarea id="crimeDescription" name="crimeDescription" style="resize: none;" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    Be as descriptive as possible when explaining the crime. Include place, time and people involved.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-button w-full flex flex-col my-4">
+                            <button name="reportCrime" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
+                                Report Crime
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="w-1/3 p-4 bg-green-100 rounded-r-lg flex items-center justify-center p-16">
+                <div>
+                    <p class="text-justify">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consectetur cum dignissimos dolorum excepturi, laudantium nam, necessitatibus nemo perferendis placeat quas quia quibusdam quos ratione repellendus repudiandae rerum totam.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
