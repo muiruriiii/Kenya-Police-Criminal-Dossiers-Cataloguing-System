@@ -1,10 +1,11 @@
-from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password, check_password
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from records.models import CrimeInsert
 from records.models import InsertUser
 from records.models import InsertCriminal
 from records.models import InsertOfficer
+
 
 def policeofficer(request):
     if request.method == 'POST':
@@ -26,7 +27,7 @@ def policeofficer(request):
             saverecord.employmentDate = request.POST.get('employmentDate')
             saverecord.save()
             messages.success(request, 'Record Saved Successfully...!')
-            return render(request, 'records/policeofficer.html')
+            return redirect('dashboard')
     else:
         return render(request, 'records/policeofficer.html', {'title': 'Police Officer'})
 
@@ -51,6 +52,7 @@ def criminalBooking(request):
             saverecord.nationalID = request.POST.get('criminalIDNo')
             saverecord.gender = request.POST.get('criminalGender')
             saverecord.crimeID = request.POST.get('crimeID')
+            saverecord.password = make_password(request.POST.get('password'))
             saverecord.criminalStatus = request.POST.get('criminalStatus')
             saverecord.locationArrested = request.POST.get('arrestLocation')
             saverecord.arrestDate = request.POST.get('arrestDate')
@@ -67,40 +69,25 @@ def criminalBooking(request):
 def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
+# to select crime information(not complete)
+def crime(request):
+    form = CrimeInsert.objects.all()
+    context = {'form': form}
+    return render(request, 'records/crime.html',context)
 
+# check password
 def login(request):
-    return render(request, 'records/login.html', {'title': 'Login'})
-
-
-def crimereport(request):
     if request.method == 'POST':
-        if request.POST.get('description') and request.POST.get('crimeNature'):
-            saverecord = CrimeInsert()
-            saverecord.description = request.POST.get('description')
-            saverecord.crimeNature = request.POST.get('crimeNature')
-            saverecord.save()
-            messages.success(request, 'Record Saved Successfully...!')
-            return render(request, 'records/crimereport.html')
+        request.POST['email']
+        encryptedpassword=make_password(request.POST['password'])
+        print(encryptedpassword)
+        checkpassword=check_password(request.POST['password'], encryptedpassword)
+
+        return redirect('landingpage')
     else:
-        return render(request, 'records/crimereport.html', {'title': 'Crime Report'})
+        return redirect('login')
 
-
-def casetracking(request):
-    return render(request, 'records/casetracking.html', {'title': 'Case Tracking '})
-
-def casetransfer(request):
-    return render(request, 'records/casetransfer.html', {'title': 'Case Transfer '})
-
-
-def caseapproval(request):
-    return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
-
-def ob(request):
-    return render(request, 'records/ob.html', {'title': 'OB '})
-
-def issueforms(request):
-    return render(request, 'records/issueforms.html', {'title': 'Issue Forms '})
-
+        return render(request, 'records/login.html', {'title': 'Sign Up'})
 
 def signup(request):
     if request.method == 'POST':
@@ -128,14 +115,45 @@ def signup(request):
                 saverecord.address = request.POST.get('regAddress')
                 saverecord.save()
                 messages.success(request, 'Record Saved Successfully...!')
-                return render(request, 'records/signup.html')
+                return redirect('login')
             else:
                 # TODO add password not same error alert
                 messages.error(request, 'Password does not match')
-                return render(request, 'records/signup.html', {'title': 'Sign Up'})
+                return redirect('signup')
     else:
         return render(request, 'records/signup.html', {'title': 'Sign Up'})
 
+
+
+
+def crimereport(request):
+    if request.method == 'POST':
+        if request.POST.get('description') and request.POST.get('crimeNature'):
+            saverecord = CrimeInsert()
+            saverecord.description = request.POST.get('description')
+            saverecord.crimeNature = request.POST.get('crimeNature')
+            saverecord.save()
+            messages.success(request, 'Record Saved Successfully...!')
+            return render(request, 'records/landingpage.html')
+    else:
+        return render(request, 'records/crimereport.html', {'title': 'Crime Report'})
+
+
+def casetracking(request):
+    return render(request, 'records/casetracking.html', {'title': 'Case Tracking '})
+
+def casetransfer(request):
+    return render(request, 'records/casetransfer.html', {'title': 'Case Transfer '})
+
+
+def caseapproval(request):
+    return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
+
+def ob(request):
+    return render(request, 'records/ob.html', {'title': 'OB '})
+
+def issueforms(request):
+    return render(request, 'records/issueforms.html', {'title': 'Issue Forms '})
 
 def dashboard(request):
     return render(request, 'records/dashboard.html', {'title': 'Dashboard'})
@@ -143,3 +161,5 @@ def dashboard(request):
 
 def landingpage(request):
     return render(request, 'records/landingpage.html', {'title': 'Landing Page', 'pageId': 8})
+
+
