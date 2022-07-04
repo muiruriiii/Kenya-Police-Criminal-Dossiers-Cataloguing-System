@@ -57,19 +57,35 @@
                         </button>
                     </div>
                     {% if 'citizenID' in request.session %}
-                    <div class="nav-link">
-                        <span class="text-xl">
-                            {{ request.session.citizenName }}
-                        </span>
-                    </div>
-                    {% endif %}
-                    {% if 'citizenID' in request.session %}
-                    <div class="nav-link">
-                        <a href="{% url 'CitizenLogout' %}">
-                            <span class="text-xl">
-                                Logout
+                    <div class="nav-link relative w-1/12">
+                        <div class="flex flex-row w-full justify-between">
+                            <span class="flex items-center">
+                                <img src="{% static 'media/notOff.png' %}" onclick="function notification(){
+                                    $('.notification-off').toggle('hidden');$('.notification-on').toggle('hidden');
+                                } notification();" class="w-5 notification-off" alt="">
+                                <img src="{% static 'media/notOn.png' %}" onclick="function notification(){
+                                    $('.notification-on').toggle('hidden');$('.notification-off').toggle('hidden');
+                                } notification();" class="w-5 hidden notification-on" alt="">
                             </span>
-                        </a>
+                            <span class="text-xl">
+                                <img src="{% static 'media/user.png' %}" onclick="function userTools(){
+                                    $('.user-tools').toggle('hidden');
+                                } userTools();" class="w-10" alt="">
+                            </span>
+                        </div>
+                        <div class="user-tools p-4 flex flex-col bg-gray-100 absolute mt-2 hidden">
+                            <span>
+                                <a href="{% url 'CitizenProfile' %}">
+                                    Profile
+                                </a>
+                            </span>
+                            <hr>
+                            <span>
+                                <a href="{% url 'CitizenLogout' %}">
+                                    Logout
+                                </a>
+                            </span>
+                        </div>
                     </div>
                     {% endif %}
                 </div>

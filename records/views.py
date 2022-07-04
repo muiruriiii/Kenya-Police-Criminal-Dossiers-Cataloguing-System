@@ -2,8 +2,6 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.template import RequestContext
-from records.Classes import Citizen as CitizenClass
 from records.models import Citizen as CitizenModel
 from records.models import Crime
 from records.models import Criminal
