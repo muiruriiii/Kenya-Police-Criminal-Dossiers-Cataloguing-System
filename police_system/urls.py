@@ -21,19 +21,20 @@ from records import views as record_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('policeOfficer/', record_views.policeOfficer, name='policeOfficer'),
+    path('OfficerRegister/', record_views.OfficerRegister, name='OfficerRegister'),
     path('criminalbooking/',record_views.criminalBooking, name='criminalbooking'),
     path('evidence/',record_views.evidence, name='evidence'),
-    path('login/',record_views.login, name='login'),
+    path('CitizenLogin/', record_views.CitizenLogin, name='CitizenLogin'),
+    path('CitizenLogout/', record_views.CitizenLogout, name='CitizenLogout'),
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
     path('ob/',record_views.ob, name='ob'),
-    path('crime/', record_views.crimereport, name='crime'),
+    path('CrimesDisplay/', record_views.CrimesDisplay, name='CrimesDisplay'),
     path('casetransfer/', record_views.casetransfer, name='casetransfer'),
     path('caseapproval/', record_views.caseapproval, name='caseapproval'),
     path('issueforms/', record_views.issueforms, name='issueforms'),
     path('signup/',record_views.signup, name='userSignUp'),
-    path('',record_views.landingpage, name='landingpage'),
+    path('',record_views.landingpage, name='index'),
     path('dashboard/',record_views.dashboard, name='dashboard'),
 
 ]

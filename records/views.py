@@ -1,14 +1,16 @@
-from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.template import RequestContext
+from records.Classes import Citizen as CitizenClass
+from records.models import Citizen as CitizenModel
 from records.models import Crime
-from records.models import Citizen
 from records.models import Criminal
 from records.models import Officer
 
 
-def policeOfficer(request):
+def OfficerRegister(request):
     if request.method == 'POST':
         if request.POST.get('regFName') and \
                 request.POST.get('regLName') and \
@@ -34,15 +36,15 @@ def policeOfficer(request):
                 saverecord.save()
             except IntegrityError as e:
                 messages.error(request, "The email is already in use.")
-                return render(request, 'records/policeOfficer.html')
+                return render(request, 'records/OfficerRegister.html')
             else:
                 messages.success(request, 'Officer successfully registered.')
-                return render(request, 'records/policeOfficer.html')
+                return render(request, 'records/OfficerRegister.html')
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'records/policeOfficer.html')
+            return render(request, 'records/OfficerRegister.html')
     else:
-        return render(request, 'records/policeOfficer.html', {'title': 'Police Officer Register'})
+        return render(request, 'records/OfficerRegister.html', {'title': 'Police Officer Register'})
 
 
 def criminalBooking(request):
@@ -87,19 +89,50 @@ def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
 
-def login(request):
+def CitizenLogin(request):
     if request.method == "POST":
         if request.POST.get('loginEmail') and request.POST.get('loginPassword'):
-            return render(request, 'records/login.html', {'title': 'Login'})
+            loginEmail = request.POST.get('loginEmail')
+            loginPassword = request.POST.get('loginPassword')
+            citizen = CitizenModel.objects.get(email=loginEmail)
+
+            if check_password(loginPassword, citizen.password):
+                #TODO create single variable that stores individual column of the citizen table.
+                request.session['citizenID'] = citizen.id
+                request.session['citizenName'] = citizen.fName
+
+                #currentCitizen = CitizenClass(citizen.id,citizen.fName,citizen.lName,citizen.email,citizen.tel,citizen.password,citizen.nationalID,citizen.gender,citizen.address)
+
+                #return render(request, 'records/CitizenLogin.html')
+                return redirect(landingpage)
+            else:
+                messages.error(request, 'Passwords do not match')
+                return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
     else:
-        return render(request, 'records/login.html', {'title': 'Login'})
+        return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
+
+
+def CitizenLogout(request):
+    try:
+        del request.session['citizenID']
+    except Exception as e:
+        messages.error(request, e)
+    else:
+        messages.error(request, 'Logged out.')
+        return render(request, 'records/index.html', {'title':'Landing Page', 'pageId': 8})
+
+
+def CrimesDisplay(request):
+    crimes = Crime.objects.all()
+    context = {'crimes': crimes}
+    return render(request, 'records/CrimesDisplay.html', context)
 
 
 def crimereport(request):
     if request.method == 'POST':
-        if request.POST.get('description') and request.POST.get('crimeNature'):
+        if request.POST.get('crimeDescription') and request.POST.get('crimeNature'):
             saverecord = Crime()
-            saverecord.description = request.POST.get('description')
+            saverecord.description = request.POST.get('crimeDescription')
             saverecord.crimeNature = request.POST.get('crimeNature')
             try:
                 saverecord.save()
@@ -143,7 +176,7 @@ def signup(request):
                 request.POST.get('regAddress'):
             # If the password and confirm password are same then the data will be saved in the database else an error message will be sent
             if request.POST.get('regPassword') == request.POST.get('regConPassword'):
-                saverecord = Citizen()
+                saverecord = CitizenModel()
                 saverecord.fName = request.POST.get('regFName')
                 saverecord.lName = request.POST.get('regLName')
                 saverecord.email = request.POST.get('regEmail')
@@ -161,11 +194,11 @@ def signup(request):
                     return render(request, 'records/signup.html')
                 else:
                     messages.success(request, 'Record Saved Successfully...!')
-                    return render(request, 'records/signup.html')
+                    return redirect(CitizenLogin)
             else:
                 # TODO add password not same error alert
                 messages.error(request, 'Password does not match')
-                return render(request, 'records/signup.html', {'title': 'Sign Up'})
+                return render(request, 'records/signup.html')
     else:
         return render(request, 'records/signup.html', {'title': 'Sign Up'})
 
@@ -175,4 +208,4 @@ def dashboard(request):
 
 
 def landingpage(request):
-    return render(request, 'records/landingpage.html', {'title': 'Landing Page', 'pageId': 8})
+    return render(request, 'records/index.html', {'title': 'Landing Page', 'pageId': 8})

@@ -1,4 +1,4 @@
-<!--//to display the crime reported on the admin side(not complete)-->
+<!--//to display the CrimesDisplay reported on the admin side(not complete)-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      {% for cr in form %}
+      {% for CrimesDisplay in crimes %}
       <tr>
-        <td>{{cr.crimeID}}</td>
-        <td>{{cr.description}}</td>
-		<td>{{cr.crimeNature}}</td>
+        <td>{{CrimesDisplay.id}}</td>
+        <td>{{CrimesDisplay.description}}</td>
+		<td>{{CrimesDisplay.crimeNature}}</td>
       </tr>
       {% endfor %}
 	</tbody>
