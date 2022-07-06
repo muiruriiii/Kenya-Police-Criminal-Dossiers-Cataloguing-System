@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'records.apps.RecordsConfig',
     'CitizenApp.apps.CitizenConfig',
+    'PoliceOfficerApp.apps.PoliceofficerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,7 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'records/static/'),
-    os.path.join(BASE_DIR, 'Citizen/static/'),
+    os.path.join(BASE_DIR, 'CitizenApp/static/'),
+    os.path.join(BASE_DIR, 'PoliceOfficerApp/static/'),
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

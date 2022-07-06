@@ -18,6 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 import CitizenApp
+import PoliceOfficerApp
 from records import views as record_views
 
 
@@ -38,5 +39,6 @@ urlpatterns = [
     path('signup/',record_views.signup, name='userSignUp'),
     path('',record_views.landingpage, name='index'),
     path('dashboard/',record_views.dashboard, name='dashboard'),
-    path('citizen/', include('CitizenApp.urls'))
+    path('citizen/', include('CitizenApp.urls')),
+    path('policeofficer/', include('PoliceOfficerApp.urls'))
 ]

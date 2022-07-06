@@ -21,9 +21,6 @@ class Citizen(models.Model):
     gender = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
 
-    def toJson(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
-
     class Meta:
         db_table = "tbl_citizen"
 
