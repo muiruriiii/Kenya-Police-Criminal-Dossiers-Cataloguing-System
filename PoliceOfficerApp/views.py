@@ -1,11 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
+from django.template.defaulttags import url
+
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
 
 
 def index(request):
-    return render(request, 'PoliceOfficerApp/index.html', {'title': 'Police Dashboard'})
+    if 'officerID' not in request.session:
+        return redirect(login)
+    else:
+        return render(request, 'PoliceOfficerApp/index.html', {'title': request.session['officerID'], 'pageID': 1})
 
 
 def login(request):
@@ -24,7 +29,7 @@ def login(request):
                 if check_password(loginPassword, officer.password):
                     # TODO create single variable that stores individual column of the citizen table.
                     request.session['officerID'] = officer.id
-                    request.session['officerName'] = officer.fName
+                    request.session['officerName'] = officer.fName + ' ' + officer.lName
 
                     return redirect(index)
                 else:
@@ -40,28 +45,29 @@ def OfficerLogout(request):
         messages.error(request, e)
     else:
         messages.success(request, 'Logged out.')
-        return render(request, 'records/CitizenLogin.html', {'title': 'Police Login'})
+        return redirect(login)
 
 
 def OfficersDisplay(request):
     officers = OfficerModel.objects.all()
-    context = {'officers': officers}
+    context = {'officers': officers, 'pageID': 2}
     return render(request, 'PoliceOfficerApp/OfficersDisplay.html', context)
 
 
 def CriminalsDisplay(request):
     criminals = CriminalModel.objects.all()
-    context = {'criminals': criminals}
+    context = {'criminals': criminals, 'pageID': 4}
     return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
 
 
 def CitizensDisplay(request):
     citizens = CitizenModel.objects.all()
-    context = {'citizens': citizens}
+    context = {'citizens': citizens, 'pageID': 3}
     return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
 
 
 def CrimesDisplay(request):
     crimes = CrimeModel.objects.all()
-    context = {'crimes': crimes}
+    context = {'crimes': crimes, 'pageID': 5}
     return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
+

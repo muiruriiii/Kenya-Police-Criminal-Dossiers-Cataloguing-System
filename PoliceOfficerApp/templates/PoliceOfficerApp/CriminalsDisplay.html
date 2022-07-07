@@ -1,0 +1,75 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+<table class="table m-4 text-center">
+    <thead>
+        <tr>
+            <th>
+                Criminal ID
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Telephone Number
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                National ID
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Crime ID
+            </th>
+            <th>
+                criminal Status
+            </th>
+            <th>
+                Location Arrested
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for CriminalsDisplay in criminals %}
+            <tr>
+                <td>
+                    {{CriminalsDisplay.id}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.fName}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.lName}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.tel}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.address}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.nationalID}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.gender}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.crimeID}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.criminalStatus}}
+                </td>
+                <td>
+                    {{CriminalsDisplay.locationArrested}}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

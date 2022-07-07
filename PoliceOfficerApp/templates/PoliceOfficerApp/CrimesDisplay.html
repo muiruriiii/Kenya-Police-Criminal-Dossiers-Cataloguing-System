@@ -1,0 +1,33 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+<table class="table m-4 text-center">
+    <thead>
+        <tr>
+            <th>
+                Crime ID
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Crime Nature
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for CrimesDisplay in crimes %}
+            <tr>
+                <td>
+                    {{CrimesDisplay.id}}
+                </td>
+                <td>
+                    {{CrimesDisplay.description}}
+                </td>
+                <td>
+                    {{CrimesDisplay.crimeNature}}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
