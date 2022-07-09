@@ -1,0 +1,29 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+<table class="table m-4 text-center">
+    <thead>
+        <tr>
+            <th>Officer ID </th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Telephone Number</th>
+            <th>National ID</th>
+            <th>Gender</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{officer.id}}</td>
+            <td>{{officer.fName}}</td>
+            <td>{{officer.lName}}</td>
+            <td>{{officer.tel}}</td>
+            <td>{{officer.address}}</td>
+            <td>{{officer.nationalID}}</td>
+            <td>{{officer.gender}}</td>
+            <td>{{officer.email}}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

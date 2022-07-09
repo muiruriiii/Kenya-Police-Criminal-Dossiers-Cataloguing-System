@@ -5,6 +5,7 @@ app_name="PoliceOfficerApp"
 urlpatterns = [
     path('', officer_views.index, name='OfficerDashboard'),
     path('OfficersDisplay/', officer_views.OfficersDisplay, name='OfficersDisplay'),
+    path('OfficerProfile/', officer_views.OfficerProfile, name='OfficerProfile'),
     path('CitizensDisplay/', officer_views.CitizensDisplay, name='CitizensDisplay'),
     path('CrimesDisplay/', officer_views.CrimesDisplay, name='CrimesDisplay'),
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
