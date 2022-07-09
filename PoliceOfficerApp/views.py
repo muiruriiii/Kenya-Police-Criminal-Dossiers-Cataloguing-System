@@ -8,7 +8,7 @@ from records.models import Officer as OfficerModel, Crime as CrimeModel, Crimina
 
 def index(request):
     if 'officerID' not in request.session:
-        return redirect(login)
+        return redirect('PoliceOfficerApp:OfficerLogin')
     else:
         return render(request, 'PoliceOfficerApp/index.html', {'title': request.session['officerID'], 'pageID': 1})
 
@@ -18,7 +18,7 @@ def login(request):
         del request.session['citizenID']
         return render(request, 'records/CitizenLogin.html', {'title': 'Police Login'})
     elif 'officerID' in request.session:
-        return redirect(index)
+        return redirect('PoliceOfficerApp:OfficerDashboard')
     else:
         if request.method == "POST":
             if request.POST.get('loginEmail') and request.POST.get('loginPassword'):
@@ -31,7 +31,7 @@ def login(request):
                     request.session['officerID'] = officer.id
                     request.session['officerName'] = officer.fName + ' ' + officer.lName
 
-                    return redirect(index)
+                    return redirect('PoliceOfficerApp:OfficerDashboard')
                 else:
                     messages.error(request, 'Passwords do not match')
                     return render(request, 'records/CitizenLogin.html', {'title': 'Police Login'})
@@ -45,7 +45,7 @@ def OfficerLogout(request):
         messages.error(request, e)
     else:
         messages.success(request, 'Logged out.')
-        return redirect(login)
+        return redirect('PoliceOfficerApp:OfficerLogin')
 
 
 def OfficersDisplay(request):

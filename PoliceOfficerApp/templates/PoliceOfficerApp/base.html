@@ -32,28 +32,28 @@
             </a>
         </div>
         <nav class="text-white text-base font-semibold pt-3">
-            <a href="{% url 'OfficerDashboard' %}" class="flex items-center {% if pageID == 1 %} active-nav-link {% endif %} text-white py-4 pl-6 nav-item">
+            <a href="{% url 'PoliceOfficerApp:OfficerDashboard' %}" class="flex items-center {% if pageID == 1 %} active-nav-link {% endif %} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="{% url 'OfficersDisplay' %}" class="flex items-center {% if pageID == 2 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{% url 'PoliceOfficerApp:OfficersDisplay' %}" class="flex items-center {% if pageID == 2 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Officers
             </a>
-            <a href="{% url 'CitizensDisplay' %}" class="flex items-center {% if pageID == 3 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{% url 'PoliceOfficerApp:CitizensDisplay' %}" class="flex items-center {% if pageID == 3 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Citizen
             </a>
-            <a href="{% url 'CriminalsDisplay' %}" class="flex items-center {% if pageID == 4 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{% url 'PoliceOfficerApp:CriminalsDisplay' %}" class="flex items-center {% if pageID == 4 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Criminals
             </a>
-            <a href="{% url 'CrimesDisplay' %}" class="flex items-center {% if pageID == 5 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{% url 'PoliceOfficerApp:CrimesDisplay' %}" class="flex items-center {% if pageID == 5 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Crimes
             </a>
         </nav>
-        <a href="{% url 'OfficerLogout' %}" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        <a href="{% url 'PoliceOfficerApp:OfficerLogout' %}" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
             Logout
         </a>
     </aside>
