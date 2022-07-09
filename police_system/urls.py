@@ -34,7 +34,6 @@ urlpatterns = [
     path('issueforms/', record_views.issueforms, name='issueforms'),
     path('signup/',record_views.signup, name='userSignUp'),
     path('',record_views.landingpage, name='index'),
-    path('dashboard/',record_views.dashboard, name='dashboard'),
-    path('citizen/', include('CitizenApp.urls')),
-    path('policeofficer/', include('PoliceOfficerApp.urls'))
+    path('citizen/', include('CitizenApp.urls'), name='citizen'),
+    path('policeofficer/', include('PoliceOfficerApp.urls'), name='policeofficer')
 ]

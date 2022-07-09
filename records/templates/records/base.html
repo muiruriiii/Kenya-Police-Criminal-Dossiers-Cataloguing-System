@@ -141,7 +141,8 @@
                 <div class="flex flex-col">
                     <a href="{% url 'CitizenLogin' %}" class="text-sm md:text-base my-2">Login</a>
                     <a href="{% url 'crimereport' %}" class="text-sm md:text-base my-2">Report Crime</a>
-                    <a href="" class="text-sm md:text-base my-2">Officer Portal</a>
+                    <a href="{% url 'CitizenApp:CitizenProfile' %}" class="text-sm md:text-base my-2">Citizen Portal</a>
+                    <a href="{% url 'PoliceOfficerApp:OfficerLogin' %}" class="text-sm md:text-base my-2">Officer Portal</a>
                     <a href="" class="text-sm md:text-base my-2">Find Police Station</a>
                 </div>
             </div>
