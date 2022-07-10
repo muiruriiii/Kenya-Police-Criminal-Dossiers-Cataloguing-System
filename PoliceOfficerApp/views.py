@@ -6,6 +6,7 @@ from django.template.defaulttags import url
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
 
 
+
 def index(request):
     if 'officerID' not in request.session:
         return redirect('PoliceOfficerApp:OfficerLogin')

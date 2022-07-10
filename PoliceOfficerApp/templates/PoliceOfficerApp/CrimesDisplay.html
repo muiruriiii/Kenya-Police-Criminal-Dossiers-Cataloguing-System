@@ -1,33 +1,38 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<table class="table m-4 text-center">
-    <thead>
-        <tr>
-            <th>
+<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> | <a  href="{% url 'ob' %}"> Record OB </a> </h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
                 Crime ID
             </th>
-            <th>
+            <th scope="col" class="px-6 py-3">
                 Description
             </th>
-            <th>
+            <th scope="col" class="px-6 py-3">
                 Crime Nature
             </th>
         </tr>
     </thead>
     <tbody>
         {% for CrimesDisplay in crimes %}
-            <tr>
-                <td>
+             <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <td class="px-6 py-4">
                     {{CrimesDisplay.id}}
                 </td>
-                <td>
+                 <td class="px-6 py-4">
                     {{CrimesDisplay.description}}
                 </td>
-                <td>
+                   <td class="px-6 py-4">
                     {{CrimesDisplay.crimeNature}}
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock content %}

@@ -1,75 +1,80 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<table class="table m-4 text-center">
-    <thead>
-        <tr>
-            <th>
-                Criminal ID
-            </th>
-            <th>
+<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:CriminalsDisplay' %}"> View Criminals </a> | <a href="{% url 'criminalbooking' %}"> Book A Criminal </a> </h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                       Criminal ID
+                </th>
+               <th scope="col" class="px-6 py-3">
                 First Name
             </th>
-            <th>
+               <th scope="col" class="px-6 py-3">
                 Last Name
             </th>
-            <th>
+                 <th scope="col" class="px-6 py-3">
                 Telephone Number
             </th>
-            <th>
+                <th scope="col" class="px-6 py-3">
                 Address
             </th>
-            <th>
+                <th scope="col" class="px-6 py-3">
                 National ID
             </th>
-            <th>
+               <th scope="col" class="px-6 py-3">
                 Gender
             </th>
-            <th>
+                <th scope="col" class="px-6 py-3">
                 Crime ID
             </th>
-            <th>
+                <th scope="col" class="px-6 py-3">
                 criminal Status
             </th>
-            <th>
+               <th scope="col" class="px-6 py-3">
                 Location Arrested
             </th>
         </tr>
     </thead>
     <tbody>
         {% for CriminalsDisplay in criminals %}
-            <tr>
-                <td>
+            <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <td class="px-6 py-4">
                     {{CriminalsDisplay.id}}
                 </td>
-                <td>
+                <td class="px-6 py-4">
                     {{CriminalsDisplay.fName}}
                 </td>
-                <td>
+              <td class="px-6 py-4">
                     {{CriminalsDisplay.lName}}
                 </td>
-                <td>
+                <td class="px-6 py-4">
                     {{CriminalsDisplay.tel}}
                 </td>
-                <td>
+               <td class="px-6 py-4">
                     {{CriminalsDisplay.address}}
                 </td>
-                <td>
+               <td class="px-6 py-4">
                     {{CriminalsDisplay.nationalID}}
                 </td>
-                <td>
+               <td class="px-6 py-4">
                     {{CriminalsDisplay.gender}}
                 </td>
-                <td>
+               <td class="px-6 py-4">
                     {{CriminalsDisplay.crimeID}}
                 </td>
-                <td>
+                <td class="px-6 py-4">
                     {{CriminalsDisplay.criminalStatus}}
                 </td>
-                <td>
+                 <td class="px-6 py-4">
                     {{CriminalsDisplay.locationArrested}}
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock content %}

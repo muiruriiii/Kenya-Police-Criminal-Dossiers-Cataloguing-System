@@ -6,7 +6,6 @@ from django.db import models
 class Crime(models.Model):
     description = models.CharField(max_length=400)
     crimeNature = models.CharField(max_length=100)
-
     class Meta:
         db_table = "tbl_crime"
 

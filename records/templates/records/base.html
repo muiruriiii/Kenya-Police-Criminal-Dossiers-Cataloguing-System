@@ -27,9 +27,9 @@
                     </div>
                     {% if 'citizenID' not in request.session %}
                     <div class="nav-link">
-                        <a href="{% url 'CitizenLogin' %}">
+                        <a href="{% url 'userSignUp' %}">
                             <span class="text-xl">
-                                Login
+                                Sign Up
                             </span>
                         </a>
                     </div>
@@ -37,11 +37,6 @@
                     <div class="nav-link">
                         <span class="text-xl">
                             News
-                        </span>
-                    </div>
-                    <div class="nav-link">
-                        <span class="text-xl">
-                            Crime
                         </span>
                     </div>
                     <div class="nav-link">

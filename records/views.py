@@ -6,6 +6,8 @@ from records.models import Citizen as CitizenModel
 from records.models import Crime
 from records.models import Criminal
 from records.models import Officer
+from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
 
 def OfficerRegister(request):
@@ -120,18 +122,13 @@ def CitizenLogout(request):
         return render(request, 'records/index.html', {'title':'Landing Page', 'pageId': 8})
 
 
-def CrimesDisplay(request):
-    crimes = Crime.objects.all()
-    context = {'crimes': crimes}
-    return render(request, 'records/CrimesDisplay.html', context)
-
-
 def crimereport(request):
     if request.method == 'POST':
-        if request.POST.get('crimeDescription') and request.POST.get('crimeNature'):
+        if request.POST.get('crimeDescription') and request.POST.get('crimeNature') and request.POST.get('voice_record'):
             saverecord = Crime()
             saverecord.description = request.POST.get('crimeDescription')
             saverecord.crimeNature = request.POST.get('crimeNature')
+            saverecord.voice_record = request.POST.get('voice_record')
             try:
                 saverecord.save()
             except Exception as e:
@@ -155,9 +152,10 @@ def casetransfer(request):
 def caseapproval(request):
     return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
 
-
 def ob(request):
-    return render(request, 'records/ob.html', {'title': 'OB '})
+    return render(request, 'records/ob.html', {'title': 'OB  '})
+
+
 
 
 def issueforms(request):

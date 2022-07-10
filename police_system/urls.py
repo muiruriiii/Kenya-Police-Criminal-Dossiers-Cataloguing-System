@@ -28,7 +28,11 @@ urlpatterns = [
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
     path('ob/',record_views.ob, name='ob'),
-    path('CrimesDisplay/', record_views.CrimesDisplay, name='CrimesDisplay'),
+    #
+    # path("ViewRecords/", record_views.ViewRecords, name="ViewRecords"),
+    # path("record/", record_views.record, name="record"),
+    # path("record/detail/", record_views.record_detail, name="record_detail"),
+
     path('casetransfer/', record_views.casetransfer, name='casetransfer'),
     path('caseapproval/', record_views.caseapproval, name='caseapproval'),
     path('issueforms/', record_views.issueforms, name='issueforms'),

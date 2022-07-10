@@ -1,5 +1,6 @@
 {% extends "records/base.html" %}
 {% block content %}
+<h2 class="text-center"> <a class="text-blue-500" href="{% url 'OfficerRegister' %}"> Register An Officer </a>  | <a href="{% url 'PoliceOfficerApp:OfficersDisplay' %}"> View Officers </a> </h2>
     {% if messages %}
         {% for message in messages%}
             {% if message.tags == 'error' %}

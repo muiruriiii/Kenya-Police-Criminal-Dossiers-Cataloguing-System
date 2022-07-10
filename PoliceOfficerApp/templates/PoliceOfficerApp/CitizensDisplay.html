@@ -1,31 +1,69 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<table class="table m-4 text-center">
-    <thead>
-        <tr>
-            <th>Citizen ID </th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Telephone Number</th>
-            <th>National ID</th>
-            <th>Gender</th>
-            <th>Address</th>
+<h2 class="text-center text-blue-500"> View Citizens </h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Citizen ID
+                </th>
+            <th>
+                First Name
+            </th>
+
+                <th scope="col" class="px-6 py-3">
+                 Last Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+ <th scope="col" class="px-6 py-3">
+                      Telephone Number
+                </th>
+ <th scope="col" class="px-6 py-3">
+                    National ID
+                </th>
+ <th scope="col" class="px-6 py-3">
+                    Gender
+                </th>
+             <th scope="col" class="px-6 py-3">
+                    Address
+                </th>
         </tr>
     </thead>
     <tbody>
         {% for CitizensDisplay in citizens %}
-            <tr>
-                <td>{{CitizensDisplay.id}}</td>
-                <td>{{CitizensDisplay.fName}}</td>
-                <td>{{CitizensDisplay.lName}}</td>
-                <td>{{CitizensDisplay.tel}}</td>
-                <td>{{CitizensDisplay.address}}</td>
-                <td>{{CitizensDisplay.nationalID}}</td>
-                <td>{{CitizensDisplay.gender}}</td>
-                <td>{{CitizensDisplay.email}}</td>
+           <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <td class="px-6 py-4">
+                     {{CitizensDisplay.id}}
+              </td>
+                 <td class="px-6 py-4">
+                     {{CitizensDisplay.fName}}
+                 </td>
+                <td class="px-6 py-4">
+                    {{CitizensDisplay.lName}}
+                </td>
+                 <td class="px-6 py-4">
+                     {{CitizensDisplay.tel}}
+                 </td>
+                <td class="px-6 py-4">
+                    {{CitizensDisplay.address}}
+                </td>
+                 <td class="px-6 py-4">
+                     {{CitizensDisplay.nationalID}}
+                 </td>
+                 <td class="px-6 py-4">
+                     {{CitizensDisplay.gender}}
+                 </td>
+                 <td class="px-6 py-4">
+                     {{CitizensDisplay.email}}
+                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+    </div>
 {% endblock content %}
