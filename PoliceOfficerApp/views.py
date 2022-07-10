@@ -49,31 +49,46 @@ def OfficerLogout(request):
 
 
 def OfficerProfile(request):
-    officer = OfficerModel.objects.get(id=request.session['officerID'])
-    context = {'officer': officer, 'pageID': 6, 'title': 'Officer Profile'}
-    return render(request, 'PoliceOfficerApp/OfficerProfile.html', context)
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        officer = OfficerModel.objects.get(id=request.session['officerID'])
+        context = {'officer': officer, 'pageID': 6, 'title': 'Officer Profile'}
+        return render(request, 'PoliceOfficerApp/OfficerProfile.html', context)
 
 
 def OfficersDisplay(request):
-    officers = OfficerModel.objects.all()
-    context = {'officers': officers, 'pageID': 2, 'title': 'List of Officers'}
-    return render(request, 'PoliceOfficerApp/OfficersDisplay.html', context)
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        officers = OfficerModel.objects.all()
+        context = {'officers': officers, 'pageID': 2, 'title': 'List of Officers'}
+        return render(request, 'PoliceOfficerApp/OfficersDisplay.html', context)
 
 
 def CriminalsDisplay(request):
-    criminals = CriminalModel.objects.all()
-    context = {'criminals': criminals, 'pageID': 4, 'title': 'Criminals Display'}
-    return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        criminals = CriminalModel.objects.all()
+        context = {'criminals': criminals, 'pageID': 4, 'title': 'Criminals Display'}
+        return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
 
 
 def CitizensDisplay(request):
-    citizens = CitizenModel.objects.all()
-    context = {'citizens': citizens, 'pageID': 3, 'title': 'Citizen Display'}
-    return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        citizens = CitizenModel.objects.all()
+        context = {'citizens': citizens, 'pageID': 3, 'title': 'Citizen Display'}
+        return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
 
 
 def CrimesDisplay(request):
-    crimes = CrimeModel.objects.all()
-    context = {'crimes': crimes, 'pageID': 5, 'title': 'Crime Display'}
-    return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        crimes = CrimeModel.objects.all()
+        context = {'crimes': crimes, 'pageID': 5, 'title': 'Crime Display'}
+        return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
 
