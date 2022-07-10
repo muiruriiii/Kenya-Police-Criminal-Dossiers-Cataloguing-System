@@ -50,6 +50,8 @@ class Officer(models.Model):
     gender = models.CharField(max_length=100)
     rank = models.CharField(max_length=100)
     password = models.CharField(max_length=400)
+    employmentStatus = models.BooleanField(default=False)
+    employmentDate = models.DateTimeField()
 
     class Meta:
         db_table = "tbl_police_officer"
