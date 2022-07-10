@@ -8,7 +8,10 @@ urlpatterns = [
     path('OfficerProfile/', officer_views.OfficerProfile, name='OfficerProfile'),
     path('CitizensDisplay/', officer_views.CitizensDisplay, name='CitizensDisplay'),
     path('CrimesDisplay/', officer_views.CrimesDisplay, name='CrimesDisplay'),
+    path('criminalbooking/', officer_views.criminalbooking, name='criminalbooking'),
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
     path('login/', officer_views.login, name='OfficerLogin'),
+    path('ob/', officer_views.ob, name='ob'),
+    path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]

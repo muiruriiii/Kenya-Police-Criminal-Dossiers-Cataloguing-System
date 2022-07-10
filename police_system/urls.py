@@ -20,14 +20,11 @@ from records import views as record_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('OfficerRegister/', record_views.OfficerRegister, name='OfficerRegister'),
-    path('criminalbooking/',record_views.criminalBooking, name='criminalbooking'),
     path('evidence/',record_views.evidence, name='evidence'),
     path('CitizenLogin/', record_views.CitizenLogin, name='CitizenLogin'),
     path('CitizenLogout/', record_views.CitizenLogout, name='CitizenLogout'),
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
-    path('ob/',record_views.ob, name='ob'),
     #
     # path("ViewRecords/", record_views.ViewRecords, name="ViewRecords"),
     # path("record/", record_views.record, name="record"),

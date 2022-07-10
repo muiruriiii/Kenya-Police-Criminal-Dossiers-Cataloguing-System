@@ -10,80 +10,6 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render
 
 
-def OfficerRegister(request):
-    if request.method == 'POST':
-        if request.POST.get('regFName') and \
-                request.POST.get('regLName') and \
-                request.POST.get('regEmail') and \
-                request.POST.get('regPhone') and \
-                request.POST.get('regRank') and \
-                request.POST.get('regIDNo') and \
-                request.POST.get('regGender') and \
-                request.POST.get('regAddress'):
-            saverecord = Officer()
-            saverecord.fName = request.POST.get('regFName')
-            saverecord.lName = request.POST.get('regLName')
-            saverecord.email = request.POST.get('regEmail')
-            saverecord.tel = request.POST.get('regPhone')
-            saverecord.rank = request.POST.get('regRank')
-
-            #default password is KenyaPolice2022
-            saverecord.password = make_password('KenyaPolice2022')
-            saverecord.nationalID = request.POST.get('regIDNo')
-            saverecord.gender = request.POST.get('regGender')
-            saverecord.address = request.POST.get('regAddress')
-            try:
-                saverecord.save()
-            except IntegrityError as e:
-                messages.error(request, "The email is already in use.")
-                return render(request, 'records/OfficerRegister.html')
-            else:
-                messages.success(request, 'Officer successfully registered.')
-                return render(request, 'records/OfficerRegister.html')
-        else:
-            messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'records/OfficerRegister.html')
-    else:
-        return render(request, 'records/OfficerRegister.html', {'title': 'Police Officer Register'})
-
-
-def criminalBooking(request):
-    if request.method == 'POST':
-        if request.POST.get('criminalFName') and\
-                request.POST.get('criminalLName') and\
-                request.POST.get('criminalPhone') and\
-                request.POST.get('criminalAddress') and\
-                request.POST.get('criminalIDNo') and\
-                request.POST.get('criminalGender') and\
-                request.POST.get('crimeID') and\
-                request.POST.get('criminalStatus') and\
-                request.POST.get('arrestLocation') and\
-                request.POST.get('arrestDate'):
-            saverecord = Criminal()
-            saverecord.fName = request.POST.get('criminalFName')
-            saverecord.lName = request.POST.get('criminalLName')
-            saverecord.tel = request.POST.get('criminalPhone')
-            saverecord.address = request.POST.get('criminalAddress')
-            saverecord.nationalID = request.POST.get('criminalIDNo')
-            saverecord.gender = request.POST.get('criminalGender')
-            saverecord.crimeID = request.POST.get('crimeID')
-            saverecord.criminalStatus = request.POST.get('criminalStatus')
-            saverecord.locationArrested = request.POST.get('arrestLocation')
-            saverecord.arrestDate = request.POST.get('arrestDate')
-            try:
-                saverecord.save()
-            except IntegrityError as e:
-                messages.error(request, "Criminal email is already in the system.")
-                return render(request, 'records/criminalBooking.html')
-            else:
-                messages.success(request, 'Criminal has been booked!')
-                return render(request, 'records/criminalBooking.html')
-        else:
-            messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'records/criminalBooking.html')
-    else:
-        return render(request, 'records/criminalBooking.html', {'title': 'Criminal Booking'})
-
 
 def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
@@ -151,11 +77,6 @@ def casetransfer(request):
 
 def caseapproval(request):
     return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
-
-def ob(request):
-    return render(request, 'records/ob.html', {'title': 'OB  '})
-
-
 
 
 def issueforms(request):
