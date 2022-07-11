@@ -1,10 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.template.defaulttags import url
-from django.shortcuts import (get_object_or_404,  HttpResponseRedirect)
 from .forms import EditForm
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
+
 
 def ob(request):
     return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
@@ -12,12 +12,12 @@ def ob(request):
 
 def edit(request, id):
   CriminalsDisplay = CriminalModel.objects.get(id=id)
-  return render(request, 'PoliceOfficerApp/EditCriminal.html',{'CriminalsDisplay':CriminalsDisplay})
+  return render(request, 'PoliceOfficerApp/EditCriminal.html',{'CriminalsDisplay': CriminalsDisplay})
 
 
 def update(request, id):
     criminal = CriminalModel.objects.get(id=id)
-    form = EditForm(request.POST or None, instance = criminal)
+    form = EditForm(request.POST or None, instance=criminal)
 
     if form.is_valid():
         form.save()
@@ -26,10 +26,6 @@ def update(request, id):
     else:
         messages.error(request, "The criminal was not updated successfully...")
         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'form': form})
-
-
-
-
 
 
 def OfficerRegister(request):
@@ -42,7 +38,7 @@ def OfficerRegister(request):
                 request.POST.get('regIDNo') and \
                 request.POST.get('regGender') and \
                 request.POST.get('regAddress'):
-            saverecord = Officer()
+            saverecord = OfficerModel()
             saverecord.fName = request.POST.get('regFName')
             saverecord.lName = request.POST.get('regLName')
             saverecord.email = request.POST.get('regEmail')
@@ -80,7 +76,7 @@ def criminalbooking(request):
                 request.POST.get('criminalStatus') and\
                 request.POST.get('arrestLocation') and\
                 request.POST.get('arrestDate'):
-            saverecord = Criminal()
+            saverecord = CriminalModel()
             saverecord.fName = request.POST.get('criminalFName')
             saverecord.lName = request.POST.get('criminalLName')
             saverecord.tel = request.POST.get('criminalPhone')

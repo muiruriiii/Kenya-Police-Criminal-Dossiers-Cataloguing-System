@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views as officer_views
 
-app_name="PoliceOfficerApp"
+app_name = "PoliceOfficerApp"
 urlpatterns = [
     path('', officer_views.index, name='OfficerDashboard'),
     path('OfficersDisplay/', officer_views.OfficersDisplay, name='OfficersDisplay'),
@@ -16,6 +16,6 @@ urlpatterns = [
     path('EditCriminal/<int:id>', officer_views.edit, name='edit'),
     path('update/<int:id>', officer_views.update, name='update'),
 
-    path('OfficerRegister/', officer_views.update, name='update'),
+    path('OfficerRegister/', officer_views.update, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]
