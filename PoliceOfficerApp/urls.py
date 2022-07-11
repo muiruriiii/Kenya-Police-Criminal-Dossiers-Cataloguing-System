@@ -12,6 +12,8 @@ urlpatterns = [
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
     path('login/', officer_views.login, name='OfficerLogin'),
     path('ob/', officer_views.ob, name='ob'),
+    path('EditCriminal/<int:id>/', officer_views.edit, name='edit'),
+    path('update/<int:id>', officer_views.update, name="update"),
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]

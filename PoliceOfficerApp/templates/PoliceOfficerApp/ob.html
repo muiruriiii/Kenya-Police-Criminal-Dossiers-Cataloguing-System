@@ -1,6 +1,6 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:ob' %}"> Record OB </a> | <a href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> </h2>
+<h2 class="text-center"><a href="{% url 'PoliceOfficerApp:ob' %}"> Record OB </a> | <a class="text-blue-500" href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> </h2>
     {% if messages %}
         {% for message in messages%}
             {% if message.tags == 'error' %}

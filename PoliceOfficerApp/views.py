@@ -2,11 +2,50 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from django.template.defaulttags import url
+from django.shortcuts import (get_object_or_404,  HttpResponseRedirect)
 
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
 
 def ob(request):
     return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
+
+
+def edit(request, id):
+    context = {}
+
+    context["data"] = CriminalModel.objects.get(id=id)
+    return render(request, 'PoliceOfficerApp/EditCriminal.html',context)
+
+
+def update(request, id):
+    context = {}
+    obj = get_object_or_404(CriminalModel, id=id)
+
+    if request.method == 'POST':
+        if request.POST.get('criminalFName') and \
+                request.POST.get('criminalLName') and \
+                request.POST.get('criminalPhone') and \
+                request.POST.get('criminalAddress') and \
+                request.POST.get('criminalIDNo') and \
+                request.POST.get('criminalGender') and \
+                request.POST.get('crimeID') and \
+                request.POST.get('criminalStatus') and \
+                request.POST.get('arrestLocation') and \
+                request.POST.get('arrestDate'):
+            saverecord = Criminal()
+            saverecord.fName = request.POST.get('criminalFName')
+            saverecord.lName = request.POST.get('criminalLName')
+            saverecord.tel = request.POST.get('criminalPhone')
+            saverecord.address = request.POST.get('criminalAddress')
+            saverecord.nationalID = request.POST.get('criminalIDNo')
+            saverecord.gender = request.POST.get('criminalGender')
+            saverecord.crimeID = request.POST.get('crimeID')
+            saverecord.criminalStatus = request.POST.get('criminalStatus')
+            saverecord.locationArrested = request.POST.get('arrestLocation')
+            saverecord.arrestDate = request.POST.get('arrestDate')
+            saverecord.save()
+
+        return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
 
 def OfficerRegister(request):
     if request.method == 'POST':

@@ -1,6 +1,6 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> | <a  href="{% url 'PoliceOfficerApp:ob' %}"> Record OB </a> </h2>
+<h2 class="text-center"><a  href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> | <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ob' %}"> Record OB </a> </h2>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -14,6 +14,9 @@
             </th>
             <th scope="col" class="px-6 py-3">
                 Crime Nature
+            </th>
+                   <th scope="col" class="px-6 py-3">
+                Action
             </th>
         </tr>
     </thead>
@@ -30,6 +33,7 @@
                    <td class="px-6 py-4">
                     {{CrimesDisplay.crimeNature}}
                 </td>
+
             </tr>
         {% endfor %}
     </tbody>
