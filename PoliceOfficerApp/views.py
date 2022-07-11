@@ -9,16 +9,16 @@ from records.models import Officer as OfficerModel, Crime as CrimeModel, Crimina
 def ob(request):
     return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
 
-
+# calls the EditCriminal page and the details of the row you want to edit are prefilled
 def edit(request, id):
   CriminalsDisplay = CriminalModel.objects.get(id=id)
   return render(request, 'PoliceOfficerApp/EditCriminal.html',{'CriminalsDisplay': CriminalsDisplay})
 
-
+# to save the updated data
 def update(request, id):
     criminal = CriminalModel.objects.get(id=id)
     form = EditForm(request.POST or None, instance=criminal)
-
+# validate the form then save the data and redirect the page
     if form.is_valid():
         form.save()
         messages.success(request, 'The criminal was updated successfully...')

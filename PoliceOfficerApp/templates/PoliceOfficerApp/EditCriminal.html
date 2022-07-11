@@ -1,8 +1,8 @@
-<!--{% extends "PoliceOfficerApp/base.html" %}-->
+
 {% block content %}
 
 <!--error/success message block area-->
-
+<!--display a successfully added criminal or an error message-->
 {% if messages %}
     {% for message in messages%}
         {% if message.tags == 'error' %}
@@ -42,6 +42,8 @@
                         </div>
                     </div>
                     <hr class="text-black border-2 border-black my-4">
+<!--                    after the updated data is filled in the form...update view is called as well as the id of the selected row-->
+
                     <form action="../update/{{CriminalsDisplay.id}}" method="POST" class="flex flex-col w-full" enctype="multipart/form-data">
                          <input type="hidden" id="id" name="id" required  value="{{CriminalsDisplay.id}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                         {% csrf_token %}
