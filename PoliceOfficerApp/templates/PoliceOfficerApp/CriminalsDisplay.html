@@ -36,6 +36,9 @@
                <th scope="col" class="px-6 py-3">
                 Location Arrested
             </th>
+                 <th scope="col" class="px-6 py-3">
+                 Arrest Date
+            </th>
                    <th scope="col" class="px-6 py-3">
              Action
             </th>
@@ -74,6 +77,9 @@
                 </td>
                  <td class="px-6 py-4">
                     {{CriminalsDisplay.locationArrested}}
+                </td>
+                  <td class="px-6 py-4">
+                    {{CriminalsDisplay.arrestDate}}
                 </td>
                                  <td style="padding:10px;"><a href="{% url 'PoliceOfficerApp:edit' CriminalsDisplay.id %}">Edit</a></td>
             </tr>

@@ -1,6 +1,5 @@
-
+<!--{% extends "PoliceOfficerApp/base.html" %}-->
 {% block content %}
-<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:criminalbooking' %}"> Book A Criminal </a> | <a href="{% url 'PoliceOfficerApp:CriminalsDisplay' %}"> View Criminals </a></h2>
 
 <!--error/success message block area-->
 
@@ -43,17 +42,18 @@
                         </div>
                     </div>
                     <hr class="text-black border-2 border-black my-4">
-                    <form action=" " method="POST" enctype="multipart/form-data" class="flex flex-col w-full">
+                    <form action="../update/{{CriminalsDisplay.id}}" method="POST" class="flex flex-col w-full" enctype="multipart/form-data">
+                         <input type="hidden" id="id" name="id" required  value="{{CriminalsDisplay.id}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                         {% csrf_token %}
                         <div class="form-group w-full flex flex-row my-2 justify-between">
                             <div class="w-1/2 mr-2 ">
                                 <div class="form-label">
-                                    <label for="criminalFName" class="text-base my-2">
+                                    <label for="fName" class="text-base my-2">
                                         First Name
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                    <input type="text" id="criminalFName" name="criminalFName" value="{{CriminalsDisplay.fName}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <input type="text" id="fName" name="fName" required  value="{{CriminalsDisplay.fName}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
                                 <div class="text-xs">
                                     <span class="text-gray-700">
@@ -68,7 +68,7 @@
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                    <input type="text" id="criminalLName" name="criminalLName" value="{{CriminalsDisplay.lName}} " required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <input type="text" id="criminalLName" name="criminalLName" required value="{{CriminalsDisplay.lName}}"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
                                 <div class="text-xs">
                                     <span class="text-gray-700">
@@ -86,7 +86,7 @@
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                    <input type="text" id="criminalPhone" name="criminalPhone" value="{{CriminalsDisplay.tel}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <input type="text" id="criminalPhone" name="criminalPhone" required value="{{CriminalsDisplay.tel}}"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
                                 <div class="text-xs">
                                     <span class="text-gray-700">
@@ -101,7 +101,7 @@
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                    <input type="text" id="criminalAddress" name="criminalAddress" value="{{CriminalsDisplay.address}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <input type="text" id="criminalAddress" name="criminalAddress" required  value="{{CriminalsDisplay.address}}"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
                                 <div class="text-xs">
                                     <span class="text-gray-700">
@@ -117,7 +117,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <input type="text" id="criminalIDNo" name="criminalIDNo" value="{{CriminalsDisplay.nationalID}}" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="criminalIDNo" name="criminalIDNo" required minlength="4" value="{{CriminalsDisplay.nationalID}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                             <div class="text-xs">
                                 <span class="text-gray-700">
@@ -132,7 +132,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <select name="criminalGender" id="criminalGender" value="{{CriminalsDisplay.gender}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <select name="criminalGender" id="criminalGender" required value="{{CriminalsDisplay.gender}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     <option value="">-</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -146,7 +146,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2 flex">
-                                <input type="text" id="crimeID" name="crimeID" value="{{CriminalsDisplay.crimeID}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="crimeID" name="crimeID" required value=" {{CriminalsDisplay.crimeID}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                         </div>
                         <div class="form-group w-full flex flex-col my-2">
@@ -156,11 +156,11 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <select name="criminalStatus" id="criminalStatus" value="{{CriminalsDisplay.criminalStatus}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                    <option value="">-</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="denied">Denied</option>
+                                <select name="criminalStatus" id="criminalStatus" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <option value=" {{CriminalsDisplay.criminalStatus}}" >-</option>
+                                    <option value=" {{CriminalsDisplay.criminalStatus}}" >Pending</option>
+                                    <option value=" {{CriminalsDisplay.criminalStatus}}" >Approved</option>
+                                    <option value=" {{CriminalsDisplay.criminalStatus}}" >Denied</option>
                                 </select>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2 flex">
-                                <input type="text" id="arrestLocation" name="arrestLocation" value="{{CriminalsDisplay.locationArrested}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="arrestLocation" name="arrestLocation" required value=" {{CriminalsDisplay.locationArrested}}" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                         </div>
                         <div class="form-group w-full flex flex-col my-4">
@@ -181,13 +181,11 @@
                                 </label>
                             </div>
                             <div class="form-input my-2 flex">
-                                <input type="datetime-local" id="arrestDate" name="arrestDate" max="28-06-2022" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="datetime-local" id="arrestDate" name="arrestDate" max="28-07-2022" required  value=" {{CriminalsDisplay.arrestDate}}"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                         </div>
                         <div class="form-button w-full flex flex-col my-4">
-                            <button name="criminalBookBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
-                                Book Criminal
-                            </button>
+                            <input type="submit" value="Update"/>
                         </div>
                     </form>
                 </div>

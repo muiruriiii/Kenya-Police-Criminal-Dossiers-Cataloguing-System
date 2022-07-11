@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from django.template.defaulttags import url
 from django.shortcuts import (get_object_or_404,  HttpResponseRedirect)
-
+from .forms import EditForm
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
 
 def ob(request):
@@ -11,41 +11,26 @@ def ob(request):
 
 
 def edit(request, id):
-    context = {}
-
-    context["data"] = CriminalModel.objects.get(id=id)
-    return render(request, 'PoliceOfficerApp/EditCriminal.html',context)
+  CriminalsDisplay = CriminalModel.objects.get(id=id)
+  return render(request, 'PoliceOfficerApp/EditCriminal.html',{'CriminalsDisplay':CriminalsDisplay})
 
 
 def update(request, id):
-    context = {}
-    obj = get_object_or_404(CriminalModel, id=id)
+    criminal = CriminalModel.objects.get(id=id)
+    form = EditForm(request.POST or None, instance = criminal)
 
-    if request.method == 'POST':
-        if request.POST.get('criminalFName') and \
-                request.POST.get('criminalLName') and \
-                request.POST.get('criminalPhone') and \
-                request.POST.get('criminalAddress') and \
-                request.POST.get('criminalIDNo') and \
-                request.POST.get('criminalGender') and \
-                request.POST.get('crimeID') and \
-                request.POST.get('criminalStatus') and \
-                request.POST.get('arrestLocation') and \
-                request.POST.get('arrestDate'):
-            saverecord = Criminal()
-            saverecord.fName = request.POST.get('criminalFName')
-            saverecord.lName = request.POST.get('criminalLName')
-            saverecord.tel = request.POST.get('criminalPhone')
-            saverecord.address = request.POST.get('criminalAddress')
-            saverecord.nationalID = request.POST.get('criminalIDNo')
-            saverecord.gender = request.POST.get('criminalGender')
-            saverecord.crimeID = request.POST.get('crimeID')
-            saverecord.criminalStatus = request.POST.get('criminalStatus')
-            saverecord.locationArrested = request.POST.get('arrestLocation')
-            saverecord.arrestDate = request.POST.get('arrestDate')
-            saverecord.save()
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'The criminal was updated successfully...')
+        return redirect('PoliceOfficerApp:CriminalsDisplay')
+    else:
+        messages.error(request, "The criminal was not updated successfully...")
+        return render(request, 'PoliceOfficerApp/EditCriminal.html', {'form': form})
 
-        return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
+
+
+
+
 
 def OfficerRegister(request):
     if request.method == 'POST':
