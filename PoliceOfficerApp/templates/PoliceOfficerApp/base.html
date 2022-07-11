@@ -85,7 +85,7 @@
             <div class="flex items-center justify-between">
                 <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">
                     {% if 'officerName' in request.session %}
-                        45467
+                        {{request.session.officerName}}
                     {% endif %}
                 </a>
                 <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">

@@ -34,7 +34,7 @@ class Criminal(models.Model):
     crimeID = models.CharField(max_length=100)
     criminalStatus = models.CharField(max_length=100)
     locationArrested = models.CharField(max_length=100)
-    arrestDate = models.DateTimeField(max_length=100)
+    arrestDate = models.DateTimeField()
 
     class Meta:
         db_table = "tbl_criminal"

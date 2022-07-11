@@ -9,23 +9,43 @@ from records.models import Officer as OfficerModel, Crime as CrimeModel, Crimina
 def ob(request):
     return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
 
-# calls the EditCriminal page and the details of the row you want to edit are prefilled
-def edit(request, id):
-  CriminalsDisplay = CriminalModel.objects.get(id=id)
-  return render(request, 'PoliceOfficerApp/EditCriminal.html',{'CriminalsDisplay': CriminalsDisplay})
 
-# to save the updated data
-def update(request, id):
-    criminal = CriminalModel.objects.get(id=id)
-    form = EditForm(request.POST or None, instance=criminal)
-# validate the form then save the data and redirect the page
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'The criminal was updated successfully...')
-        return redirect('PoliceOfficerApp:CriminalsDisplay')
+# calls the EditCriminal page and the details of the row you want to CriminalEdit are prefilled
+def CriminalEdit(request, id):
+    CriminalsDisplay = CriminalModel.objects.get(id=id)
+    if request.method == 'POST':
+        if request.POST.get('criminalFName') and \
+                request.POST.get('criminalLName') and \
+                request.POST.get('criminalPhone') and \
+                request.POST.get('criminalAddress') and \
+                request.POST.get('criminalIDNo') and \
+                request.POST.get('criminalGender') and \
+                request.POST.get('crimeID') and \
+                request.POST.get('criminalStatus') and \
+                request.POST.get('arrestLocation') and \
+                request.POST.get('arrestDate'):
+            CriminalsDisplay.fName = request.POST.get('criminalFName')
+            CriminalsDisplay.lName = request.POST.get('criminalLName')
+            CriminalsDisplay.tel = request.POST.get('criminalPhone')
+            CriminalsDisplay.address = request.POST.get('criminalAddress')
+            CriminalsDisplay.nationalID = request.POST.get('criminalIDNo')
+            CriminalsDisplay.gender = request.POST.get('criminalGender')
+            CriminalsDisplay.crimeID = request.POST.get('crimeID')
+            CriminalsDisplay.criminalStatus = request.POST.get('criminalStatus')
+            CriminalsDisplay.locationArrested = request.POST.get('arrestLocation')
+            CriminalsDisplay.arrestDate = request.POST.get('arrestDate')
+            try:
+                CriminalsDisplay.save()
+            except Exception as e:
+                messages.error(request, e)
+                return render(request, 'PoliceOfficerApp/EditCriminal.html')
+            else:
+                messages.success(request, 'Criminal has been updated!')
+                return redirect('PoliceOfficerApp:CriminalsDisplay')
+        else:
+            return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
     else:
-        messages.error(request, "The criminal was not updated successfully...")
-        return render(request, 'PoliceOfficerApp/EditCriminal.html', {'form': form})
+        return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
 
 
 def OfficerRegister(request):

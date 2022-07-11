@@ -13,9 +13,9 @@ urlpatterns = [
     path('login/', officer_views.login, name='OfficerLogin'),
     path('ob/', officer_views.ob, name='ob'),
 
-# edit and update paths
-    path('EditCriminal/<int:id>', officer_views.edit, name='edit'),
-    path('update/<int:id>', officer_views.update, name='update'),
+# CriminalEdit and update paths
+    path('EditCriminal/<int:id>', officer_views.CriminalEdit, name='CriminalEdit'),
+    #path('update/<int:id>', officer_views.update, name='update'),
 
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
