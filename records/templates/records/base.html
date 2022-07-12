@@ -104,7 +104,13 @@
             {% endblock %}
         </div>
     </main>
-    <footer class="bg-gray-200 p-6">
+    <div class="relative">
+        <div class="custom-shape-divider-bottom-1657651798">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <footer class="bg-gray-300 p-6">
         <div class="flex flex-col md:flex-row">
             <div class="w-full md:w-1/4 mx-4">
                 <div class="brand-img flex items-center justify-center">
@@ -128,31 +134,33 @@
                 </div>
             </div>
             <div class="w-full md:w-1/4 mx-4 flex-col">
-                <div class="text-xl text-center underline bold">
+                <div class="text-xl font-semibold">
                     <span>
                         Useful Links
                     </span>
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col my-4">
                     <a href="{% url 'CitizenLogin' %}" class="text-sm md:text-base my-2">Login</a>
                     <a href="{% url 'crimereport' %}" class="text-sm md:text-base my-2">Report Crime</a>
                     <a href="{% url 'CitizenApp:CitizenProfile' %}" class="text-sm md:text-base my-2">Citizen Portal</a>
                     <a href="{% url 'PoliceOfficerApp:OfficerLogin' %}" class="text-sm md:text-base my-2">Officer Portal</a>
-                    <a href="" class="text-sm md:text-base my-2">Find Police Station</a>
                 </div>
             </div>
             <div class="w-full md:w-1/4 mx-4 flex-col">
-                <div class="text-xl text-center justify-center underline bold flex flex-row">
-                    <span class="">
-                        Police Updates
-                    </span>
-                    <div title="Please enter your email below to receive updates of any police activities" >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4" fill="none"viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                <div class="text-xl font-semibold">
+                    <div class="flex flex-row">
+                        <span class="">
+                            Police Updates
+                        </span>
+                        <div title="Please enter your email below to receive updates of any police activities" >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4" fill="none"viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
                     </div>
+
                 </div>
-                <div class="flex flex-col mx-4">
+                <div class="flex flex-col my-4">
                     <span class="text-xs">
                         Email:
                     </span>
@@ -163,7 +171,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/4 mx-4 flex-col">
-                <div class="text-xl text-center justify-center underline bold flex flex-row">
+                <div class="text-xl font-semibold">
                     <span class="">
                         Contact Us
                     </span>
@@ -178,6 +186,7 @@
             </div>
         </div>
     </footer>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
