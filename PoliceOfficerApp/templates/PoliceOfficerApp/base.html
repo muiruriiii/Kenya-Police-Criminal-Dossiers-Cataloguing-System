@@ -82,18 +82,6 @@
 
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
-            <div class="flex items-center justify-between">
-                <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">
-                    {% if 'officerName' in request.session %}
-                        {{request.session.officerName}}
-                    {% endif %}
-                </a>
-                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
-                    <i x-show="!isOpen" class="fas fa-bars"></i>
-                    <i x-show="isOpen" class="fas fa-times"></i>
-                </button>
-            </div>
-
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
                 <a href="index.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
@@ -137,9 +125,33 @@
                 <i class="fas fa-plus mr-3"></i> New Report
             </button> -->
         </header>
-        {% block content %}
-            <!-- body of the page you have selected -->
-        {% endblock %}
+        <div class="overflow-y-scroll">
+            {% if messages %}
+                {% for message in messages%}
+                    {% if message.tags == 'error' %}
+                        <div class="flex justify-center">
+                            <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                                <span>
+                                    {{message}}
+                                </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="flex justify-center">
+                            <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
+                                <span>
+                                    {{message}}
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif%}
+            {% block content %}
+                <!-- body of the page you have selected -->
+            {% endblock %}
+        </div>
+
         <!-- AlpineJS -->
     </div>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
