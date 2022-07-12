@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group w-full flex flex-col my-2">
                                 <div class="form-label">
-                                    <label for="regConPassword" class="text-base my-2">
+                                    <label for="regPassword" class="text-base my-2">
                                         Confirm Password
                                     </label>
                                 </div>
@@ -154,14 +154,9 @@
                             </div>
                             <div class="form-group w-full flex flex-row my-4 justify-between">
                                 <div class="flex">
-                                    <div class="form-input flex items-center">
-                                        <input type="checkbox" id="loginRememberMe" class="w-full p-2 rounded hover:border-blue border-2">
-                                    </div>
                                     <div class="form-label mx-2">
-                                        <label for="loginRememberMe" class="text-base">
-                                            I agree to the <span class="text-blue-600"> Terms and Conditions </span> of the privacy policy.
-                                        </label>
-                                    </div>
+                                    <small class=" float-left py-3 text-sm text-blue-600 cursor-pointer showPasswordToggle">SHOW</small>
+                                </div>
                                 </div>
                             </div>
                             <div class="form-button w-full flex flex-col my-4">
@@ -188,5 +183,27 @@
                 </div>
             </div>
     </div>
+<!--js code to toggle password-->
+<script>
+const regPassword = document.querySelector("#regPassword");
+const regConPassword = document.querySelector("#regConPassword");
+const showPasswordToggle = document.querySelector(".showPasswordToggle");
+
+
+const handleToggleInput = (e) => {
+    if (showPasswordToggle.textContent === "SHOW"){
+      showPasswordToggle.textContent = "HIDE";
+       regConPassword.setAttribute("type","text");
+      regPassword.setAttribute("type","text");
+    }else{
+           showPasswordToggle.textContent = "SHOW";
+           regPassword.setAttribute("type","password");
+            regConPassword.setAttribute("type","password");
+    }
+};
+
+showPasswordToggle.addEventListener('click',handleToggleInput);
+
+</script>
 
 {% endblock content %}

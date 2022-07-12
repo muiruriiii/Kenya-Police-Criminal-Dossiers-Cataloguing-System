@@ -61,12 +61,9 @@
                         <div class="form-group w-full flex flex-row my-4 justify-between">
                             <div class="flex">
                                 <div class="form-input flex items-center">
-                                    <input type="checkbox" id="loginRememberMe" class="w-full p-2 rounded hover:border-blue border-2">
                                 </div>
                                 <div class="form-label mx-2">
-                                    <label for="loginRememberMe" class="text-base">
-                                        Remember Me
-                                    </label>
+                                    <small class="float-left py-3 text-sm text-blue-600 cursor-pointer showPasswordToggle">SHOW</small>
                                 </div>
                             </div>
                             <div class="form-label items-center flex">
@@ -99,4 +96,25 @@
             </div>
         </div>
     </div>
+<!--js code to toggle password-->
+<script>
+const loginPassword = document.querySelector("#loginPassword");
+const showPasswordToggle = document.querySelector(".showPasswordToggle");
+
+
+const handleToggleInput = (e) => {
+    if (showPasswordToggle.textContent === "SHOW"){
+      showPasswordToggle.textContent = "HIDE";
+      loginPassword.setAttribute("type","text");
+    }else{
+           showPasswordToggle.textContent = "SHOW";
+           loginPassword.setAttribute("type","password");
+    }
+};
+
+showPasswordToggle.addEventListener('click',handleToggleInput);
+
+</script>
+
+
 {% endblock content %}
