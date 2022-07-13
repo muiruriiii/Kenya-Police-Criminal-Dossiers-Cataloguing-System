@@ -45,7 +45,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2 flex">
-                                <input type="email" id="loginEmail" name="loginEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="email" id="loginEmail" name="loginEmail" value="" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                         </div>
                         <div class="form-group w-full flex flex-col my-2">
@@ -68,7 +68,8 @@
                             </div>
                             <div class="form-label items-center flex">
                                 <span class="text-sm text-blue-600">
-                                    Forgot Password?
+                                    <a class="ms-2" href="{% url 'password_reset' %}">Forgot Password?</a>
+
                                 </span>
                             </div>
                         </div>
