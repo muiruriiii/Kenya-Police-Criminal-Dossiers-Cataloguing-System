@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from records import views as record_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name='PoliceSystem'
 urlpatterns = [
@@ -28,6 +30,9 @@ urlpatterns = [
     # path("record/", record_views.record, name="record"),
     # path("record/detail/", record_views.record_detail, name="record_detail"),
 
+    #path('emailVerification/<uidb64>/<token>', record_views.activate, name='emailActivate'),
+
+
     path('casetransfer/', record_views.casetransfer, name='casetransfer'),
     path('caseapproval/', record_views.caseapproval, name='caseapproval'),
     path('issueforms/', record_views.issueforms, name='issueforms'),
@@ -36,3 +41,5 @@ urlpatterns = [
     path('citizen/', include('CitizenApp.urls'), name='citizen'),
     path('policeofficer/', include('PoliceOfficerApp.urls'), name='policeofficer')
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

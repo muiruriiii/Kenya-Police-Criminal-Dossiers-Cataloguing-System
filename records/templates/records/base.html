@@ -92,12 +92,26 @@
     </header>
     <main role="main" class="flex flex-col w-full z-0">
         {% if messages %}
-            {% for messages in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-                </div>
+            {% for message in messages%}
+                {% if message.tags == 'error' %}
+                    <div class="flex justify-center">
+                        <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                            <span>
+                                {{message}}
+                            </span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="flex justify-center">
+                        <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
+                            <span>
+                                {{message}}
+                            </span>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
-        {% endif %}
+        {% endif%}
         <div class="w-full overflow-x-hidden">
             {% block content %}
             <!-- body of the page you have selected -->

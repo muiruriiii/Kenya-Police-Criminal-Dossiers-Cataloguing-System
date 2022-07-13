@@ -44,4 +44,4 @@ def CitizenLogout(request):
         messages.error(request, e)
     else:
         messages.error(request, 'Logged out.')
-        return redirect('PoliceSystem:index', {'title':'Landing Page', 'pageId': 8})
+        return redirect('/', {'title':'Landing Page', 'pageId': 8})

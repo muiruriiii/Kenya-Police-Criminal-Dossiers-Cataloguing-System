@@ -19,7 +19,8 @@ class Citizen(models.Model):
     nationalID = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    joinDate = models.DateTimeField()
+    citizenImage = models.ImageField()
+    joinDate = models.DateTimeField(auto_now_add=True)
     accountStatus = models.BooleanField(default=False)
 
     class Meta:

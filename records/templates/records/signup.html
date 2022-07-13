@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <hr class="text-black border-2 border-black my-4">
-                        <form action="" method="POST" class="flex flex-col w-full">
+                        <form action="" method="POST" class="flex flex-col w-full" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group w-full flex flex-row my-2 justify-between">
                                 <div class="w-1/2 mr-2 ">
@@ -152,6 +152,21 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="citizenImage" class="text-base my-2">
+                                        Profile Photo
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="file" id="citizenImage" name="citizenImage" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        Choose a profile photo
+                                    </span>
+                                </div>
+                            </div>
                             <div class="form-group w-full flex flex-row my-4 justify-between">
                                 <div class="flex">
                                     <div class="form-label mx-2">
@@ -167,7 +182,7 @@
                             <div class="form-footer w-full flex flex-col my-4">
                                 <div class="form-label items-center flex">
                                     <span class="text-base">
-                                        Already have an account?<span class="text-blue-600"> <a href="{% url 'CitizenLogin' %}">Sign in</a></span>
+                                        Already have an account?<span class="text-blue-600"> <a href="{% url 'CitizenApp:CitizenLogin' %}">Sign in</a></span>
                                     </span>
                                 </div>
                             </div>
