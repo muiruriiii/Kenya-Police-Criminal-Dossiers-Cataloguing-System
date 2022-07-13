@@ -17,6 +17,7 @@ urlpatterns = [
     path('EditCriminal/<int:id>', officer_views.CriminalEdit, name='CriminalEdit'),
     #path('update/<int:id>', officer_views.update, name='update'),
 
+    path('EditOfficer/<int:id>', officer_views.OfficerEdit, name='OfficerEdit'),
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]

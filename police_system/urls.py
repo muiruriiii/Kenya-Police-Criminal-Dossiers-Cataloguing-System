@@ -17,12 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from records import views as record_views
 
-
+app_name='PoliceSystem'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('evidence/',record_views.evidence, name='evidence'),
-    path('CitizenLogin/', record_views.CitizenLogin, name='CitizenLogin'),
-    path('CitizenLogout/', record_views.CitizenLogout, name='CitizenLogout'),
     path('crimereport/',record_views.crimereport, name='crimereport'),
     path('casetracking/',record_views.casetracking, name='casetracking'),
     #

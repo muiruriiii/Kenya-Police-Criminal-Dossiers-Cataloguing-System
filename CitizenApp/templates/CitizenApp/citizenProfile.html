@@ -1,36 +1,187 @@
 {% extends "records/base.html" %}
 {% block content %}
-    {% if messages %}
-        {% for message in messages%}
-            {% if message.tags == 'error' %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
-                        <span>
-                            {{message}}
+{% if messages %}
+    {% for message in messages%}
+        {% if message.tags == 'error' %}
+            <div class="flex justify-center">
+                <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                    <span>
+                        {{message}}
+                    </span>
+                </div>
+            </div>
+        {% else %}
+            <div class="flex justify-center">
+                <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
+                    <span>
+                        {{message}}
+                    </span>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif%}
+<div class="main-container flex flex-row w-full p-2 h-screen">
+    <div class="flex flex-col p-2 w-1/4 mr-1 bg-gray-100 rounded-l-lg">
+        <div class="profile-image p-1">
+            <img src="" alt="">
+        </div>
+        <div class="profile-details p-1 flex flex-col w-full">
+            <div class="w-full">
+                <span class="text-2xl font-bold">
+                    {{request.session.citizenName}}
+                </span>
+            </div>
+            <div class="w-full">
+                <span class="text-lg">
+                    Citizen
+                </span>
+            </div>
+            <div class="w-full text-gray-500 hover:text-black transition-all">
+                <span class="text-base">
+                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam assumenda, dolorem eaque earum eveniet exercitationem illum ipsa, iste minima, nihil numquam officiis perferendis ratione sapiente soluta totam velit voluptates.
+                </span>
+            </div>
+            <div class="personal-detail-group flex flex-row justify-between my-2 items-center">
+                        <span class="">
+                            Account Status
+                        </span>
+                        {% if citizen.accountStatus == 0 %}
+                            <span class="text-white p-2 rounded bg-green-500">
+                                Active
+                            </span>
+                        {% else %}
+                            <span class="text-white p-2 rounded bg-red-500">
+                                Inactive
+                            </span>
+                        {% endif %}
+                    </div>
+            <hr>
+            <div class="personal-detail-group flex flex-row justify-between my-2">
+                <span class="">
+                    Join Date
+                </span>
+                <span class="text-gray-700">
+                    {{citizen.joinDate}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-3/4 ml-1">
+        <div class="w-full bg-gray-100 h-1/2 mb-1 rounded-tr-lg flex flex-col personal-details p-2">
+            <div class="flex flex-row justify-between">
+                <div class="header flex flex-row items-center">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-xl text-bold">
+                            Personal details.
                         </span>
                     </div>
                 </div>
-            {% else %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
-                        <span>
-                            {{message}}
-                        </span>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif%}
-<div class="main-content h-screen flex flex-row w-full">
-    <div class="w-1/6 bg-gray-600 p-3 flex flex-col">
-        <button class="w-11/12 flex flex-row bg-gray-800 rounded shadow-inner text-white p-3">
-            <div>
+                <div>
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </a>
 
+                </div>
+            </div>
+            <div class="main-body flex flex-row my-3 gap-x-32">
+                <div class="flex-col w-1/3">
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            First Name
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.fName}}
+                        </span>
+                    </div>
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Last Name
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.lName}}
+                        </span>
+                    </div>
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Email
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.email}}
+                        </span>
+                    </div>
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Address
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.address}}
+                        </span>
+                    </div>
+                </div>
+                <div class="flex-col w-1/3">
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Mobile
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.tel}}
+                        </span>
+                    </div>
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            National ID
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.nationalID}}
+                        </span>
+                    </div>
+                    <div class="personal-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Gender
+                        </span>
+                        <span class="text-gray-700">
+                            {{citizen.gender}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full bg-gray-100 h-1/2 mt-1 rounded-br-lg w-full flex flex-row gap-x-20 p-2">
+            <div class="flex flex-col">
+                <div>
+                    <span>
+                        Metrics
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        Cases reported: 20
+                    </span>
+                </div>
             </div>
             <div>
-                Dashboard
+                <div class="flex flex-col">
+                    <div>
+                        <span>
+                            Metrics
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            OBs issued: 4
+                        </span>
+                    </div>
+                </div>
             </div>
-        </button>
+        </div>
     </div>
 </div>
 {% endblock content %}

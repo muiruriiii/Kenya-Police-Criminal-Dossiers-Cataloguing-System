@@ -1,0 +1,183 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+<div class="flex justify-center">
+        <div class="mx-20 w-full rounded-lg flex flex-row">
+                <div class="w-full p-4 bg-gray-100 rounded-l-lg">
+                    <div class="form-container w-full m-auto flex flex-col justify-center my-2">
+                        <div class="flex flex-col my-2">
+                            <div class="flex flex-col text-center">
+                                <span class="text-4xl">
+                                    Edit Officer details.
+                                </span>
+                            </div>
+                        </div>
+                        <hr class="text-black border-2 border-black my-2">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{officer.id}}">
+                            <div class="flex flex-row w-full justify-around">
+                                <div class="flex flex-col w-5/12">
+                                    <div class="form-group w-full flex flex-row my-2 justify-between">
+                                        <div class="w-1/2 mr-2 ">
+                                            <div class="form-label">
+                                                <label for="regFName" class="text-base my-2">
+                                                    First Name
+                                                </label>
+                                            </div>
+                                            <div class="form-input my-2 flex">
+                                                <input type="text" id="regFName" disabled value="{{officer.fName}}" name="regFName" required class="bg-gray-200 select-none cursor-not-allowed w-full p-2 rounded hover:border-blue border-2">
+                                            </div>
+                                            <div class="text-xs">
+                                                <span class="text-gray-700">
+                                                    John
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="ml-2 w-1/2">
+                                            <div class="form-label">
+                                                <label for="regLName" class="text-base my-2">
+                                                    Last Name
+                                                </label>
+                                            </div>
+                                            <div class="form-input my-2 flex">
+                                                <input type="text" id="regLName" disabled value="{{officer.lName}}" name="regLName" required class="bg-gray-200 select-none cursor-not-allowed w-full p-2 rounded hover:border-blue border-2">
+                                            </div>
+                                            <div class="text-xs">
+                                                <span class="text-gray-700">
+                                                    Doe
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-row my-2 justify-between">
+                                        <div class="w-1/2 mr-2 ">
+                                            <div class="form-label">
+                                                <label for="regPhone" class="text-base my-2">
+                                                    Telephone
+                                                </label>
+                                            </div>
+                                            <div class="form-input my-2 flex">
+                                                <input type="text" id="regPhone" value="{{officer.tel}}" name="regPhone" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            </div>
+                                            <div class="text-xs">
+                                                <span class="text-gray-700">
+                                                    +254|
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="ml-2 w-1/2">
+                                            <div class="form-label">
+                                                <label for="regAddress" class="text-base my-2">
+                                                    Address
+                                                </label>
+                                            </div>
+                                            <div class="form-input my-2 flex">
+                                                <input type="text" id="regAddress" value="{{officer.address}}" name="regAddress" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            </div>
+                                            <div class="text-xs">
+                                                <span class="text-gray-700">
+                                                    Embakasi, Nairobi
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="regIDNo" class="text-base my-2">
+                                                National ID/Passport/Birth Certificate Number
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2">
+                                            <input type="text" id="regIDNo" value="{{officer.nationalID}}" name="regIDNo" required disabled minlength="4" class="bg-gray-200 select-none cursor-not-allowed w-full p-2 rounded hover:border-blue border-2">
+                                        </div>
+                                        <div class="text-xs">
+                                            <span class="text-gray-700">
+                                                National Identification card number.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="regGender" class="text-base my-2">
+                                                Gender
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2">
+                                            <select name="regGender" id="regGender" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                                <option value="{{officer.gender}}">{{officer.gender}}</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col w-5/12">
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="regEmail" class="text-base my-2">
+                                                Email
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="email" id="regEmail" value="{{officer.email}}" name="regEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        </div>
+                                        <div class="text-xs">
+                                            <span class="text-gray-700">
+                                                Enter a valid email address
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="oldPassword" class="text-base my-2">
+                                                Old password
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="text" id="oldPassword" name="oldPassword" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        </div>
+                                        <div class="text-xs">
+                                            <span class="text-gray-700">
+                                                Enter your old password.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="newPassword" class="text-base my-2">
+                                                New password
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="text" id="newPassword" name="newPassword" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        </div>
+                                        <div class="text-xs">
+                                            <span class="text-gray-700">
+                                                Enter your new password.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full flex flex-col my-2">
+                                        <div class="form-label">
+                                            <label for="regRank" class="text-base my-2">
+                                                Officer Rank
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="text" id="regRank" value="{{officer.rank}}" name="regRank" required disabled class="bg-gray-200 select-none cursor-not-allowed w-full p-2 rounded hover:border-blue border-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="justify-center form-button w-full flex my-2">
+                                <button class="p-2 text-center w-1/2 rounded bg-blue-600 text-white text-lg">
+                                    Update Details
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock content %}

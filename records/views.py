@@ -15,39 +15,6 @@ def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
 
-def CitizenLogin(request):
-    if request.method == "POST":
-        if request.POST.get('loginEmail') and request.POST.get('loginPassword'):
-            loginEmail = request.POST.get('loginEmail')
-            loginPassword = request.POST.get('loginPassword')
-            citizen = CitizenModel.objects.get(email=loginEmail)
-
-            if check_password(loginPassword, citizen.password):
-                #TODO create single variable that stores individual column of the citizen table.
-                request.session['citizenID'] = citizen.id
-                request.session['citizenName'] = citizen.fName
-
-                #currentCitizen = CitizenClass(citizen.id,citizen.fName,citizen.lName,citizen.email,citizen.tel,citizen.password,citizen.nationalID,citizen.gender,citizen.address)
-
-                #return render(request, 'records/CitizenLogin.html')
-                return redirect(landingpage)
-            else:
-                messages.error(request, 'Passwords do not match')
-                return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
-    else:
-        return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
-
-
-def CitizenLogout(request):
-    try:
-        del request.session['citizenID']
-    except Exception as e:
-        messages.error(request, e)
-    else:
-        messages.error(request, 'Logged out.')
-        return render(request, 'records/index.html', {'title':'Landing Page', 'pageId': 8})
-
-
 def crimereport(request):
     if request.method == 'POST':
         if request.POST.get('crimeDescription') and request.POST.get('crimeNature') and request.POST.get('voice_record'):

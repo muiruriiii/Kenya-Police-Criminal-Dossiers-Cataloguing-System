@@ -70,13 +70,13 @@
                         </div>
                         <div class="user-tools p-4 flex flex-col bg-gray-100 absolute mt-2 hidden">
                             <span>
-                                <a href="{% url 'CitizenProfile' %}">
+                                <a href="{% url 'CitizenApp:CitizenProfile' %}">
                                     Profile
                                 </a>
                             </span>
                             <hr>
                             <span>
-                                <a href="{% url 'CitizenLogout' %}">
+                                <a href="{% url 'CitizenApp:CitizenLogout' %}">
                                     Logout
                                 </a>
                             </span>
@@ -140,7 +140,7 @@
                     </span>
                 </div>
                 <div class="flex flex-col my-4">
-                    <a href="{% url 'CitizenLogin' %}" class="text-sm md:text-base my-2">Login</a>
+                    <a href="{% url 'CitizenApp:CitizenLogin' %}" class="text-sm md:text-base my-2">Login</a>
                     <a href="{% url 'crimereport' %}" class="text-sm md:text-base my-2">Report Crime</a>
                     <a href="{% url 'CitizenApp:CitizenProfile' %}" class="text-sm md:text-base my-2">Citizen Portal</a>
                     <a href="{% url 'PoliceOfficerApp:OfficerLogin' %}" class="text-sm md:text-base my-2">Officer Portal</a>

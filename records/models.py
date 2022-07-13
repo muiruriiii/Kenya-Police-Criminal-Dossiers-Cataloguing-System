@@ -19,6 +19,8 @@ class Citizen(models.Model):
     nationalID = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
+    joinDate = models.DateTimeField()
+    accountStatus = models.BooleanField(default=False)
 
     class Meta:
         db_table = "tbl_citizen"
@@ -45,6 +47,7 @@ class Officer(models.Model):
     lName = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     tel = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
     nationalID = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     rank = models.CharField(max_length=100)

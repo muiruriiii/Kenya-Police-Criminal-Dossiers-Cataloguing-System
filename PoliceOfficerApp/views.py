@@ -48,6 +48,32 @@ def CriminalEdit(request, id):
         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
 
 
+def OfficerEdit(request, id):
+    officer = OfficerModel.objects.get(id=id)
+    if request.method == 'POST':
+        if request.POST.get('regEmail') and \
+                request.POST.get('regPhone') and \
+                request.POST.get('regGender') and \
+                request.POST.get('regAddress'):
+            officer.email = request.POST.get('regEmail')
+            officer.tel = request.POST.get('regPhone')
+            officer.gender = request.POST.get('regGender')
+            officer.address = request.POST.get('regAddress')
+            try:
+                officer.save()
+            except Exception as e:
+                messages.error(request, e)
+                return render(request, 'PoliceOfficerApp/OfficerRegister.html')
+            else:
+                messages.success(request, 'Officer details successfully updated.')
+                return redirect('PoliceOfficerApp:OfficerProfile')
+        # else:
+        #     messages.error(request, 'An error has occurred. Please contact an administrator.')
+        #     return render(request, 'PoliceOfficerApp/EditOfficer.html', {'title': 'Officer Edit', 'officer': officer})
+    else:
+        return render(request, 'PoliceOfficerApp/EditOfficer.html', {'title': 'Officer Edit', 'officer': officer})
+
+
 def OfficerRegister(request):
     if request.method == 'POST':
         if request.POST.get('regFName') and \
