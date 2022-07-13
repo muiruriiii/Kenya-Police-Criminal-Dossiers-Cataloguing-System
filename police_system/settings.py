@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
 ]
 
 MIDDLEWARE = [
@@ -138,12 +139,25 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'PoliceOfficerApp/static/'),
 ]
 
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
+
+#SMTP Configuration
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "muiruricynthiaaa@gmail.com"
+EMAIL_HOST_PASSWORD = "ME@2002COLLETTEILY!"
+DEFAULT_FROM_EMAIL = "muiruricynthiaaa@gmail.com"
 
 #session stuff
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True
