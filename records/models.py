@@ -3,11 +3,31 @@ import json
 from django.db import models
 
 
+
+# class OB(models.Model):
+#     file = models.FileField(max_length=400)
+#
+#     class Meta:
+#         db_table = "tbl_ob"
+
+class CrimeList(models.Model):
+    crimeName = models.TextField(max_length=400)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "tbl_crimelist"
+
 class Crime(models.Model):
     description = models.CharField(max_length=400)
-    crimeNature = models.CharField(max_length=100)
+    crimeID = models.ForeignKey(CrimeList, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
     class Meta:
-        db_table = "tbl_crime"
+        db_table = "tbl_crimereport"
 
 
 class Citizen(models.Model):
@@ -19,8 +39,7 @@ class Citizen(models.Model):
     nationalID = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    citizenImage = models.ImageField()
-    joinDate = models.DateTimeField(auto_now_add=True)
+    joinDate = models.DateTimeField()
     accountStatus = models.BooleanField(default=False)
 
     class Meta:

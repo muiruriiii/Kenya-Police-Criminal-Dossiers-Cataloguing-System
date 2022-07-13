@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views as officer_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = "PoliceOfficerApp"
 urlpatterns = [
@@ -12,6 +14,8 @@ urlpatterns = [
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
     path('login/', officer_views.login, name='OfficerLogin'),
     path('ob/', officer_views.ob, name='ob'),
+    # path('upload/', officer_views.upload, name='upload'),
+    path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
 
 # CriminalEdit and update paths
     path('EditCriminal/<int:id>', officer_views.CriminalEdit, name='CriminalEdit'),
@@ -21,3 +25,6 @@ urlpatterns = [
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

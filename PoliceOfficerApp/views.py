@@ -3,11 +3,59 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from .forms import EditForm
-from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel
+from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel
+from django.core.files.storage import FileSystemStorage
 
+
+
+# def upload(request):
+#     context = {}
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['document']
+#         fs = FileSystemStorage()
+#         name = fs.save(uploaded_file.name, uploaded_file)
+#         context['url'] = fs.url(name)
+#     return render(request,'PoliceOfficerApp/upload.html',context)
 
 def ob(request):
     return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
+# display list of crimes
+# def CrimeListsDisplay(request):
+#     crimelistdisplay = CrimeListModel.objects.all()
+#     return render(request, "PoliceOfficerApp/ob.html")
+
+
+def addCrimes(request):
+    if request.method == 'POST':
+        if request.POST.get('crimeName'):
+            saverecord = CrimeListModel()
+            saverecord.crimeName = request.POST.get('crimeName')
+            try:
+                saverecord.save()
+            except Exception as e:
+                messages.error(request, e)
+                return render(request, 'PoliceOfficerApp/addCrimes.html')
+            else:
+                messages.success(request, 'Crime has been added successfully!')
+                return render(request, 'PoliceOfficerApp/addCrimes.html')
+    else:
+        return render(request, 'PoliceOfficerApp/addCrimes.html', {'title': 'Crime Report'})
+
+def ob(request):
+    # if request.method == 'POST':
+    #     if request.POST.get('file'):
+    #         saverecord = OB()
+    #         saverecord.file = request.POST.get('file')
+    #         try:
+    #             saverecord.save()
+    #         except Exception as e:
+    #             messages.error(request, e)
+    #             return render(request, 'PoliceOfficerApp/addCrimes.html')
+    #         else:
+    #             messages.success(request, 'Crime has been added successfully!')
+    #             return render(request, 'PoliceOfficerApp/addCrimes.html')
+    # else:
+        return render(request, 'PoliceOfficerApp/ob.html', {'title': 'Crime Report'})
 
 
 # calls the EditCriminal page and the details of the row you want to CriminalEdit are prefilled
@@ -137,13 +185,13 @@ def criminalbooking(request):
                 saverecord.save()
             except IntegrityError as e:
                 messages.error(request, "Criminal email is already in the system.")
-                return render(request, 'records/criminalbooking.html')
+                return render(request, 'PoliceOfficerApp/criminalbooking.html')
             else:
                 messages.success(request, 'Criminal has been booked!')
-                return render(request, 'records/criminalbooking.html')
+                return render(request, 'PoliceOfficerApp/criminalbooking.html')
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'records/criminalbooking.html')
+            return render(request, 'PoliceOfficerApp/criminalbooking.html')
     else:
         return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking'})
 
