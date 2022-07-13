@@ -39,21 +39,20 @@
                     </div>
                     <form action="" method="POST" class="flex flex-col w-full">
                         {% csrf_token %}
-                        <div class="form-group w-full flex flex-col my-4">
-                            <div class="form-label">
-                                <label for="crimeNature" class="text-base my-2">
-                                    Nature of the CrimesDisplay
-                                </label>
+                         <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="crimelist" class="text-base my-2">
+                                       Nature of the Crime
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <select name="crimeID" id="crimelist" class="form-control">
+                                                 {% for crimelist in crimelists %}
+                                         <option value="{{ crimelist.id}}">{{ crimelist.crimeName}}</option>
+                                                 {% endfor %}
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-input my-2 flex">
-                                <input type="text" id="crimeNature" name="crimeNature" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                            </div>
-                            <div class="text-xs">
-                                <span class="text-gray-700">
-                                    Enter the type of CrimesDisplay. Example theft, rape, accident etc.
-                                </span>
-                            </div>
-                        </div>
                         <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
                                 <label for="crimeDescription" class="text-base my-2">
@@ -71,14 +70,14 @@
                         </div>
                         <div>
                         </div>
-               <div class="form-button w-full flex flex-col my-4">
-         <div data-role="controls">
-                           <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                              Record
-                            </button>
-             </div>
-          <div data-role="recordings"></div>
-                        </div>
+<!--               <div class="form-button w-full flex flex-col my-4">-->
+<!--         <div data-role="controls">-->
+<!--                           <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-->
+<!--                              Record-->
+<!--                            </button>-->
+<!--             </div>-->
+<!--          <div data-role="recordings"></div>-->
+<!--                        </div>-->
 
 
                         <div class="form-button w-full flex flex-col my-4">
@@ -91,109 +90,7 @@
                 </div>
             </div>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
-        <script src="https://markjivko.com/dist/recorder.js"></script>
-        <script>
-            jQuery(document).ready(function () {
-                var $ = jQuery;
-                var myRecorder = {
-                    objects: {
-                        context: null,
-                        stream: null,
-                        recorder: null
-                    },
-                    init: function () {
-                        if (null === myRecorder.objects.context) {
-                            myRecorder.objects.context = new (
-                                    window.AudioContext || window.webkitAudioContext
-                                    );
-                        }
-                    },
-                    start: function () {
 
-
-                        var options = {audio: true, video: false};
-                        navigator.mediaDevices.getUserMedia(options).then(function (stream) {
-                            myRecorder.objects.stream = stream;
-                            myRecorder.objects.recorder = new Recorder(
-                                    myRecorder.objects.context.createMediaStreamSource(stream),
-                                    {numChannels: 1}
-                            );
-                            myRecorder.objects.recorder.record();
-                        }).catch(function (err) {});
-
-                    },
-                    stop: function (listObject) {
-                        if (null !== myRecorder.objects.stream) {
-                            myRecorder.objects.stream.getAudioTracks()[0].stop();
-                        console.log("Hello World!")
-                        }
-                        if (null !== myRecorder.objects.recorder) {
-                            myRecorder.objects.recorder.stop();
-
-                            // Validate object
-                            if (null !== listObject
-                                    && 'object' === typeof listObject
-                                    && listObject.length > 0) {
-                                // Export the WAV file
-                                myRecorder.objects.recorder.exportWAV(function (blob) {
-                                    var url = (window.URL || window.webkitURL)
-                                            .createObjectURL(blob);
-
-                                    // Prepare the playback
-                                    var audioObject = $('<audio controls></audio>')
-                                            .attr('src', url);
-
-                                    // Prepare the download link
-                                    var downloadObject = $('<a></a>')
-                                            .attr('href', url)
-                                            .attr('download', new Date().toUTCString() + '.wav');
-
-                                    // Wrap everything in a row
-                                    var holderObject = $('<div class="row"></div>')
-                                            .append(audioObject)
-                                            .append(downloadObject);
-
-                                    // Append to the list
-                                    listObject.append(holderObject);
-                                });
-                            }
-                        }
-                    }
-                };
-
-                // Prepare the recordings list
-                var listObject = $('[data-role="recordings"]');
-
-                // Prepare the record button
-                $('[data-role="controls"] > button').click(function () {
-                    // Initialize the recorder
-                    myRecorder.init();
-
-                    // Get the button state
-                    var buttonState = !!$(this).attr('data-recording');
-
-                    // Toggle
-                    if (!buttonState) {
-                        $(this).attr('data-recording', 'true');
-                        myRecorder.start();
-                    } else {
-                        $(this).attr('data-recording', '');
-                        myRecorder.stop(listObject);
-                    }
-                });
-            });
-            var xhr=new XMLHttpRequest();
-xhr.onload=function(e) {
-  if(this.readyState === 4) {
-      console.log("Server returned: ",e.target.responseText);
-  }
-};
-var fd=new FormData();
-fd.append("audio_data",blob, "filename");
-xhr.open("POST","",true);
-xhr.send(fd);
-        </script>
 
 
 

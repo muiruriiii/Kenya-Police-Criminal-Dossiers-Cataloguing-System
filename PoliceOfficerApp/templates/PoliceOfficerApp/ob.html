@@ -1,6 +1,6 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<h2 class="text-center"><a href="{% url 'PoliceOfficerApp:ob' %}"> Record OB </a> | <a class="text-blue-500" href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> </h2>
+<h2 class="text-center"> Record OB </h2>
     {% if messages %}
         {% for message in messages%}
             {% if message.tags == 'error' %}
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                     </div>
-                    <form action="" method="POST" class="flex flex-col w-full">
+                    <form action="" method="POST"  enctype="multipart/form-data" class="flex flex-col w-full">
                         {% csrf_token %}
                         <div class="form-group w-full flex flex-col my-4">
                             <div class="form-label">
@@ -46,24 +46,23 @@
                                 </label>
                             </div>
                             <div class="form-input my-2 flex">
-                                <input type="email" id="obID" name="obID" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="obID" name="obID"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                         </div>
-                        <div class="form-group w-full flex flex-col my-2">
-                            <div class="form-label">
-                                <label for="obCrime" class="text-base my-2">
-                                    Crime
-                                </label>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="crimelist" class="text-base my-2">
+                                       Nature of the Crime
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <select name="crimelist" id="crimelist" class="form-control">
+                                                 {% for crimelist in crimelists %}
+                                         <option value="{{ crimelist.id}}">{{ crimelist.crimeName}}</option>
+                                                 {% endfor %}
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-input my-2">
-                                <input type="text" id="obCrime" name="obCrime" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                            </div>
-                            <div class="text-xs">
-                                <span class="text-gray-700">
-                                    Pick a CrimesDisplay from the list provided
-                                </span>
-                            </div>
-                        </div>
                         <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
                                 <label for="obAction" class="text-base my-2">
@@ -71,11 +70,26 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <input type="text" id="obAction" name="obAction" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="obAction" name="obAction"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                             <div class="text-xs">
                                 <span class="text-gray-700">
                                     Person under investigation (PUI)
+                                </span>
+                            </div>
+                        </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-label">
+                                <label for="form" class="text-base my-2">
+                                  Upload Forms
+                                </label>
+                            </div>
+                            <div class="form-input my-2">
+                                <input type="file" id="form" name="document"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                   Upload forms
                                 </span>
                             </div>
                         </div>

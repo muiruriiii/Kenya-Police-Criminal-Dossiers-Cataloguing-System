@@ -1,5 +1,4 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,6 +51,10 @@
             <a href="{% url 'PoliceOfficerApp:CrimesDisplay' %}" class="flex items-center {% if pageID == 5 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Crimes
+            </a>
+            <a href="{% url 'PoliceOfficerApp:ob' %}" class="flex items-center {% if pageID == 5 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-table mr-3"></i>
+                Record OB
             </a>
             <a href="{% url 'PoliceOfficerApp:OfficerProfile' %}" class="flex items-center {% if pageID == 6 %} active-nav-link {% endif %} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>

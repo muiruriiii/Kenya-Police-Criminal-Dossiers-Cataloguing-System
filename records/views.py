@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from records.models import Citizen as CitizenModel
+from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel
 from records.models import Crime
 from django.http.response import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -20,23 +20,23 @@ def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
 
-def crimereport(request):
+def CrimeListDisplay(request):
+    crimelist = CrimeListModel.objects.all()
     if request.method == 'POST':
-        if request.POST.get('crimeDescription') and request.POST.get('crimeNature') and request.POST.get('voice_record'):
-            saverecord = Crime()
-            saverecord.description = request.POST.get('crimeDescription')
-            saverecord.crimeNature = request.POST.get('crimeNature')
-            saverecord.voice_record = request.POST.get('voice_record')
-            try:
-                saverecord.save()
-            except Exception as e:
-                messages.error(request, e)
-                return render(request, 'records/crimereport.html')
-            else:
-                messages.success(request, 'Crime has been reported successfully!')
-                return render(request, 'records/crimereport.html')
-    else:
-        return render(request, 'records/crimereport.html', {'title': 'Crime Report'})
+      if request.POST.get('crimeID') and request.POST.get('crimeDescription'):
+                saverecord = CrimeModel()
+                saverecord.crimeID = request.POST.get('crimeID')
+                saverecord.description = request.POST.get('crimeDescription')
+                try:
+                    saverecord.save()
+                except Exception as e:
+                    messages.error(request, e)
+                    return render(request, 'records/crimereport.html')
+                else:
+                    messages.success(request, 'Crime has been reported successfully!')
+                    return render(request, 'records/crimereport.html')
+    return render(request, "records/crimereport.html", {"crimelists":crimelist})
+
 
 
 def casetracking(request):
