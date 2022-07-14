@@ -46,39 +46,42 @@ def CitizenLogout(request):
     except Exception as e:
         messages.error(request, e)
     else:
-        messages.error(request, 'Logged out.')
+        messages.success(request, 'Logged out.')
         return redirect('/', {'title': 'Landing Page', 'pageId': 8})
 
 
 def CitizenEdit(request, id):
-    citizen = CitizenModel.objects.get(id=id)
-    if request.method == 'POST':
-        if request.POST.get('regEmail') and\
-                request.POST.get('regPhone') and\
-                request.POST.get('regAddress'):
-            citizen.email = request.POST.get('regEmail')
-            citizen.tel = request.POST.get('regPhone')
-            citizen.address = request.POST.get('regAddress')
+    if 'citizenID' in request.session:
+        citizen = CitizenModel.objects.get(id=id)
+        if request.method == 'POST':
+            if request.POST.get('regEmail') and \
+                    request.POST.get('regPhone') and \
+                    request.POST.get('regAddress'):
+                citizen.email = request.POST.get('regEmail')
+                citizen.tel = request.POST.get('regPhone')
+                citizen.address = request.POST.get('regAddress')
 
-            try:
-                citizenImage = request.FILES['citizenImage']
-            except MultiValueDictKeyError as e:
-                citizen.save()
-                return redirect('CitizenApp:CitizenProfile')
-            except Exception as e:
-                messages.error(request, e)
-                return render(request, 'CitizenApp/EditCitizen.html')
+                try:
+                    citizenImage = request.FILES['citizenImage']
+                except MultiValueDictKeyError as e:
+                    citizen.save()
+                    return redirect('CitizenApp:CitizenProfile')
+                except Exception as e:
+                    messages.error(request, e)
+                    return render(request, 'CitizenApp/EditCitizen.html')
+                else:
+                    fileStorage = FileSystemStorage()
+                    citizenImageName = 'citizen-%s%s' % (citizen.id, '.jpg')
+                    fileStorage.save('%s' % citizenImageName, citizenImage)
+                    citizen.citizenImage = fileStorage.save('%s' % citizenImageName, citizenImage)
+                    citizen.save()
+                    request.session['citizenImage'] = citizen.citizenImage.url
+                    messages.success(request, 'citizen details successfully updated.')
+                    return redirect('CitizenApp:CitizenProfile')
             else:
-                fileStorage = FileSystemStorage()
-                citizenImageName = 'citizen-%s%s' % (citizen.id, '.jpg')
-                fileStorage.save('%s' % citizenImageName, citizenImage)
-                citizen.citizenImage = fileStorage.save('%s' % citizenImageName, citizenImage)
-                citizen.save()
-                request.session['citizenImage'] = citizen.citizenImage.url
-                messages.success(request, 'citizen details successfully updated.')
-                return redirect('CitizenApp:CitizenProfile')
+                messages.error(request, 'An error has occurred. Please contact an administrator.')
+                return render(request, 'CitizenApp/EditCitizen.html', {'title': 'citizen Edit', 'citizen': citizen})
         else:
-            messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'CitizenApp/EditCitizen.html', {'title': 'citizen Edit', 'citizen': citizen})
+            return render(request, 'CitizenApp/EditCitizen.html', {'title': 'Citizen Edit', 'citizen': citizen})
     else:
-        return render(request, 'CitizenApp/EditCitizen.html', {'title': 'Citizen Edit', 'citizen': citizen})
+        return redirect('CitizenApp:CitizenLogin')
