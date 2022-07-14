@@ -1,75 +1,52 @@
 {% extends "records/base.html" %}
 {% block content %}
-
-    {% if messages %}
-        {% for message in messages%}
-            {% if message.tags == 'error' %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
-                        <span>
-                            {{message}}
+<div class="flex justify-center">
+    <div class="my-20 mx-20 w-full rounded-lg flex flex-row">
+        <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
+            <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
+                <div class="flex flex-col my-10">
+                    <div class="flex flex-col">
+                        <span class="text-4xl">
+                            Welcome to the Report Crime Portal
+                        </span>
+                        <span class="text-sm text-gray-600">
+                            Fill in the form below, and we shall get back to you as soon as possible.
                         </span>
                     </div>
                 </div>
-            {% else %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
-                        <span>
-                            {{message}}
-                        </span>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif%}
-
-    <div class="flex justify-center">
-        <div class="my-20 mx-20 w-full rounded-lg flex flex-row">
-            <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
-                <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
-                    <div class="flex flex-col my-10">
-                        <div class="flex flex-col">
-                            <span class="text-4xl">
-                                Welcome to the Report Crime Portal
-                            </span>
-                            <span class="text-sm text-gray-600">
-                                Fill in the form below, and we shall get back to you as soon as possible.
-                            </span>
-                        </div>
-                    </div>
-                    <form action="" method="POST" class="flex flex-col w-full">
-                        {% csrf_token %}
-                         <div class="form-group w-full flex flex-col my-2">
-                                <div class="form-label">
-                                    <label for="crimelist" class="text-base my-2">
-                                       Nature of the Crime
-                                    </label>
-                                </div>
-                                <div class="form-input my-2">
-                                    <select name="crimeID" id="crimelist" class="form-control">
-                                                 {% for crimelist in crimelists %}
-                                         <option value="{{ crimelist.id}}">{{ crimelist.crimeName}}</option>
-                                                 {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        <div class="form-group w-full flex flex-col my-2">
+                <form action="" method="POST" class="flex flex-col w-full">
+                    {% csrf_token %}
+                     <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
-                                <label for="crimeDescription" class="text-base my-2">
-                                    Crime Description
+                                <label for="crimelist" class="text-base my-2">
+                                   Nature of the Crime
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <textarea id="crimeDescription" name="crimeDescription" style="resize: none;" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
-                            </div>
-                            <div class="text-xs">
-                                <span class="text-gray-700">
-                                    Be as descriptive as possible when explaining the CrimesDisplay. Include place, time and people involved.
-                                </span>
+                                <select name="crimeID" id="crimelist" class="form-control">
+                                             {% for crimelist in crimelists %}
+                                     <option value="{{crimelist.crimeID}}">{{ crimelist.crimeName}}</option>
+                                             {% endfor %}
+                                </select>
                             </div>
                         </div>
-                        <div>
+                    <div class="form-group w-full flex flex-col my-2">
+                        <div class="form-label">
+                            <label for="crimeDescription" class="text-base my-2">
+                                Crime Description
+                            </label>
                         </div>
+                        <div class="form-input my-2">
+                            <textarea id="crimeDescription" name="crimeDescription" style="resize: none;" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
+                        </div>
+                        <div class="text-xs">
+                            <span class="text-gray-700">
+                                Be as descriptive as possible when explaining the CrimesDisplay. Include place, time and people involved.
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
 <!--               <div class="form-button w-full flex flex-col my-4">-->
 <!--         <div data-role="controls">-->
 <!--                           <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-->
@@ -80,28 +57,28 @@
 <!--                        </div>-->
 
 
-                        <div class="form-button w-full flex flex-col my-4">
-                            <button name="reportCrime" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
-                                Report Crime
-                            </button>
-                        </div>
+                    <div class="form-button w-full flex flex-col my-4">
+                        <button name="reportCrime" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
+                            Report Crime
+                        </button>
+                    </div>
 
-                    </form>
-                </div>
+                </form>
             </div>
+        </div>
 
 
 
 
 
 
-            <div class="w-1/3 p-4 bg-green-100 rounded-r-lg flex items-center justify-center p-16">
-                <div>
-                    <p class="text-justify">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consectetur cum dignissimos dolorum excepturi, laudantium nam, necessitatibus nemo perferendis placeat quas quia quibusdam quos ratione repellendus repudiandae rerum totam.
-                    </p>
-                </div>
+        <div class="w-1/3 p-4 bg-green-100 rounded-r-lg flex items-center justify-center p-16">
+            <div>
+                <p class="text-justify">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consectetur cum dignissimos dolorum excepturi, laudantium nam, necessitatibus nemo perferendis placeat quas quia quibusdam quos ratione repellendus repudiandae rerum totam.
+                </p>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}

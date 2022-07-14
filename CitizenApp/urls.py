@@ -8,7 +8,8 @@ urlpatterns = [
     path('profile/', citizen_views.CitizenProfile, name='CitizenProfile'),
     path('login/', citizen_views.CitizenLogin, name='CitizenLogin'),
     path('logout/', citizen_views.CitizenLogout, name='CitizenLogout'),
+    path('EditCitizen/<int:id>', citizen_views.CitizenEdit, name='CitizenEdit'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, name='uploads')

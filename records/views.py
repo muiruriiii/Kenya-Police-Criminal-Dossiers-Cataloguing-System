@@ -23,19 +23,36 @@ def evidence(request):
 def CrimeListDisplay(request):
     crimelist = CrimeListModel.objects.all()
     if request.method == 'POST':
-      if request.POST.get('crimeID') and request.POST.get('crimeDescription'):
+        if request.POST.get('crimeID') and request.POST.get('crimeDescription'):
                 saverecord = CrimeModel()
-                saverecord.crimeID = request.POST.get('crimeID')
+                saverecord.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
                 saverecord.description = request.POST.get('crimeDescription')
-                try:
-                    saverecord.save()
-                except Exception as e:
-                    messages.error(request, e)
-                    return render(request, 'records/crimereport.html')
+
+                #Here we check if a citizen is logged in so that we can decide whether the crime has been reported anonymously or not.
+                if 'citizenID' in request.session:
+                    saverecord.citizenID = request.session['citizenID']
+                    try:
+                        saverecord.save()
+                    except Exception as e:
+                        messages.error(request, e)
+                        return render(request, 'records/crimereport.html')
+                    else:
+                        messages.success(request, 'Crime has been reported successfully!')
+                        return render(request, "records/crimereport.html", {"crimelists":crimelist})
                 else:
-                    messages.success(request, 'Crime has been reported successfully!')
-                    return render(request, 'records/crimereport.html')
-    return render(request, "records/crimereport.html", {"crimelists":crimelist})
+                    try:
+                        saverecord.save()
+                    except Exception as e:
+                        messages.error(request, e)
+                        return render(request, 'records/crimereport.html')
+                    else:
+                        messages.success(request, 'Crime has been reported successfully!')
+                        return render(request, "records/crimereport.html", {"crimelists":crimelist})
+        else:
+            messages.error(request, 'An error has occurred')
+            #return render(request, "records/crimereport.html", {"crimelists": crimelist})
+    else:
+        return render(request, "records/crimereport.html", {"crimelists":crimelist})
 
 
 
@@ -88,19 +105,9 @@ def signup(request):
                     saverecord.save()
                     citizenID = saverecord.pk
                     citizenImageName = 'citizen-%s%s' % (citizenID, '.jpg')
-                    fileStorage.save(citizenImageName, citizenImage)
+                    fileStorage.save('%s' % citizenImageName, citizenImage)
                     saverecord.citizenImage = citizenImageName
                     saverecord.save()
-                    # current_site = get_current_site(request)
-                    # mail_subject = 'Activate your account.'
-                    # message = render_to_string('records/email_template.html', {
-                    #     'user': saverecord,
-                    #     'domain': current_site.domain,
-                    #     'uid': urlsafe_base64_encode(force_bytes(citizenID)),
-                    #     'token': account_activation_token.make_token(saverecord),
-                    # })
-                    # to_email = request.POST.get('regEmail')
-                    # send_mail(mail_subject, message, 'muiruricynthiaaa@gmail.com', [to_email])
                 except IntegrityError as e:
                     messages.error(request, e)
                     return render(request, 'records/signup.html')
@@ -112,21 +119,6 @@ def signup(request):
                 return render(request, 'records/signup.html')
     else:
         return render(request, 'records/signup.html', {'title': 'Sign Up'})
-
-
-# def activate(request, uidb64, token):
-#     citizen = CitizenModel
-#     try:
-#         uid = force_bytes(urlsafe_base64_decode(uidb64))
-#         user = citizen.objects.get(pk=uid)
-#     except(TypeError, ValueError, OverflowError, citizen.DoesNotExist):
-#         user = None
-#     if user is not None and account_activation_token.check_token(user, token):
-#         user.is_active = True
-#         user.save()
-#         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-#     else:
-#         return HttpResponse('Activation link is invalid!')
 
 
 def dashboard(request):

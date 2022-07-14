@@ -55,31 +55,44 @@
                     <div class="nav-link relative w-1/12">
                         <div class="flex flex-row w-full justify-between">
                             <span class="flex items-center">
-                                <img src="{% static 'media/notOff.png' %}" onclick="function notification(){
-                                    $('.notification-off').toggle('hidden');$('.notification-on').toggle('hidden');
-                                } notification();" class="w-5 notification-off" alt="">
-                                <img src="{% static 'media/notOn.png' %}" onclick="function notification(){
-                                    $('.notification-on').toggle('hidden');$('.notification-off').toggle('hidden');
-                                } notification();" class="w-5 hidden notification-on" alt="">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                                </svg>
+<!--                                <img src="{% static 'media/notOff.png' %}" onclick="function notification(){-->
+<!--                                    $('.notification-off').toggle('hidden');$('.notification-on').toggle('hidden');-->
+<!--                                } notification();" class="w-5 notification-off" alt="">-->
+<!--                                <img src="{% static 'media/notOn.png' %}" onclick="function notification(){-->
+<!--                                    $('.notification-on').toggle('hidden');$('.notification-off').toggle('hidden');-->
+<!--                                } notification();" class="w-5 hidden notification-on" alt="">-->
                             </span>
                             <span class="text-xl">
-                                <img src="{% static 'media/user.png' %}" onclick="function userTools(){
+                                <img src="{{request.session.citizenImage}}" onclick="function userTools(){
                                     $('.user-tools').toggle('hidden');
-                                } userTools();" class="w-10" alt="">
+                                } userTools();" class="w-12 rounded-full" alt="">
                             </span>
                         </div>
-                        <div class="user-tools p-4 flex flex-col bg-gray-100 absolute mt-2 hidden">
-                            <span>
-                                <a href="{% url 'CitizenApp:CitizenProfile' %}">
-                                    Profile
-                                </a>
-                            </span>
-                            <hr>
-                            <span>
-                                <a href="{% url 'CitizenApp:CitizenLogout' %}">
-                                    Logout
-                                </a>
-                            </span>
+                        <div class="user-tools w-40 p-2 flex flex-col bg-gray-100 absolute mt-2 hidden">
+                            <div>
+                                <span class="text-black text-base">
+                                    {{request.session.citizenName}}
+                                </span>
+                            </div>
+                            <hr class="my-2">
+                            <div>
+                                <span class="text-black">
+                                    <a href="{% url 'CitizenApp:CitizenProfile' %}">
+                                        Profile
+                                    </a>
+                                </span>
+                            </div>
+                            <hr class="my-2">
+                            <div>
+                                <span class="text-black">
+                                    <a href="{% url 'CitizenApp:CitizenLogout' %}">
+                                        Logout
+                                    </a>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     {% endif %}

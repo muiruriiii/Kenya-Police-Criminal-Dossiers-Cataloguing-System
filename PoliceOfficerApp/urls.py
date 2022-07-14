@@ -17,9 +17,8 @@ urlpatterns = [
     # path('upload/', officer_views.upload, name='upload'),
     path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
 
-# CriminalEdit and update paths
+    # CriminalEdit and update paths
     path('EditCriminal/<int:id>', officer_views.CriminalEdit, name='CriminalEdit'),
-    #path('update/<int:id>', officer_views.update, name='update'),
 
     path('EditOfficer/<int:id>', officer_views.OfficerEdit, name='OfficerEdit'),
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
