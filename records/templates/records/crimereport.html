@@ -14,7 +14,7 @@
                         </span>
                     </div>
                 </div>
-                <form action="" method="POST" class="flex flex-col w-full">
+                <form action="" method="POST" class="flex flex-col w-full" enctype="multipart/form-data">
                     {% csrf_token %}
                      <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
@@ -30,23 +30,62 @@
                                 </select>
                             </div>
                         </div>
-                    <div class="form-group w-full flex flex-col my-2">
-                        <div class="form-label">
-                            <label for="crimeDescription" class="text-base my-2">
-                                Crime Description
-                            </label>
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-label">
+                                <label for="crimeDescription" class="text-base my-2">
+                                    Crime Description
+                                </label>
+                            </div>
+                            <div class="form-input my-2">
+                                <textarea id="crimeDescription" name="crimeDescription" style="resize: none;" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    Be as descriptive as possible when explaining the CrimesDisplay. Include place, time and people involved.
+                                </span>
+                            </div>
                         </div>
-                        <div class="form-input my-2">
-                            <textarea id="crimeDescription" name="crimeDescription" style="resize: none;" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-input my-2">
+                                <input type="file" name="crimeFiles" id="crimeFiles" accept="image/*, video/*" multiple="multiple">
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    You can upload any images, videos or files related to the crime you are reporting.
+                                </span>
+                            </div>
                         </div>
-                        <div class="text-xs">
-                            <span class="text-gray-700">
-                                Be as descriptive as possible when explaining the CrimesDisplay. Include place, time and people involved.
+                        {% if 'citizenID' in request.session %}
+                        <div class="form-group w-full flex flex-row gap-x-4 my-2">
+                            <div class="flex flex-col">
+                                <div class="form-input my-2">
+                                    <input type="checkbox" name="anonymous" value="anonymous" id="anonymous" onchange="$('.anonymous-text').toggle('hidden')">
+                                </div>
+                            </div>
+                            <div class="form-label">
+                                <label for="anonymous" class="text-base my-2">
+                                    Report Anonymously
+                                </label>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        The crime will be anonymously reported.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full anonymous-text hidden">
+                            <span class="font-bold">
+                                The crime will be anonymously reported.
                             </span>
                         </div>
-                    </div>
-                    <div>
-                    </div>
+                        {% else %}
+                            <div class="w-full">
+                                <span class="font-bold">
+                                    The crime will be anonymously reported.
+                                </span>
+                            </div>
+                        {% endif %}
+
 <!--               <div class="form-button w-full flex flex-col my-4">-->
 <!--         <div data-role="controls">-->
 <!--                           <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-->
