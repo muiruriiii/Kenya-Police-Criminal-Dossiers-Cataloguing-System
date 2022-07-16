@@ -1,19 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.hashers import make_password
 from django.core.files.storage import FileSystemStorage
-from django.core.mail import send_mail
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
-from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel
-from records.models import Crime
-from django.http.response import JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404, render
-from police_system.helpers.tokens import *
+from django.shortcuts import redirect
+from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel, \
+    CrimeAnonymous as CrimeAnonymousModel
+from django.shortcuts import render
 
 
 def evidence(request):
@@ -24,36 +16,51 @@ def CrimeListDisplay(request):
     crimelist = CrimeListModel.objects.all()
     if request.method == 'POST':
         if request.POST.get('crimeID') and request.POST.get('crimeDescription'):
-                saverecord = CrimeModel()
-                saverecord.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
-                saverecord.description = request.POST.get('crimeDescription')
-
-                #Here we check if a citizen is logged in so that we can decide whether the crime has been reported anonymously or not.
-                if 'citizenID' in request.session:
-                    saverecord.citizenID = request.session['citizenID']
+            # Here we check if a citizen is logged in so that we can decide whether the crime has been reported anonymously or not.
+            if 'citizenID' in request.session:
+                if request.POST.get('anonymous'):
+                    crimeAnonymous = CrimeAnonymousModel()
+                    crimeAnonymous.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
+                    crimeAnonymous.description = request.POST.get('crimeDescription')
                     try:
-                        saverecord.save()
+                        crimeAnonymous.save()
                     except Exception as e:
                         messages.error(request, e)
-                        return render(request, 'records/crimereport.html')
+                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
                     else:
                         messages.success(request, 'Crime has been reported successfully!')
-                        return render(request, "records/crimereport.html", {"crimelists":crimelist})
+                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
                 else:
+                    print(request.FILES.getlist('crimeFiles'))
+                    crime = CrimeModel()
+                    crime.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
+                    crime.description = request.POST.get('crimeDescription')
+                    crime.citizenID = request.session['citizenID']
                     try:
-                        saverecord.save()
+                        crime.save()
                     except Exception as e:
                         messages.error(request, e)
-                        return render(request, 'records/crimereport.html')
+                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
                     else:
                         messages.success(request, 'Crime has been reported successfully!')
-                        return render(request, "records/crimereport.html", {"crimelists":crimelist})
+                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
+            else:
+                crimeAnonymous = CrimeAnonymousModel()
+                crimeAnonymous.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
+                crimeAnonymous.description = request.POST.get('crimeDescription')
+                try:
+                    crimeAnonymous.save()
+                except Exception as e:
+                    messages.error(request, e)
+                    return render(request, "records/crimereport.html", {"crimelists": crimelist})
+                else:
+                    messages.success(request, 'Crime has been reported successfully!')
+                    return render(request, "records/crimereport.html", {"crimelists": crimelist})
         else:
             messages.error(request, 'An error has occurred')
-            #return render(request, "records/crimereport.html", {"crimelists": crimelist})
+            return render(request, "records/crimereport.html", {"crimelists": crimelist})
     else:
-        return render(request, "records/crimereport.html", {"crimelists":crimelist})
-
+        return render(request, "records/crimereport.html", {"crimelists": crimelist})
 
 
 def casetracking(request):
@@ -74,19 +81,19 @@ def issueforms(request):
 
 def signup(request):
     if request.method == 'POST':
-        if request.POST.get('regFName') and\
-                request.POST.get('regLName') and\
-                request.POST.get('regEmail') and\
-                request.POST.get('regPhone') and\
-                request.POST.get('regPassword') and\
-                request.POST.get('regConPassword') and\
-                request.POST.get('regIDNo') and\
+        if request.POST.get('regFName') and \
+                request.POST.get('regLName') and \
+                request.POST.get('regEmail') and \
+                request.POST.get('regPhone') and \
+                request.POST.get('regPassword') and \
+                request.POST.get('regConPassword') and \
+                request.POST.get('regIDNo') and \
                 request.POST.get('regGender') and \
                 request.FILES['citizenImage'] and \
                 request.POST.get('regAddress'):
             # If the password and confirm password are same then the data will be saved in the database else an error message will be sent
             if request.POST.get('regPassword') == request.POST.get('regConPassword'):
-                #Getting the image that has been uploaded
+                # Getting the image that has been uploaded
                 fileStorage = FileSystemStorage()
                 citizenImage = request.FILES['citizenImage']
 
@@ -96,7 +103,7 @@ def signup(request):
                 saverecord.email = request.POST.get('regEmail')
                 saverecord.tel = request.POST.get('regPhone')
 
-                #Hash password before recording in the DB
+                # Hash password before recording in the DB
                 saverecord.password = make_password(request.POST.get('regPassword'))
                 saverecord.nationalID = request.POST.get('regIDNo')
                 saverecord.gender = request.POST.get('regGender')

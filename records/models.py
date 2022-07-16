@@ -27,6 +27,14 @@ class Crime(models.Model):
         db_table = "tbl_crime_report"
 
 
+class CrimeAnonymous(models.Model):
+    description = models.CharField(max_length=400)
+    crimeID = models.IntegerField()
+
+    class Meta:
+        db_table = "tbl_crime_report_anonymous"
+
+
 class Citizen(models.Model):
     fName = models.CharField(max_length=100)
     lName = models.CharField(max_length=100)
