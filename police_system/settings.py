@@ -152,16 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
 
-#SMTP Configuration
-
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "muiruricynthiaaa@gmail.com"
-EMAIL_HOST_PASSWORD = "ME@2002COLLETTEILY!"
-DEFAULT_FROM_EMAIL = "muiruricynthiaaa@gmail.com"
-
 #session stuff
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #SESSION_COOKIE_AGE = 5 * 60

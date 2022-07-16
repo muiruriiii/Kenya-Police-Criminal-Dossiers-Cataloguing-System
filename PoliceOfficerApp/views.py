@@ -17,12 +17,6 @@ from django.core.files.storage import FileSystemStorage
 #         context['url'] = fs.url(name)
 #     return render(request,'PoliceOfficerApp/upload.html',context)
 
-def ob(request):
-    return render(request, 'PoliceOfficerApp/ob.html', {'title': 'OB  '})
-# display list of crimes
-# def CrimeListsDisplay(request):
-#     crimelistdisplay = CrimeListModel.objects.all()
-#     return render(request, "PoliceOfficerApp/ob.html")
 
 
 def addCrimes(request):
@@ -40,22 +34,6 @@ def addCrimes(request):
                 return render(request, 'PoliceOfficerApp/addCrimes.html')
     else:
         return render(request, 'PoliceOfficerApp/addCrimes.html', {'title': 'Crime Report'})
-
-def ob(request):
-    # if request.method == 'POST':
-    #     if request.POST.get('file'):
-    #         saverecord = OB()
-    #         saverecord.file = request.POST.get('file')
-    #         try:
-    #             saverecord.save()
-    #         except Exception as e:
-    #             messages.error(request, e)
-    #             return render(request, 'PoliceOfficerApp/addCrimes.html')
-    #         else:
-    #             messages.success(request, 'Crime has been added successfully!')
-    #             return render(request, 'PoliceOfficerApp/addCrimes.html')
-    # else:
-        return render(request, 'PoliceOfficerApp/ob.html', {'title': 'Crime Report'})
 
 
 # calls the EditCriminal page and the details of the row you want to CriminalEdit are prefilled
@@ -95,6 +73,37 @@ def CriminalEdit(request, id):
     else:
         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
 
+def ob(request, id):
+    CrimesDisplay = CrimeModel.objects.get(id=id)
+    # if request.method == 'POST':
+    #     if request.POST.get('crimeID') and \
+    #             request.POST.get('crimeDescription') and \
+    #             request.POST.get('crimeName') and \
+    #             request.POST.get('citizenName') and \
+    #             request.POST.get('obAction') and \
+    #             request.POST.get('obNo') and \
+    #             request.POST.get('reportDate'):
+    #
+    #         CrimesDisplay.id = request.POST.get('criminalFName')
+    #         CrimesDisplay.description = request.POST.get('criminalLName')
+    #         CrimesDisplay.crimeID = request.POST.get('criminalPhone')
+    #         CrimesDisplay.citizenID = request.POST.get('criminalAddress')
+    #
+    #
+    #         try:
+    #             CriminalsDisplay.save()
+    #         except Exception as e:
+    #             messages.error(request, e)
+    #             return render(request, 'PoliceOfficerApp/EditCriminal.html')
+    #         else:
+    #             messages.success(request, 'Criminal has been updated!')
+    #             return redirect('PoliceOfficerApp:CriminalsDisplay')
+    #     else:
+    #         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
+    # else:
+    #     return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
+    #
+    return render(request, 'PoliceOfficerApp/ob.html')
 
 def OfficerEdit(request, id):
     officer = OfficerModel.objects.get(id=id)
@@ -195,14 +204,6 @@ def criminalbooking(request):
     else:
         return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking'})
 
-
-def index(request):
-    if 'officerID' not in request.session:
-        return redirect('PoliceOfficerApp:OfficerLogin')
-    else:
-        return render(request, 'PoliceOfficerApp/index.html', {'title': 'Police Dashboard', 'pageID': 1})
-
-
 def login(request):
     if 'citizenID' in request.session:
         del request.session['citizenID']
@@ -238,13 +239,13 @@ def OfficerLogout(request):
         return redirect('PoliceOfficerApp:OfficerLogin')
 
 
-def OfficerProfile(request):
+
+
+def index(request):
     if 'officerID' not in request.session:
         return redirect('PoliceOfficerApp:OfficerLogin')
     else:
-        officer = OfficerModel.objects.get(id=request.session['officerID'])
-        context = {'officer': officer, 'pageID': 6, 'title': 'Officer Profile'}
-        return render(request, 'PoliceOfficerApp/OfficerProfile.html', context)
+        return render(request, 'PoliceOfficerApp/index.html', {'title': 'Police Dashboard', 'pageID': 1})
 
 
 def OfficersDisplay(request):
@@ -255,6 +256,13 @@ def OfficersDisplay(request):
         context = {'officers': officers, 'pageID': 2, 'title': 'List of Officers'}
         return render(request, 'PoliceOfficerApp/OfficersDisplay.html', context)
 
+def CitizensDisplay(request):
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        citizens = CitizenModel.objects.all()
+        context = {'citizens': citizens, 'pageID': 3, 'title': 'Citizen Display'}
+        return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
 
 def CriminalsDisplay(request):
     if 'officerID' not in request.session:
@@ -265,13 +273,13 @@ def CriminalsDisplay(request):
         return render(request, 'PoliceOfficerApp/CriminalsDisplay.html', context)
 
 
-def CitizensDisplay(request):
+def CrimeListDisplay(request):
     if 'officerID' not in request.session:
         return redirect('PoliceOfficerApp:OfficerLogin')
     else:
-        citizens = CitizenModel.objects.all()
-        context = {'citizens': citizens, 'pageID': 3, 'title': 'Citizen Display'}
-        return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
+        crimelist = CrimeListModel.objects.all()
+        context = {'crimelist': crimelist, 'pageID': 5, 'title': 'Crime List Display'}
+        return render(request, 'PoliceOfficerApp/CrimeListDisplay.html', context)
 
 
 def CrimesDisplay(request):
@@ -279,6 +287,27 @@ def CrimesDisplay(request):
         return redirect('PoliceOfficerApp:OfficerLogin')
     else:
         crimes = CrimeModel.objects.all()
-        context = {'crimes': crimes, 'pageID': 5, 'title': 'Crime Display'}
+        global crime_list
+        crime_list=[]
+        for crime in crimes:
+            citizenID = crime.citizenID
+            citizens = CitizenModel.objects.get(id=citizenID)
+            citizenName = citizens.fName+' '+citizens.lName
+
+            crimeID = crime.crimeID
+            crimelist = CrimeListModel.objects.get(crimeID=crimeID)
+            crimeName = crimelist.crimeName
+            crimesreported={'id' : crime.pk, 'description' : crime.description,'citizenName':citizenName,'crimeName':crimeName}
+            crime_list.append(crimesreported)
+            print(crime_list)
+            #crimeReportID,crimeDescription, crimeName, citizenName
+        context = {'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}
         return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
 
+def OfficerProfile(request):
+    if 'officerID' not in request.session:
+        return redirect('PoliceOfficerApp:OfficerLogin')
+    else:
+        officer = OfficerModel.objects.get(id=request.session['officerID'])
+        context = {'officer': officer, 'pageID': 7, 'title': 'Officer Profile'}
+        return render(request, 'PoliceOfficerApp/OfficerProfile.html', context)

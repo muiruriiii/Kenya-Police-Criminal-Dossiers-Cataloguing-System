@@ -12,8 +12,10 @@ urlpatterns = [
     path('CrimesDisplay/', officer_views.CrimesDisplay, name='CrimesDisplay'),
     path('criminalbooking/', officer_views.criminalbooking, name='criminalbooking'),
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
+    path('CrimeListDisplay/', officer_views.CrimeListDisplay, name='CrimeListDisplay'),
+
     path('login/', officer_views.login, name='OfficerLogin'),
-    path('ob/', officer_views.ob, name='ob'),
+    path('ob/<int:id>', officer_views.ob, name='ob'),
     # path('upload/', officer_views.upload, name='upload'),
     path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
 

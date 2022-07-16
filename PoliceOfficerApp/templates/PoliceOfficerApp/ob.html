@@ -1,68 +1,74 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<h2 class="text-center"> Record OB </h2>
-    {% if messages %}
-        {% for message in messages%}
-            {% if message.tags == 'error' %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
-                        <span>
-                            {{message}}
-                        </span>
-                    </div>
-                </div>
-            {% else %}
-                <div class="flex justify-center">
-                    <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
-                        <span>
-                            {{message}}
-                        </span>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif%}
+<h2 class="text-center"><a  href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> |  OB </h2>
 
-    <div class="flex justify-center">
-        <div class="my-20 mx-20 w-full rounded-lg flex flex-row">
-            <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
-                <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
-                    <div class="flex flex-col my-10">
+<div class="flex justify-center">
+    <div class="my-2 mx-20 w-full rounded-lg flex flex-row">
+            <div class="w-full p-4 bg-gray-100 rounded-l-lg">
+                <div class="form-container w-full m-auto flex flex-col justify-center my-2">
+                    <div class="flex flex-col my-4 text-center">
                         <div class="flex flex-col">
                             <span class="text-4xl">
-                                Welcome to the Occurrence Book
+                                 OB
                             </span>
-                            <span class="text-sm text-gray-600">
-                                Fill in all the details for the OB to be recorded.
+                            <span class="text-sm text-gray-600 my-1">
+                                Please fill in the details below
                             </span>
                         </div>
                     </div>
-                    <form action="" method="POST"  enctype="multipart/form-data" class="flex flex-col w-full">
+                    <hr class="text-black border-2 border-black my-4">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="form-group w-full flex flex-col my-4">
-                            <div class="form-label">
-                                <label for="obID" class="text-base my-2">
-                                    National ID
-                                </label>
-                            </div>
-                            <div class="form-input my-2 flex">
-                                <input type="text" id="obID" name="obID"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                            </div>
-                        </div>
-                            <div class="form-group w-full flex flex-col my-2">
-                                <div class="form-label">
-                                    <label for="crimelist" class="text-base my-2">
-                                       Nature of the Crime
-                                    </label>
+                        <div class="flex flex-row justify-around w-full">
+                            <div class="w-5/12 flex flex-col">
+                                <div class="form-group w-full flex flex-row my-2 justify-between">
+
+                                <div class="w-1/2 mr-2 ">
+                                    <div class="form-label">
+                                        <label for="id" class="text-base my-2">
+                                       Crime Report ID
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="id" name="id" value=" {{CrimesDisplay.id}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+
                                 </div>
-                                <div class="form-input my-2">
-                                    <select name="crimelist" id="crimelist" class="form-control">
-                                                 {% for crimelist in crimelists %}
-                                         <option value="{{ crimelist.id}}">{{ crimelist.crimeName}}</option>
-                                                 {% endfor %}
-                                    </select>
+                                <div class="ml-2 w-1/2">
+                                    <div class="form-label">
+                                        <label for="crimeDescription" class="text-base my-2">
+                                            Description
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="crimeDescription" name="crimeDescription" value="{{CrimesDisplay.description}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
                                 </div>
                             </div>
+                                <div class="form-group w-full flex flex-row my-2 justify-between">
+                                    <div class="w-1/2 mr-2 ">
+                                        <div class="form-label">
+                                            <label for="crimeName" class="text-base my-2">
+                                               Crime Name
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="text" id="crimeName" name="crimeName" value="   {{CrimesDisplay.crimeName}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        </div>
+
+                                    </div>
+                                    <div class="ml-2 w-1/2">
+                                        <div class="form-label">
+                                            <label for="citizenName" class="text-base my-2">
+                                               Citizen Name
+                                            </label>
+                                        </div>
+                                        <div class="form-input my-2 flex">
+                                            <input type="text" id="citizenName" name="citizenName" value=" {{CrimesDisplay.citizenName}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        </div>
+
+                                    </div>
+                                </div>
                         <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
                                 <label for="obAction" class="text-base my-2">
@@ -78,6 +84,33 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-label">
+                                <label for="obNo" class="text-base my-2">
+                                   OB No
+                                </label>
+                            </div>
+                            <div class="form-input my-2">
+                                <input type="text" id="obNo" name="obNo"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                            </div>
+
+                        </div>
+                                <div class="form-group w-full flex flex-col my-2">
+                                    <div class="form-label">
+                                        <label for="reportDate" class="text-base my-2">
+                                           Report Date
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="datetime-local" id="reportDate" name="reportDate"  value="2022-07-05T11:11" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+
+                                        </span>
+                                    </div>
+                                </div>
                             <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
                                 <label for="form" class="text-base my-2">
@@ -92,22 +125,19 @@
                                    Upload forms
                                 </span>
                             </div>
+
                         </div>
-                        <div class="form-button w-full flex flex-col my-4">
-                            <button name="loginBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
-                                Record in OB
+                        <div class="form-button w-full flex justify-center my-4">
+                            <button class="p-2 text-center w-1/2 rounded bg-blue-600 text-white text-lg">
+                               Record OB
                             </button>
                         </div>
+                            </div>
+                             </div>
                     </form>
                 </div>
-            </div>
-            <div class="w-1/3 p-4 bg-green-100 rounded-r-lg flex items-center justify-center p-16">
-                <div>
-                    <p class="text-justify">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consectetur cum dignissimos dolorum excepturi, laudantium nam, necessitatibus nemo perferendis placeat quas quia quibusdam quos ratione repellendus repudiandae rerum totam.
-                    </p>
-                </div>
+
             </div>
         </div>
-    </div>
+</div>
 {% endblock content %}
