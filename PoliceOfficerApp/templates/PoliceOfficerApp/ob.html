@@ -1,6 +1,6 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
-<h2 class="text-center"><a  href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> |  OB </h2>
+<h2 class="text-center"><a class="text-blue-500" href="{% url 'PoliceOfficerApp:CrimesDisplay' %}"> View Crimes </a> |<a  href="#">  OB </a></h2>
 
 <div class="flex justify-center">
     <div class="my-2 mx-20 w-full rounded-lg flex flex-row">
@@ -19,6 +19,7 @@
                     <hr class="text-black border-2 border-black my-4">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                           <input type="hidden" name="crimeID" value="{{CrimesDisplay.id}}">
                         <div class="flex flex-row justify-around w-full">
                             <div class="w-5/12 flex flex-col">
                                 <div class="form-group w-full flex flex-row my-2 justify-between">
@@ -30,7 +31,7 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="id" name="id" value=" {{CrimesDisplay.id}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="id" name="id" value=" {{CrimesDisplay.id}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
 
                                 </div>
@@ -41,7 +42,7 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="crimeDescription" name="crimeDescription" value="{{CrimesDisplay.description}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="crimeDescription" name="crimeDescription" value="{{CrimesDisplay.description}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +54,7 @@
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="crimeName" name="crimeName" value="   {{CrimesDisplay.crimeName}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="crimeName" name="crimeName" value="   {{CrimesDisplay.crimeID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
 
                                     </div>
@@ -64,7 +65,7 @@
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="citizenName" name="citizenName" value=" {{CrimesDisplay.citizenName}}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="citizenName" name="citizenName" value=" {{CrimesDisplay.citizenID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
 
                                     </div>
@@ -140,4 +141,5 @@
             </div>
         </div>
 </div>
+
 {% endblock content %}

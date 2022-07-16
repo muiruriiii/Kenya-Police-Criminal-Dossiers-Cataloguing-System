@@ -73,7 +73,7 @@ def CriminalEdit(request, id):
     else:
         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
 
-def ob(request, id):
+def obDisplay(request, id):
     CrimesDisplay = CrimeModel.objects.get(id=id)
     # if request.method == 'POST':
     #     if request.POST.get('crimeID') and \
@@ -103,7 +103,7 @@ def ob(request, id):
     # else:
     #     return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
     #
-    return render(request, 'PoliceOfficerApp/ob.html')
+    return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
 
 def OfficerEdit(request, id):
     officer = OfficerModel.objects.get(id=id)
