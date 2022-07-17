@@ -3,11 +3,14 @@ import json
 from django.db import models
 
 
-# class OB(models.Model):
-#     file = models.FileField(max_length=400)
-#
-#     class Meta:
-#         db_table = "tbl_ob"
+
+class Evidence(models.Model):
+    description = models.CharField(max_length=400)
+    evidenceFiles = models.ImageField()
+    Form=models.ImageField()
+
+    class Meta:
+        db_table = "tbl_evidence"
 
 
 class CrimeList(models.Model):

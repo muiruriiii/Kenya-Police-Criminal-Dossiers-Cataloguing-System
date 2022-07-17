@@ -1,31 +1,74 @@
 
 {% extends "records/base.html" %}
 {% block content %}
-     <h2 style="text-align:center";>Add Evidence </h2>
-     <small style="text-align:center";>Welcome Back!Please fill in the details</small>
- <form action="" method="post">
-     {% csrf_token %}
-        <div class="inputContainer">
-            <label for="" class="label">National ID</label>
-            <input type="text" name="email" class="input" placeholder="Enter Your National ID" required>
+
+<div class="flex justify-center rounded-md ml-80">
+    <div class="my-20 mx-20 w-full rounded-md flex flex-row">
+        <div class="w-2/3 p-4 bg-gray-100 rounded-md">
+            <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
+                <div class="flex flex-col my-10">
+                    <div class="flex flex-col">
+                        <span class="text-4xl">
+                            Welcome to the Evidence Portal
+                        </span>
+                        <span class="text-sm text-gray-600">
+                            Fill in the form below, and we shall get back to you as soon as possible.
+                        </span>
+                    </div>
+                </div>
+                <form action="" method="POST" class="flex flex-col w-full" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-label">
+                             <label for="statement" class="text-base my-2">
+                                   Record A statement
+                                </label>
+
+                            </div>
+
+                            <div class="form-input my-2">
+<textarea id="statement" name="description" rows="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2"></textarea>
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    Be as descriptive as possible when explaining the statement. Include place, time and people involved.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-input my-2">
+                                <input type="file" name="Form" id="Form" >
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    Upload the form that you downloaded and filled in e.g abstract,p3,accident abstract
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group w-full flex flex-col my-2">
+                            <div class="form-input my-2">
+                                <input type="file" name="evidenceFiles" id="evidenceFiles" accept="image/*, video/*" multiple="multiple">
+                            </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
+                                    You can upload any images, videos or files related to the crime you are reporting.
+                                </span>
+                            </div>
+                        </div>
+
+                    {% if url %}
+<p> View Your Uploaded File: <a class="text-blue-700" target="_blank" href="{{ url }}">{{ url }}</a></p>
+{% endif %}
+ <button name="uploadevidence" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
+                            Upload
+ </button>
+
+
+                          </form>
+            </div>
         </div>
-<br>
-        <div class="inputContainer">
-          <label for="" class="label">Evidence Description</label>
-          <input type="text" name="text"  id="myInput" class="input" placeholder="Give more details on the evidence" required>
-        </div>
-      <span>
-        <div class="inputContainer">
-          <label for="" class="label">Upload Images</label>
-          <input type="file" name="file"  id="file" class="file">
-        </div>
-    
-           <div class="inputContainer">
-          <label for="" class="label">Additional Files</label>
-          <input type="file" name="file"  id="file" class="file">
-        </div>
-          <span>
-      <br>
-<button>Submit</button>
+
+    </div>
+</div>
 
 {% endblock content %}

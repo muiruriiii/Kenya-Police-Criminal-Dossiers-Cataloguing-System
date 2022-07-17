@@ -4,13 +4,47 @@ from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel, \
-    CrimeAnonymous as CrimeAnonymousModel
+    CrimeAnonymous as CrimeAnonymousModel, Evidence as EvidenceModel
 from django.shortcuts import render
 
 
 
 def evidence(request):
-    return render(request, 'records/evidence.html', {'title': 'Evidence'})
+    context = {}
+    if request.method == 'POST':
+       if  request.FILES['evidenceFiles'] and request.FILES['Form']  and request.POST.get('description') :
+
+           fileStorage = FileSystemStorage()
+           evidenceFiles = request.FILES['evidenceFiles']
+           Form = request.FILES['Form']
+           saverecord = EvidenceModel()
+           saverecord.description = request.POST.get('description')
+
+
+           try:
+               saverecord.save()
+               id = saverecord.pk
+               name = 'evidence-%s%s' % (id, '.jpg')
+               name2 = 'form-%s%s' % (id, '.pdf')
+
+               display = fileStorage.save('%s' % name, evidenceFiles)
+               context['url']=fileStorage.url(display)
+
+
+               saverecord.evidenceFiles = name
+               saverecord.Form = name2
+               saverecord.save()
+           except IntegrityError as e:
+               messages.error(request, e)
+               return render(request, 'records/evidence.html',context)
+           else:
+               messages.success(request, 'Evidence Uploaded Successfully...!')
+               return render(request, 'records/evidence.html', context)
+       else:
+           messages.error(request, 'Upload Not Successful...')
+           return render(request, 'records/evidence.html',context)
+    else:
+           return render(request, 'records/evidence.html', context)
 
 
 def CrimeListDisplay(request):
