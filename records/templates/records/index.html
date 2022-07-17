@@ -28,39 +28,56 @@ in the details of a case into the system which will be stored in the database.
             </div>
         </div>
         <hr class="my-14">
-        <div class="underline text-center text-xl md:text-4xl my-10">
+        <div class=" text-center text-xl md:text-4xl my-10">
             <span>
-                Help keep your country safe!
+               OUR SERVICES
             </span>
         </div>
-        <div class="action-btn flex flex-col md:flex-row justify-around">
-            <div class="w-full my-2 md:w-1/4 px-4">
-                <button class="bg-purple-700 w-full text-white p-2 rounded text-lg md:text-xl">
-                 <a href="{% url 'crimereport' %}">
-                    Report Crime
-                 </a>
-                </button>
-            </div>
-            <div class="w-full my-2 md:w-1/4 px-4">
-                <button class="bg-purple-700 w-full text-white p-2 rounded text-lg md:text-xl">
-                     <a href="{% url 'casetracking' %}">
-                        Track Case
-                      </a>
-                </button>
-            </div>
-            <div class="w-full my-2 md:w-1/4 px-4">
-                <button class="bg-purple-700 w-full text-white p-2 rounded text-lg md:text-xl">
-                    Record Statement
-                </button>
-            </div>
-            <div class="w-full my-2 md:w-1/4 px-4">
-                <button class="bg-purple-700 w-full text-white p-2 rounded text-lg md:text-xl">
-                      <a href="{% url 'issueforms' %}">
-                    Request Form
-                           </a>
-                </button>
-            </div>
+        <div class="action-btn flex flex-col md:flex-row justify-around flex flex-wrap ">
+         <div class="p-6 ml-40 mb-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Report Crime</h5>
+
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Now you have the priviledge to report a crime online instead of having to go to the police station to report the crime.In this application, you have the ability to report a crime anonymously as well. You are required to provide as much information as you can, regarding the incident including images or any audios and videos.</p>
+    <a href="{% url 'crimereport' %}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Click Here to Report A Crime
+        <svg aria-hidden="true" class="ml-3 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</div>
+
+                  <div class="p-10 mr-40 mb-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Download Forms</h5>
+
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">This portal enables the complainant to get the required form based on their case. There are 3 types of forms;abstract,accident abstract and p3. </p>
+    <a href="{% url 'issueforms' %}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+       Click Here to Get A Form
+        <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</div>
+                   <div class="p-6 ml-40 mb-10  max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Statements and Evidence </h5>
+
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">This portal enables the complainants and witnesses to record their statements and upload evidence. They have the ability to upload any files that can be of help in the investigation of the case.</p>
+    <a href="{% url 'evidence'%}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+         Click Here to Record A Statement
+        <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</div>
+
+           <div class="p-6 mb-10 mr-40 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Track Case</h5>
+
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">This portal gives the complainant an opportunity to track the progress of one's case after having it reported. They are able to view the details of their case;the officer that was assigned to their case, the evidence files as well as their OB number. </p>
+    <a href="{% url 'casetracking' %}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Click Here to Track Your Case
+        <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</div>
         </div>
+        <hr class="my-14">
         <br class="mt-14  mb-8">
         <div class="mission-vision-motto-container flex flex-col md:flex-row justify-around w-full mx-2">
             <div class="vision md:w-1/4 md:h-100 relative card">

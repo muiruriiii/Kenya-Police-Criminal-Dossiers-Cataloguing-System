@@ -8,6 +8,7 @@ from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel,
 from django.shortcuts import render
 
 
+
 def evidence(request):
     return render(request, 'records/evidence.html', {'title': 'Evidence'})
 
@@ -134,3 +135,4 @@ def dashboard(request):
 
 def landingpage(request):
     return render(request, 'records/index.html', {'title': 'Landing Page', 'pageId': 8})
+

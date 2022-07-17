@@ -1,24 +1,48 @@
 {% extends "records/base.html" %}
 {% block content %}
-     <h2 style="text-align:center";>Welcome Back</h2>
-     <small style="text-align:center";>Welcome Back!Please fill in your details</small>
- <form method="post">
-        <div class="inputContainer">
-        	<label for="nationalID" class="label">National ID</label>
-            <input type="text" name="nationalID" id="nationalID" class="text" placeholder="Enter their National ID" required>
-        </div>
-<br>
-   <div class="inputContainer">
-           <label for="forms">Form:</label>
+{% load static %}
+<p class="text-center italic font-bold "> Download the appropriate form based on your case.</p>
+<p class="text-center italic font-bold ">Fill in the form.</p>
+<p class="text-center italic font-bold "> Upload the form in the statements and evidence portal.</p>
+<p class="text-center text-blue-700 italic font-bold "> <a href="{% url 'evidence'%}">  Click Here To upload the form </a></p>
+<div class="flow-root">
+          <div class="p-6 max-w-sm bg-white float-left ml-40 mt-12 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 
-<select name="forms" id="forms">
-  <option value="p3">p3</option>
-     <option value="accident abstract">Accident Abstract</option>
-  <option value="abstract">Abstract</option>
-</select>
-        </div>
-<br>
+        <h5 class="mb-2 text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">P3</h5>
 
-       <button>Submit</button>
-</form>
+    <p class="mb-3 font-normal text-gray-700 text-center dark:text-gray-400">  A P3 form is used to request for medical examination by a Medical Officer of Health, in order to determine the nature and extent of the bodily injury sustained by a complainant(s) in assault cases. The P3 form is filled out by the police officer assigned to the case indicating details of the complainant or suspects. The form should also be filled by a registered medical officer after a full body checkup has been carried out. </p>
+</div>
+
+<a href="{% static 'media/P3.pdf' %}" class="inline-flex items-center py-2 px-3 float-right ml-20 mt-40 mr-60 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" download>
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+  <span>Click Here to Download the P3 Form</span>
+</a>
+</div>
+
+<div class="flow-root">
+         <div class="p-6 max-w-sm bg-white float-right ml-20 my-0 mr-40 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">Abstract</h5>
+
+    <p class="mb-3 font-normal text-gray-700 text-center dark:text-gray-400">A police abstract is a document or form that is issued by the National Police Service, as proof of a complaint or case involving a particular crime such as theft or loss of property such as household items, identification card,driving license. </p>
+</div>
+<a  href="{% static 'media/Abstract Form.pdf' %}" class="inline-flex items-center py-2 px-3 float-left ml-60 mt-20  text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" download>
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+  <span>Click Here to Download the Abstract Form</span>
+</a>
+</div>
+
+<div class="relative">
+      <div class="p-6 max-w-sm bg-white float-left ml-40 mt-12 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+        <h5 class="mb-2 text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">Accident Abstract</h5>
+
+    <p class="mb-3 font-normal text-gray-700 text-center dark:text-gray-400">An accident abstract is a document or form that is issued by the National Police Service, as proof of a complaint or case involving an accident. Immediately after an accident, you are required to report the case thereafter an accident abstract form is issued.</p>
+</div>
+<a  href="{% static 'media/Accident Abstract Form.pdf' %}" class="inline-flex items-center py-2 px-3 float-right ml-20 mt-40 mr-40 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" download>
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+  <span>Click Here to Download the Accident Abstract Form</span>
+</a>
+    </div>
+
 {% endblock content %}

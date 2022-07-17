@@ -40,6 +40,4 @@ urlpatterns = [
     path('',record_views.landingpage, name='index'),
     path('citizen/', include('CitizenApp.urls'), name='citizen'),
     path('policeofficer/', include('PoliceOfficerApp.urls'), name='policeofficer')
-]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
