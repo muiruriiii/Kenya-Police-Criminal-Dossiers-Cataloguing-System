@@ -40,8 +40,16 @@
                    <td class="px-6 py-4">
                     {{CrimesDisplay.citizenName}}
                 </td>
-                    <td class="px-6 py-4">
-                        <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ob' CrimesDisplay.id %}"> Generate OB </a>
+                <td class="px-6 py-4">
+                    {% if CrimesDisplay.obNumber == 0 %}
+                        <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ob' CrimesDisplay.id %}">
+                            Generate OB
+                        </a>
+                    {% else %}
+                        <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ViewOB' CrimesDisplay.obNumber %}">
+                            View OB
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

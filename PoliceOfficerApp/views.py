@@ -6,10 +6,9 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
-
-from .forms import EditForm
 from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
 from django.core.files.storage import FileSystemStorage
+
 
 def addCrimes(request):
     if request.method == 'POST':
@@ -85,6 +84,8 @@ def obDisplay(request, id):
                     ob.obNo = obNumber
                     ob.file = None
                     ob.save()
+                    CrimesDisplay.hasOB = obID
+                    CrimesDisplay.save()
                     messages.success(request, 'OB has been successfully generated')
                     return redirect('PoliceOfficerApp:CrimesDisplay')
                 except Exception as e:
@@ -115,13 +116,34 @@ def obDisplay(request, id):
                     documentsSet.append(uploadedFileName)
                 ob.file = json.dumps(documentsSet)
                 ob.save()
-                messages.success(request,'OB has been successfully generated')
+                #Change the crime record attribute 'hasOB' to True
+                CrimesDisplay.hasOB = obID
+                CrimesDisplay.save()
+                messages.success(request, 'OB has been successfully generated')
                 return redirect('PoliceOfficerApp:CrimesDisplay')
         else:
             messages.error(request, 'An error has been encountered. Contact the Administrator.')
             return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
     else:
         return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
+
+
+def ViewOB(request, id):
+    ob = OBModel.objects.get(id=id)
+    obID = ob.pk
+    citizenID = ob.citizenID
+    crimeID = ob.crimeID
+    obNo = ob.obNo
+    actionTaken = ob.actionTaken
+    global files
+    files = []
+    for file in json.loads(ob.file):
+        files.append(file)
+    officerID = ob.officerID
+    createDate = ob.createDate
+    obDict = {'obID':obID,'citizenID': citizenID,'crimeID': crimeID,'obNo': obNo,'actionTaken': actionTaken,'officerID': officerID,'createDate': createDate,'files': files}
+    return render(request, 'PoliceOfficerApp/viewOB.html',{'ob': obDict, 'title':'View OB'})
+
 
 def OfficerEdit(request, id):
     officer = OfficerModel.objects.get(id=id)
@@ -315,7 +337,7 @@ def CrimesDisplay(request):
             crimeID = crime.crimeID
             crimelist = CrimeListModel.objects.get(crimeID=crimeID)
             crimeName = crimelist.crimeName
-            crimesreported={'id' : crime.pk, 'description' : crime.description,'citizenName':citizenName,'crimeName':crimeName}
+            crimesreported={'id': crime.pk, 'description': crime.description, 'citizenName': citizenName, 'crimeName': crimeName, 'obNumber': crime.hasOB}
             crime_list.append(crimesreported)
             #crimeReportID,crimeDescription, crimeName, citizenName
         context = {'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}

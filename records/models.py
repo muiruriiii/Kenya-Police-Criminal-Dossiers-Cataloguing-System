@@ -4,13 +4,14 @@ from django.db import models
 
 
 class OB(models.Model):
-    citizenID=models.IntegerField()
-    crimeID=models.IntegerField()
-    obNo= models.CharField(max_length=30)
+    citizenID = models.IntegerField()
+    crimeID = models.IntegerField()
+    obNo = models.CharField(max_length=30)
     reportDate = models.DateTimeField()
-    actionTaken=models.CharField(max_length=200)
-    file=models.FileField()
-    officerID=models.IntegerField()
+    actionTaken = models.CharField(max_length=200)
+    file = models.JSONField()
+    officerID = models.IntegerField()
+    createDate = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_ob"
@@ -38,10 +39,21 @@ class Crime(models.Model):
     crimeID = models.IntegerField()
     citizenID = models.IntegerField(default=0)
     reportTime = models.DateTimeField(auto_now_add=True)
+    hasOB = models.IntegerField()
 
     class Meta:
         db_table = "tbl_crime_report"
 
+
+class CrimeAnonymous(models.Model):
+    description = models.CharField(max_length=400)
+    crimeID = models.IntegerField()
+    citizenID = models.IntegerField(default=0)
+    reportTime = models.DateTimeField(auto_now_add=True)
+    hasOB = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "tbl_crime_report"
 
 class CrimeAnonymous(models.Model):
     description = models.CharField(max_length=400)

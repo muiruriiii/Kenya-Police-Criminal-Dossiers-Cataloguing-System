@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('login/', officer_views.login, name='OfficerLogin'),
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),
+    path('viewOB/<int:id>', officer_views.ViewOB, name='ViewOB'),
     # path('upload/', officer_views.upload, name='upload'),
     path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
 
