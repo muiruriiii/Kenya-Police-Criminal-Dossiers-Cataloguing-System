@@ -13,6 +13,8 @@ urlpatterns = [
     path('criminalbooking/', officer_views.criminalbooking, name='criminalbooking'),
     path('CriminalsDisplay/', officer_views.CriminalsDisplay, name='CriminalsDisplay'),
     path('CrimeListDisplay/', officer_views.CrimeListDisplay, name='CrimeListDisplay'),
+    path('PoliceStation/', officer_views.PoliceStation, name='PoliceStation'),
+    path('ViewStations/', officer_views.ViewStations, name='ViewStations'),
 
     path('login/', officer_views.login, name='OfficerLogin'),
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),

@@ -52,9 +52,11 @@
         <td class="px-6 py-4">
             {{ob.actionTaken}}
         </td>
-        <td>
+        <td class="flex flex-col py-2">
             {% for file in ob.files %}
-                <a href="{{ MEDIA_URL }}/{{file}}" class="text-blue-500">{{file}}</a>
+                <span class="underline">
+                    <a href="{{ MEDIA_URL }}/{{file}}" class="text-blue-500">{{file}}</a>
+                </span>
             {% endfor %}
         </td>
         <td class="px-6 py-4">

@@ -2,31 +2,6 @@
 {% block content %}
 <h2 class="text-center"><a href="{% url 'PoliceOfficerApp:criminalbooking' %}"> Book A Criminal </a> | <a class="text-blue-500" href="{% url 'PoliceOfficerApp:CriminalsDisplay' %}"> View Criminals </a></h2>
 
-<!--error/success message block area-->
-
-{% if messages %}
-    {% for message in messages%}
-        {% if message.tags == 'error' %}
-            <div class="flex justify-center">
-                <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
-                    <span>
-                        {{message}}
-                    </span>
-                </div>
-            </div>
-        {% else %}
-            <div class="flex justify-center">
-                <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
-                    <span>
-                        {{message}}
-                    </span>
-                </div>
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif%}
-
-<!--Form area for booking the criminal-->
 
 <div class="flex justify-center">
     <div class="my-2 mx-20 w-full rounded-lg flex flex-row">

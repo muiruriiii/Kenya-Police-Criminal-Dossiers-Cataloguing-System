@@ -17,6 +17,17 @@ class OB(models.Model):
         db_table = "tbl_ob"
 
 
+class PoliceStation(models.Model):
+    location = models.CharField(max_length=100)
+    officersCount = models.IntegerField(default=0)
+    address = models.CharField(max_length=100)
+    ocsID = models.IntegerField()
+    stationNumber = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'tbl_station'
+
+
 class Evidence(models.Model):
     description = models.CharField(max_length=400)
     evidenceFiles = models.ImageField()

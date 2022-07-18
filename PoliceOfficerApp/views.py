@@ -6,8 +6,31 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
-from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
+from records.models import Officer as OfficerModel,PoliceStation as PoliceStationModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
 from django.core.files.storage import FileSystemStorage
+
+
+def PoliceStation(request):
+    if request.method == "POST":
+        if request.POST.get('statLocation') and request.POST.get('statAddress'):
+            policeStation = PoliceStationModel(location=request.POST.get('statLocation'),
+                                               address=request.POST.get('statAddress'),
+                                               ocsID=request.session['officerID'])
+            policeStation.save()
+            stationID = policeStation.pk
+            currentDate = datetime.now()
+            stationNumber = '%s-%s-%s' % (stationID, policeStation.location, currentDate)
+            policeStation.stationNumber = stationNumber
+            policeStation.save()
+            messages.success(request, 'Police Station has been added.')
+            return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station", 'pageID':8})
+    else:
+        return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station"})
+
+
+def ViewStations(request):
+    station = PoliceStationModel.objects.all()
+    return render(request, 'PoliceOfficerApp/viewStations.html', {'title': 'View Police Stations','stations':station})
 
 
 def addCrimes(request):
@@ -63,6 +86,7 @@ def CriminalEdit(request, id):
             return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
     else:
         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
+
 
 def obDisplay(request, id):
     CrimesDisplay = CrimeModel.objects.get(id=id)
@@ -207,6 +231,7 @@ def OfficerRegister(request):
     else:
         return render(request, 'PoliceOfficerApp/OfficerRegister.html', {'title': 'Police Officer Register'})
 
+
 def criminalbooking(request):
     if request.method == 'POST':
         if request.POST.get('criminalFName') and\
@@ -244,6 +269,7 @@ def criminalbooking(request):
     else:
         return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking'})
 
+
 def login(request):
     if 'citizenID' in request.session:
         del request.session['citizenID']
@@ -279,8 +305,6 @@ def OfficerLogout(request):
         return redirect('PoliceOfficerApp:OfficerLogin')
 
 
-
-
 def index(request):
     if 'officerID' not in request.session:
         return redirect('PoliceOfficerApp:OfficerLogin')
@@ -296,6 +320,7 @@ def OfficersDisplay(request):
         context = {'officers': officers, 'pageID': 2, 'title': 'List of Officers'}
         return render(request, 'PoliceOfficerApp/OfficersDisplay.html', context)
 
+
 def CitizensDisplay(request):
     if 'officerID' not in request.session:
         return redirect('PoliceOfficerApp:OfficerLogin')
@@ -303,6 +328,7 @@ def CitizensDisplay(request):
         citizens = CitizenModel.objects.all()
         context = {'citizens': citizens, 'pageID': 3, 'title': 'Citizen Display'}
         return render(request, 'PoliceOfficerApp/CitizensDisplay.html', context)
+
 
 def CriminalsDisplay(request):
     if 'officerID' not in request.session:
@@ -342,6 +368,7 @@ def CrimesDisplay(request):
             #crimeReportID,crimeDescription, crimeName, citizenName
         context = {'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}
         return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
+
 
 def OfficerProfile(request):
     if 'officerID' not in request.session:
