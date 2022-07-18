@@ -31,7 +31,7 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="id" name="id" value=" {{CrimesDisplay.id}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="id" name="id" value="{{CrimesDisplay.id}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
 
                                 </div>
@@ -49,23 +49,23 @@
                                 <div class="form-group w-full flex flex-row my-2 justify-between">
                                     <div class="w-1/2 mr-2 ">
                                         <div class="form-label">
-                                            <label for="crimeName" class="text-base my-2">
-                                               Crime Name
+                                            <label for="crimeID" class="text-base my-2">
+                                               Crime ID
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="crimeName" name="crimeName" value="   {{CrimesDisplay.crimeID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="crimeID" name="crimeID" value="{{CrimesDisplay.crimeID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
 
                                     </div>
                                     <div class="ml-2 w-1/2">
                                         <div class="form-label">
-                                            <label for="citizenName" class="text-base my-2">
-                                               Citizen Name
+                                            <label for="citizenID" class="text-base my-2">
+                                               Citizen ID
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="citizenName" name="citizenName" value=" {{CrimesDisplay.citizenID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="citizenID" name="citizenID" value="{{CrimesDisplay.citizenID}}" readonly required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
 
                                     </div>
@@ -77,7 +77,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <input type="text" id="obAction" name="obAction"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="text" id="obAction" name="obAction" required  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                             <div class="text-xs">
                                 <span class="text-gray-700">
@@ -85,33 +85,21 @@
                                 </span>
                             </div>
                         </div>
-
                         <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
-                                <label for="obNo" class="text-base my-2">
-                                   OB No
+                                <label for="reportDate" class="text-base my-2">
+                                   Report Date
                                 </label>
                             </div>
-                            <div class="form-input my-2">
-                                <input type="text" id="obNo" name="obNo"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                            <div class="form-input my-2 flex">
+                                <input type="datetime-local" id="reportDate" name="reportDate"  value="{{CrimesDisplay.reportTime.year}}-{% if CrimesDisplay.reportTime.month < 10 %}0{{CrimesDisplay.reportTime.month}}{% else %}{{CrimesDisplay.reportTime.month}}{% endif %}-{% if CrimesDisplay.reportTime.day < 10 %}0{{CrimesDisplay.reportTime.day}}{% else %}{{CrimesDisplay.reportTime.day}}{% endif %}T{% if CrimesDisplay.reportTime.hour < 10 %}0{{CrimesDisplay.reportTime.hour}}{% else %}{{CrimesDisplay.reportTime.hour}}{% endif %}:{% if CrimesDisplay.reportTime.minute < 10 %}0{{CrimesDisplay.reportTime.minute}}{% else %}{{CrimesDisplay.reportTime.minute}}{% endif %}" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
+                            <div class="text-xs">
+                                <span class="text-gray-700">
 
+                                </span>
+                            </div>
                         </div>
-                                <div class="form-group w-full flex flex-col my-2">
-                                    <div class="form-label">
-                                        <label for="reportDate" class="text-base my-2">
-                                           Report Date
-                                        </label>
-                                    </div>
-                                    <div class="form-input my-2 flex">
-                                        <input type="datetime-local" id="reportDate" name="reportDate"  value="2022-07-05T11:11" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                    </div>
-                                    <div class="text-xs">
-                                        <span class="text-gray-700">
-
-                                        </span>
-                                    </div>
-                                </div>
                             <div class="form-group w-full flex flex-col my-2">
                             <div class="form-label">
                                 <label for="form" class="text-base my-2">
@@ -119,7 +107,7 @@
                                 </label>
                             </div>
                             <div class="form-input my-2">
-                                <input type="file" id="form" name="document"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                <input type="file" id="form" name="document" multiple="multiple" accept="image/*, application/pdf"  class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                             </div>
                             <div class="text-xs">
                                 <span class="text-gray-700">

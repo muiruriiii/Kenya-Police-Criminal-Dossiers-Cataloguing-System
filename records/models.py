@@ -3,6 +3,18 @@ import json
 from django.db import models
 
 
+class OB(models.Model):
+    citizenID=models.IntegerField()
+    crimeID=models.IntegerField()
+    obNo= models.CharField(max_length=30)
+    reportDate = models.DateTimeField()
+    actionTaken=models.CharField(max_length=200)
+    file=models.FileField()
+    officerID=models.IntegerField()
+
+    class Meta:
+        db_table = "tbl_ob"
+
 
 class Evidence(models.Model):
     description = models.CharField(max_length=400)
@@ -25,6 +37,7 @@ class Crime(models.Model):
     description = models.CharField(max_length=400)
     crimeID = models.IntegerField()
     citizenID = models.IntegerField(default=0)
+    reportTime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_crime_report"
@@ -33,6 +46,7 @@ class Crime(models.Model):
 class CrimeAnonymous(models.Model):
     description = models.CharField(max_length=400)
     crimeID = models.IntegerField()
+    reportDate = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_crime_report_anonymous"

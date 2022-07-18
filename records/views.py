@@ -66,7 +66,6 @@ def CrimeListDisplay(request):
                         messages.success(request, 'Crime has been reported successfully!')
                         return render(request, "records/crimereport.html", {"crimelists": crimelist})
                 else:
-                    print(request.FILES.getlist('crimeFiles'))
                     crime = CrimeModel()
                     crime.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
                     crime.description = request.POST.get('crimeDescription')

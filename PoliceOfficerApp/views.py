@@ -1,23 +1,15 @@
+import json
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
+from django.utils.datastructures import MultiValueDictKeyError
+
 from .forms import EditForm
-from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel
+from records.models import Officer as OfficerModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
 from django.core.files.storage import FileSystemStorage
-
-
-
-# def upload(request):
-#     context = {}
-#     if request.method == 'POST':
-#         uploaded_file = request.FILES['document']
-#         fs = FileSystemStorage()
-#         name = fs.save(uploaded_file.name, uploaded_file)
-#         context['url'] = fs.url(name)
-#     return render(request,'PoliceOfficerApp/upload.html',context)
-
-
 
 def addCrimes(request):
     if request.method == 'POST':
@@ -75,35 +67,61 @@ def CriminalEdit(request, id):
 
 def obDisplay(request, id):
     CrimesDisplay = CrimeModel.objects.get(id=id)
-    # if request.method == 'POST':
-    #     if request.POST.get('crimeID') and \
-    #             request.POST.get('crimeDescription') and \
-    #             request.POST.get('crimeName') and \
-    #             request.POST.get('citizenName') and \
-    #             request.POST.get('obAction') and \
-    #             request.POST.get('obNo') and \
-    #             request.POST.get('reportDate'):
-    #
-    #         CrimesDisplay.id = request.POST.get('criminalFName')
-    #         CrimesDisplay.description = request.POST.get('criminalLName')
-    #         CrimesDisplay.crimeID = request.POST.get('criminalPhone')
-    #         CrimesDisplay.citizenID = request.POST.get('criminalAddress')
-    #
-    #
-    #         try:
-    #             CriminalsDisplay.save()
-    #         except Exception as e:
-    #             messages.error(request, e)
-    #             return render(request, 'PoliceOfficerApp/EditCriminal.html')
-    #         else:
-    #             messages.success(request, 'Criminal has been updated!')
-    #             return redirect('PoliceOfficerApp:CriminalsDisplay')
-    #     else:
-    #         return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
-    # else:
-    #     return render(request, 'PoliceOfficerApp/EditCriminal.html', {'CriminalsDisplay': CriminalsDisplay})
-    #
-    return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
+    if request.method == 'POST':
+        if request.POST.get('obAction') and request.POST.get('citizenID') and request.POST.get('crimeID'):
+            try:
+                filepath = request.FILES['document']
+            #This exception handles when there is no file uploaded
+            except MultiValueDictKeyError:
+                ob = OBModel(citizenID=request.POST.get('citizenID'),
+                             crimeID=request.POST.get('crimeID'),
+                             reportDate=request.POST.get('reportDate'),
+                             actionTaken=request.POST.get('obAction'),
+                             officerID=request.session['officerID'])
+                try:
+                    ob.save()
+                    obID = ob.pk
+                    obNumber = '%s/%s/%s' % (obID, datetime.now(), request.POST.get('citizenID'))
+                    ob.obNo = obNumber
+                    ob.file = None
+                    ob.save()
+                    messages.success(request, 'OB has been successfully generated')
+                    return redirect('PoliceOfficerApp:CrimesDisplay')
+                except Exception as e:
+                    messages.error(request, e)
+                    return redirect('PoliceOfficerApp:CrimesDisplay')
+            else:
+                fileStorage = FileSystemStorage()
+                ob = OBModel(citizenID=request.POST.get('citizenID'),
+                             crimeID=request.POST.get('crimeID'),
+                             reportDate=request.POST.get('reportDate'),
+                             actionTaken=request.POST.get('obAction'),
+                             officerID=request.session['officerID'])
+                ob.save()
+                obID = ob.pk
+                obNumber = '%s/%s/%s' % (obID, datetime.now(), request.POST.get('citizenID'))
+                ob.obNo = obNumber
+                ob.save()
+                document = request.FILES.getlist('document')
+                global documentsSet
+                documentsSet = []
+                documentCounter = 1
+                for doc in document:
+                    fileExtension= (doc.name).split(".",1)[1]
+                    obFileName = 'ob-%s-%d.%s' % (obID, documentCounter, fileExtension)
+                    documentCounter+=1
+                    fileUrl = fileStorage.save('%s' % obFileName, doc)
+                    uploadedFileName = ((fileStorage.url(fileUrl)).split("/", 2)[2])
+                    documentsSet.append(uploadedFileName)
+                ob.file = json.dumps(documentsSet)
+                ob.save()
+                messages.success(request,'OB has been successfully generated')
+                return redirect('PoliceOfficerApp:CrimesDisplay')
+        else:
+            messages.error(request, 'An error has been encountered. Contact the Administrator.')
+            return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
+    else:
+        return render(request, 'PoliceOfficerApp/ob.html', {'CrimesDisplay': CrimesDisplay})
 
 def OfficerEdit(request, id):
     officer = OfficerModel.objects.get(id=id)
@@ -299,7 +317,6 @@ def CrimesDisplay(request):
             crimeName = crimelist.crimeName
             crimesreported={'id' : crime.pk, 'description' : crime.description,'citizenName':citizenName,'crimeName':crimeName}
             crime_list.append(crimesreported)
-            print(crime_list)
             #crimeReportID,crimeDescription, crimeName, citizenName
         context = {'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}
         return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
