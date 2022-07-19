@@ -21,7 +21,7 @@ class OB(models.Model):
 class Case(models.Model):
     officerID = models.IntegerField()
     caseNumber = models.CharField(max_length=40)
-    caseStatus = models.CharField(max_length=20)
+    caseStatus = models.CharField(max_length=30)
     obID = models.IntegerField()
     generateDate = models.DateTimeField(auto_now_add=True)
     previousStation = models.IntegerField()
@@ -66,6 +66,7 @@ class Crime(models.Model):
     crimeID = models.IntegerField()
     citizenID = models.IntegerField(default=0)
     reportTime = models.DateTimeField(auto_now_add=True)
+    files = models.JSONField()
     hasOB = models.IntegerField()
 
     class Meta:
@@ -75,18 +76,9 @@ class Crime(models.Model):
 class CrimeAnonymous(models.Model):
     description = models.CharField(max_length=400)
     crimeID = models.IntegerField()
-    citizenID = models.IntegerField(default=0)
     reportTime = models.DateTimeField(auto_now_add=True)
+    files = models.JSONField()
     hasOB = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = "tbl_crime_report"
-
-
-class CrimeAnonymous(models.Model):
-    description = models.CharField(max_length=400)
-    crimeID = models.IntegerField()
-    reportTime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_crime_report_anonymous"

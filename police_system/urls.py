@@ -24,17 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('evidence/',record_views.evidence, name='evidence'),
     path('crimereport/', record_views.CrimeListDisplay, name='crimereport'),
-    path('casetracking/',record_views.casetracking, name='casetracking'),
-    #
-    # path("ViewRecords/", record_views.ViewRecords, name="ViewRecords"),
-    # path("record/", record_views.record, name="record"),
-    # path("record/detail/", record_views.record_detail, name="record_detail"),
-
-    #path('emailVerification/<uidb64>/<token>', record_views.activate, name='emailActivate'),
-
-
-    # path('casetransfer/', record_views.casetransfer, name='casetransfer'),
-    path('caseapproval/', record_views.caseapproval, name='caseapproval'),
     path('issueforms/', record_views.issueforms, name='issueforms'),
     path('signup/',record_views.signup, name='userSignUp'),
     path('',record_views.landingpage, name='index'),

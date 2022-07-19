@@ -1,8 +1,12 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError
 from django.shortcuts import redirect
+from django.utils.datastructures import MultiValueDictKeyError
+
 from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel, \
     CrimeAnonymous as CrimeAnonymousModel, Evidence as EvidenceModel
 from django.shortcuts import render
@@ -19,7 +23,6 @@ def evidence(request):
            Form = request.FILES['Form']
            saverecord = EvidenceModel()
            saverecord.description = request.POST.get('description')
-
 
            try:
                saverecord.save()
@@ -49,6 +52,9 @@ def evidence(request):
 
 def CrimeListDisplay(request):
     crimelist = CrimeListModel.objects.all()
+    global filesList, uploadedFiles
+    filesList = []
+    uploadedFiles = None
     if request.method == 'POST':
         if request.POST.get('crimeID') and request.POST.get('crimeDescription'):
             # Here we check if a citizen is logged in so that we can decide whether the crime has been reported anonymously or not.
@@ -59,54 +65,77 @@ def CrimeListDisplay(request):
                     crimeAnonymous.description = request.POST.get('crimeDescription')
                     try:
                         crimeAnonymous.save()
+                        fileStorage = FileSystemStorage()
+                        counter = 0
+                        for file in request.FILES.getlist('crimeFiles'):
+                            fileExtension = file.name.split(".", 1)[1]
+                            uploadedFileName = 'CRA-%s-%d.%s' % (crimeAnonymous.pk, counter, fileExtension)
+                            fileStorage.save('%s' % uploadedFileName, file)
+                            filesList.append(uploadedFileName)
+                            counter += 1
+                        jsonList = json.dumps(filesList)
+                        crimeAnonymous.files = jsonList
+                        crimeAnonymous.save()
                     except Exception as e:
                         messages.error(request, e)
                         return render(request, "records/crimereport.html", {"crimelists": crimelist})
                     else:
                         messages.success(request, 'Crime has been reported successfully!')
-                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
+                        return render(request, "records/crimereport.html",
+                                      {'title': 'Report Crime Portal', "crimelists": crimelist})
                 else:
                     crime = CrimeModel()
                     crime.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
                     crime.description = request.POST.get('crimeDescription')
-                    crime.citizenID = request.session['citizenID']
                     try:
+                        crime.save()
+                        fileStorage = FileSystemStorage()
+                        counter = 0
+                        for file in request.FILES.getlist('crimeFiles'):
+                            fileExtension = file.name.split(".", 1)[1]
+                            uploadedFileName = 'CRA-%s-%d.%s' % (crime.pk, counter, fileExtension)
+                            fileStorage.save('%s' % uploadedFileName, file)
+                            filesList.append(uploadedFileName)
+                            counter += 1
+                        jsonList = json.dumps(filesList)
+                        crime.files = jsonList
                         crime.save()
                     except Exception as e:
                         messages.error(request, e)
                         return render(request, "records/crimereport.html", {"crimelists": crimelist})
                     else:
                         messages.success(request, 'Crime has been reported successfully!')
-                        return render(request, "records/crimereport.html", {"crimelists": crimelist})
+                        return render(request, "records/crimereport.html",
+                                      {'title': 'Report Crime Portal', "crimelists": crimelist})
             else:
                 crimeAnonymous = CrimeAnonymousModel()
                 crimeAnonymous.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
                 crimeAnonymous.description = request.POST.get('crimeDescription')
                 try:
                     crimeAnonymous.save()
+                    fileStorage = FileSystemStorage()
+                    counter = 0
+                    for file in request.FILES.getlist('crimeFiles'):
+                        fileExtension = file.name.split(".", 1)[1]
+                        uploadedFileName = 'CRA-%s-%d.%s' % (crimeAnonymous.pk, counter , fileExtension)
+                        fileStorage.save('%s' % uploadedFileName, file)
+                        filesList.append(uploadedFileName)
+                        counter +=1
+                    jsonList = json.dumps(filesList)
+                    crimeAnonymous.files = jsonList
+                    crimeAnonymous.save()
                 except Exception as e:
                     messages.error(request, e)
-                    return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
+                    return render(request, "records/crimereport.html", {"crimelists": crimelist})
                 else:
                     messages.success(request, 'Crime has been reported successfully!')
-                    return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
+                    return render(request, "records/crimereport.html",
+                                  {'title': 'Report Crime Portal', "crimelists": crimelist})
         else:
             messages.error(request, 'An error has occurred')
             return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
     else:
         return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
-
-
-def casetracking(request):
-    return render(request, 'records/casetracking.html', {'title': 'Case Tracking '})
-
-
-def casetransfer(request):
-    return render(request, 'records/casetransfer.html', {'title': 'Case Transfer '})
-
-
-def caseapproval(request):
-    return render(request, 'records/caseapproval.html', {'title': 'Case Approval '})
 
 
 def issueforms(request):

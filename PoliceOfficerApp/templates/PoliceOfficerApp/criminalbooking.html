@@ -4,10 +4,10 @@
 
 
 <div class="flex justify-center">
-    <div class="my-2 mx-20 w-full rounded-lg flex flex-row">
+    <div class="mx-20 w-full rounded-lg flex flex-row">
             <div class="w-full p-4 bg-gray-100 rounded-l-lg">
                 <div class="form-container w-full m-auto flex flex-col justify-center my-2">
-                    <div class="flex flex-col my-4 text-center">
+                    <div class="flex flex-col my-2 text-center">
                         <div class="flex flex-col">
                             <span class="text-4xl">
                                 Criminal Booking
@@ -120,11 +120,15 @@
                                 <div class="form-group w-full flex flex-col my-2">
                                 <div class="form-label">
                                     <label for="crimeID" class="text-base my-2">
-                                        Crime Id
+                                        Crime Name
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                    <input type="text" id="crimeID" name="crimeID" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    <select name="crimeID" id="crimeID" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        {% for crime in crimes %}
+                                        <option value="{{crime.id}}">{{crime.description}}/{{crime.reportTime}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                                 <div class="text-xs">
                                     <span class="text-gray-700">
@@ -179,6 +183,16 @@
                                     <div class="text-xs">
                                         <span class="text-gray-700">
 
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group w-full flex flex-col my-2">
+                                    <div class="form-input my-2">
+                                        <input type="file" name="crimeFiles" id="crimeFiles" accept="image/*, video/*" multiple="multiple">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            You can upload any images, videos or files related to the crime you are reporting.
                                         </span>
                                     </div>
                                 </div>

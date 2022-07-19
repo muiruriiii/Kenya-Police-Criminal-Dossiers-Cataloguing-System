@@ -23,14 +23,14 @@ def PoliceStation(request):
             policeStation.stationNumber = stationNumber
             policeStation.save()
             messages.success(request, 'Police Station has been added.')
-            return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station", 'pageID':8})
+            return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station"})
     else:
-        return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station"})
+        return render(request, 'PoliceOfficerApp/addStation.html', {'title': "Police Station", 'pageID': 8})
 
 
 def ViewStations(request):
     station = PoliceStationModel.objects.all()
-    return render(request, 'PoliceOfficerApp/viewStations.html', {'title': 'View Police Stations','stations':station})
+    return render(request, 'PoliceOfficerApp/viewStations.html', {'title': 'View Police Stations', 'stations': station, 'pageID': 8})
 
 
 def ShowStation(request, id):
@@ -40,11 +40,44 @@ def ShowStation(request, id):
 
 def CaseIndex(request):
     ob = OBModel.objects.filter(hasCase=0).all()
-    cases = CaseModel.objects.all()
-    return render(request, 'Case/index.html', {'title': 'Case', 'obs': ob, 'cases': cases})
+    currentStation=request.session['officerStation']
+    cases = CaseModel.objects.filter(currentStation=currentStation).all()
+    return render(request, 'Case/index.html', {'title': 'Case', 'obs': ob, 'cases': cases, 'pageID': 9})
 
-def CaseTransfer(request):
-    return render(request, 'Case/casetransfer.html', {'title': 'Case Transfer'})
+
+def ApproveCase(request, id):
+    case = CaseModel.objects.get(id=id)
+    case.caseStatus = 'APPROVED'
+    try:
+        case.save()
+    except Exception as e:
+        messages.error(request, e)
+        return redirect('PoliceOfficerApp:CaseIndex')
+    else:
+        messages.success(request, "Case has been successfully approved.")
+        return redirect('PoliceOfficerApp:CaseIndex')
+
+
+def CaseTransfer(request, id):
+    case = CaseModel.objects.get(id=id)
+    stations = PoliceStationModel.objects.all()
+    if request.method == 'POST':
+        if request.POST.get('stationID'):
+            case.previousStation = case.currentStation
+            case.currentStation = request.POST.get('stationID')
+            try:
+                case.save()
+            except Exception as e:
+                messages.error(request, e)
+                return redirect('PoliceOfficerApp:CaseIndex')
+            else:
+                messages.success(request, "Case has been successfully transferred.")
+                return redirect('PoliceOfficerApp:CaseIndex')
+        else:
+            messages.error(request, 'An error has occurred. Please contact the administrator.')
+            return redirect('PoliceOfficerApp:CaseIndex')
+    else:
+        return render(request, 'Case/casetransfer.html', {'title': 'Case Transfer', 'case': case, 'stations': stations, 'pageID': 9})
 
 
 def GenerateCase(request, id):
@@ -70,10 +103,6 @@ def GenerateCase(request, id):
         return redirect('PoliceOfficerApp:CaseIndex')
 
 
-def ApproveCase(request, id):
-    return redirect('PoliceOfficerApp:CaseIndex')
-
-
 def addCrimes(request):
     if request.method == 'POST':
         if request.POST.get('crimeName'):
@@ -88,7 +117,7 @@ def addCrimes(request):
                 messages.success(request, 'Crime has been added successfully!')
                 return render(request, 'PoliceOfficerApp/addCrimes.html')
     else:
-        return render(request, 'PoliceOfficerApp/addCrimes.html', {'title': 'Crime Report'})
+        return render(request, 'PoliceOfficerApp/addCrimes.html', {'title': 'Crime Report', 'pageID': 5})
 
 
 # calls the EditCriminal page and the details of the row you want to CriminalEdit are prefilled
@@ -277,6 +306,7 @@ def OfficerRegister(request):
 
 
 def criminalbooking(request):
+    crimes = CrimeModel.objects.all()
     if request.method == 'POST':
         if request.POST.get('criminalFName') and\
                 request.POST.get('criminalLName') and\
@@ -303,15 +333,15 @@ def criminalbooking(request):
                 saverecord.save()
             except IntegrityError as e:
                 messages.error(request, "Criminal email is already in the system.")
-                return render(request, 'PoliceOfficerApp/criminalbooking.html')
+                return redirect('PoliceOfficerApp:criminalbooking')
             else:
                 messages.success(request, 'Criminal has been booked!')
-                return render(request, 'PoliceOfficerApp/criminalbooking.html')
+                return redirect('PoliceOfficerApp:criminalbooking')
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'PoliceOfficerApp/criminalbooking.html')
+            return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking','crimes': crimes, 'pageID': 4})
     else:
-        return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking'})
+        return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking','crimes': crimes, 'pageID': 4})
 
 
 def login(request):

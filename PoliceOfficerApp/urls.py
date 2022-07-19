@@ -19,9 +19,10 @@ urlpatterns = [
     path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
 
     path('case/', officer_views.CaseIndex, name='CaseIndex'),
-    path('casetransfer/', officer_views.CaseTransfer, name='CaseTransfer'),
 
+    path('casetransfer/<int:id>', officer_views.CaseTransfer, name='CaseTransfer'),
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),
+    path('approveCase/<int:id>', officer_views.ApproveCase, name='ApproveCase'),
     path('viewOB/<int:id>', officer_views.ViewOB, name='ViewOB'),
     path('showStation/<int:id>', officer_views.ShowStation, name='ShowStation'),
     path('generateCase/<int:id>', officer_views.GenerateCase, name='GenerateCase'),
