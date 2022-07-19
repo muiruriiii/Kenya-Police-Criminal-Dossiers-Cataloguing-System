@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
-from records.models import Officer as OfficerModel,PoliceStation as PoliceStationModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
+from records.models import Officer as OfficerModel, Case as CaseModel, PoliceStation as PoliceStationModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
 from django.core.files.storage import FileSystemStorage
 
 
@@ -31,6 +31,44 @@ def PoliceStation(request):
 def ViewStations(request):
     station = PoliceStationModel.objects.all()
     return render(request, 'PoliceOfficerApp/viewStations.html', {'title': 'View Police Stations','stations':station})
+
+
+def ShowStation(request, id):
+    station = PoliceStationModel.objects.get(id=id)
+    return render(request, 'PoliceOfficerApp/showStation.html', {'title': 'Show Station', 'station': station})
+
+
+def CaseIndex(request):
+    ob = OBModel.objects.filter(hasCase=0).all()
+    cases = CaseModel.objects.all()
+    return render(request, 'Case/index.html', {'title': 'Case', 'obs': ob, 'cases': cases})
+
+
+def GenerateCase(request, id):
+    case = CaseModel()
+    case.officerID = request.session['officerID']
+    case.obID = id
+    case.caseStatus = 'PENDING'
+    case.currentStation = request.session['officerStation']
+    ob = OBModel.objects.get(id=id)
+
+    try:
+        case.save()
+        currentDate = datetime.now()
+        case.caseNumber = '%s-%s-%s' % ('CSF', case.pk, currentDate)
+        case.save()
+        ob.hasCase = case.pk
+        ob.save()
+    except Exception as e:
+        messages.error(request, e)
+        return redirect('PoliceOfficerApp:CaseIndex')
+    else:
+        messages.success(request, 'Case successfully generated.')
+        return redirect('PoliceOfficerApp:CaseIndex')
+
+
+def ApproveCase(request, id):
+    return redirect('PoliceOfficerApp:CaseIndex')
 
 
 def addCrimes(request):
@@ -107,6 +145,7 @@ def obDisplay(request, id):
                     obNumber = '%s/%s/%s' % (obID, datetime.now(), request.POST.get('citizenID'))
                     ob.obNo = obNumber
                     ob.file = None
+                    ob.hasCase = 0
                     ob.save()
                     CrimesDisplay.hasOB = obID
                     CrimesDisplay.save()
@@ -126,6 +165,7 @@ def obDisplay(request, id):
                 obID = ob.pk
                 obNumber = '%s/%s/%s' % (obID, datetime.now(), request.POST.get('citizenID'))
                 ob.obNo = obNumber
+                ob.hasCase = 0
                 ob.save()
                 document = request.FILES.getlist('document')
                 global documentsSet
@@ -161,8 +201,9 @@ def ViewOB(request, id):
     actionTaken = ob.actionTaken
     global files
     files = []
-    for file in json.loads(ob.file):
-        files.append(file)
+    if ob.file is not None:
+        for file in json.loads(ob.file):
+            files.append(file)
     officerID = ob.officerID
     createDate = ob.createDate
     obDict = {'obID':obID,'citizenID': citizenID,'crimeID': crimeID,'obNo': obNo,'actionTaken': actionTaken,'officerID': officerID,'createDate': createDate,'files': files}
@@ -286,6 +327,7 @@ def login(request):
                 if check_password(loginPassword, officer.password):
                     # TODO create single variable that stores individual column of the citizen table.
                     request.session['officerID'] = officer.id
+                    request.session['officerStation'] = officer.stationID
                     request.session['officerName'] = officer.fName + ' ' + officer.lName
 
                     return redirect('PoliceOfficerApp:OfficerDashboard')

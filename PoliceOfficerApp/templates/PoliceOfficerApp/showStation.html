@@ -1,0 +1,138 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% load static %}
+{% block content %}
+<div class="main-container flex flex-row w-full p-2 bg-gray-200 overflow-y-scroll h-screen">
+    <div class="flex flex-col p-2 w-1/4 mr-1 bg-white rounded-l-lg overflow-y-auto">
+        <div class="profile-image p-1">
+            <img src="{% static 'station.jpg' %}" alt="{{station.location}} Police Station Image">
+        </div>
+        <div class="profile-details p-1 flex flex-col w-full">
+            <div class="w-full">
+                <span class="text-2xl font-bold">
+                    {{station.location}} Police Station
+                </span>
+            </div>
+            <div class="w-full">
+                <span class="text-base">
+                    {{station.stationNumber}}
+                </span>
+            </div>
+            <div class="w-full text-gray-500 hover:text-black transition-all">
+                <span class="text-base">
+                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam assumenda, dolorem eaque earum eveniet exercitationem illum ipsa, iste minima, nihil numquam officiis perferendis ratione sapiente soluta totam velit voluptates.
+                </span>
+            </div>
+            <div class="station-detail-group flex flex-row justify-between my-2 items-center">
+                        <span class="">
+                            Police Station Status
+                        </span>
+                        {% if station.stationStatus == 0 %}
+                            <span class="text-white p-2 rounded bg-green-500">
+                                Active
+                            </span>
+                        {% else %}
+                            <span class="text-white p-2 rounded bg-red-500">
+                                Inactive
+                            </span>
+                        {% endif %}
+                    </div>
+            <hr>
+            <div class="station-detail-group flex flex-row justify-between my-2">
+                <span class="">
+                    Establish Date
+                </span>
+                <span class="text-gray-700">
+                    {{station.establishDate}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-3/4 ml-1">
+        <div class="w-full bg-white h-1/2 mb-1 rounded-tr-lg flex flex-col station-details p-2">
+            <div class="flex flex-row justify-between">
+                <div class="header flex flex-row items-center">
+                    <div>
+<!--                        TODO add police station svg here-->
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-xl text-bold">
+                            Police Station Details.
+                        </span>
+                    </div>
+                    <div>
+<!--                        TODO add edit station svg here -->
+                    </div>
+                </div>
+            </div>
+            <div class="main-body flex flex-row my-3 gap-x-32">
+                <div class="flex-col w-1/2">
+                    <div class="station-detail-group w-full flex flex-row justify-between my-3">
+                        <div>
+                            <span class="">
+                                Station Number
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-gray-700">
+                                {{station.stationNumber}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="station-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Station Location
+                        </span>
+                        <span class="text-gray-700">
+                            {{station.location}}
+                        </span>
+                    </div>
+                    <div class="station-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Officers Count
+                        </span>
+                        <span class="text-gray-700">
+                            {{station.officersCount}}
+                        </span>
+                    </div>
+                    <div class="station-detail-group flex flex-row justify-between my-3">
+                        <span class="">
+                            Address
+                        </span>
+                        <span class="text-gray-700">
+                            {{station.address}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full bg-white h-1/2 mt-1 rounded-br-lg w-full flex flex-row gap-x-20 p-2">
+            <div class="flex flex-col">
+                <div>
+                    <span>
+                        Metrics
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        Cases in progress: 20
+                    </span>
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-col">
+                    <div>
+                        <span>
+                            Metrics
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            Cases in progress: 20
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

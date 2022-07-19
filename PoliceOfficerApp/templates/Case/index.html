@@ -1,0 +1,163 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+<h2 class="text-center"><a class="text-blue-500" href="#"> View Cases </a> </h2>
+
+<div class="relative m-2 flex flex-col h-full w-full gap-y-20">
+    <div class="flex flex-row w-full h-96 justify-between">
+        <div class="bg-white rounded w-5/12">
+            <div class="case-header text-center py-2">
+                <span class="text-xl">
+                    Available OBs
+                </span>
+            </div>
+            <div class="m-2">
+                <table class=" text-center w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th>
+                                OB Number
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ob in obs %}
+                        <tr class="border-b bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">
+                                {{ob.obNo}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{% url 'PoliceOfficerApp:GenerateCase' ob.id %}">
+                                    <button class="bg-blue-500 text-white p-2 rounded" name="generateCase">
+                                        Generate Case
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bg-white rounded w-5/12">
+            <div class="case-header text-center py-2">
+                <span class="text-xl">
+                    Available Cases
+                </span>
+            </div>
+            <div class="m-2">
+                <table class=" text-center w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th>
+                                Case Number
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for case in cases %}
+                        <tr class="border-b bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">
+                                {{case.caseNumber}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="">
+                                    <button class="bg-blue-500 text-white p-2 rounded" name="generateCase">
+                                        Transfer Case
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row w-full h-96 justify-between">
+        <div class="bg-white rounded w-5/12">
+            <div class="case-header text-center py-2">
+                <span class="text-xl">
+                    Pending Cases
+                </span>
+            </div>
+            <div class="m-2">
+                <table class=" text-center w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th>
+                                Case Number
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for case in cases %}
+                        {% if case.caseStatus == 'PENDING' %}
+                        <tr class="border-b bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">
+                                {{case.caseNumber}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="">
+                                    <button class="bg-blue-500 text-white p-2 rounded" name="generateCase">
+                                        Approve Case
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bg-white rounded w-5/12">
+            <div class="case-header text-center py-2">
+                <span class="text-xl">
+                    Approved Cases
+                </span>
+            </div>
+            <div class="m-2">
+                <table class=" text-center w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th>
+                                Case Number
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for case in cases %}
+                        {% if case.caseStatus == 'APPROVED' %}
+                        <tr class="border-b bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">
+                                {{case.caseNumber}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="">
+                                    <button class="bg-blue-500 text-white p-2 rounded" name="generateCase">
+                                        View Case
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

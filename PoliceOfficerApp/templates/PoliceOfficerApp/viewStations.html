@@ -71,6 +71,11 @@
                  <td class="px-6 py-4">
                     {{request.session.officerName}}
                 </td>
+                 <td class="px-6 py-4">
+                     <a href="{% url 'PoliceOfficerApp:ShowStation' station.id%}" class="text-blue-500 underline">
+                         View
+                     </a>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

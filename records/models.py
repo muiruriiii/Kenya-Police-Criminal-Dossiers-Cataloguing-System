@@ -12,9 +12,23 @@ class OB(models.Model):
     file = models.JSONField()
     officerID = models.IntegerField()
     createDate = models.DateTimeField(auto_now_add=True)
+    hasCase = models.IntegerField(default=0)
 
     class Meta:
         db_table = "tbl_ob"
+
+
+class Case(models.Model):
+    officerID = models.IntegerField()
+    caseNumber = models.CharField(max_length=40)
+    caseStatus = models.CharField(max_length=20)
+    obID = models.IntegerField()
+    generateDate = models.DateTimeField(auto_now_add=True)
+    previousStation = models.IntegerField()
+    currentStation = models.IntegerField()
+
+    class Meta:
+        db_table = "tbl_case"
 
 
 class PoliceStation(models.Model):
@@ -23,6 +37,8 @@ class PoliceStation(models.Model):
     address = models.CharField(max_length=100)
     ocsID = models.IntegerField()
     stationNumber = models.CharField(max_length=100)
+    stationStatus = models.BooleanField(default=False)
+    establishDate = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'tbl_station'
@@ -66,10 +82,11 @@ class CrimeAnonymous(models.Model):
     class Meta:
         db_table = "tbl_crime_report"
 
+
 class CrimeAnonymous(models.Model):
     description = models.CharField(max_length=400)
     crimeID = models.IntegerField()
-    reportDate = models.DateTimeField(auto_now_add=True)
+    reportTime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_crime_report_anonymous"
@@ -120,6 +137,7 @@ class Officer(models.Model):
     password = models.CharField(max_length=400)
     employmentStatus = models.BooleanField(default=False)
     employmentDate = models.DateTimeField()
+    stationID = models.IntegerField()
 
     class Meta:
         db_table = "tbl_police_officer"

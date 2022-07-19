@@ -86,15 +86,15 @@ def CrimeListDisplay(request):
                     crimeAnonymous.save()
                 except Exception as e:
                     messages.error(request, e)
-                    return render(request, "records/crimereport.html", {"crimelists": crimelist})
+                    return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
                 else:
                     messages.success(request, 'Crime has been reported successfully!')
-                    return render(request, "records/crimereport.html", {"crimelists": crimelist})
+                    return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
         else:
             messages.error(request, 'An error has occurred')
-            return render(request, "records/crimereport.html", {"crimelists": crimelist})
+            return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
     else:
-        return render(request, "records/crimereport.html", {"crimelists": crimelist})
+        return render(request, "records/crimereport.html", {'title': 'Report Crime Portal',"crimelists": crimelist})
 
 
 def casetracking(request):

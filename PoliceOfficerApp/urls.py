@@ -15,17 +15,19 @@ urlpatterns = [
     path('CrimeListDisplay/', officer_views.CrimeListDisplay, name='CrimeListDisplay'),
     path('PoliceStation/', officer_views.PoliceStation, name='PoliceStation'),
     path('ViewStations/', officer_views.ViewStations, name='ViewStations'),
-
     path('login/', officer_views.login, name='OfficerLogin'),
+    path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
+    path('case/', officer_views.CaseIndex, name='CaseIndex'),
+
+
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),
     path('viewOB/<int:id>', officer_views.ViewOB, name='ViewOB'),
-    # path('upload/', officer_views.upload, name='upload'),
-    path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
-
+    path('showStation/<int:id>', officer_views.ShowStation, name='ShowStation'),
+    path('generateCase/<int:id>', officer_views.GenerateCase, name='GenerateCase'),
     # CriminalEdit and update paths
     path('EditCriminal/<int:id>', officer_views.CriminalEdit, name='CriminalEdit'),
-
     path('EditOfficer/<int:id>', officer_views.OfficerEdit, name='OfficerEdit'),
+
     path('OfficerRegister/', officer_views.OfficerRegister, name='OfficerRegister'),
     path('logout/', officer_views.OfficerLogout, name='OfficerLogout')
 ]
