@@ -17,8 +17,9 @@ urlpatterns = [
     path('ViewStations/', officer_views.ViewStations, name='ViewStations'),
     path('login/', officer_views.login, name='OfficerLogin'),
     path('addCrimes/', officer_views.addCrimes, name='addCrimes'),
-    path('case/', officer_views.CaseIndex, name='CaseIndex'),
 
+    path('case/', officer_views.CaseIndex, name='CaseIndex'),
+    path('casetransfer/', officer_views.CaseTransfer, name='CaseTransfer'),
 
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),
     path('viewOB/<int:id>', officer_views.ViewOB, name='ViewOB'),

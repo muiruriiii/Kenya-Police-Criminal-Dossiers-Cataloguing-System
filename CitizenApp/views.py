@@ -34,7 +34,7 @@ def CitizenLogin(request):
                 # return render(request, 'records/CitizenLogin.html')
                 return redirect(landingpage)
             else:
-                messages.error(request, 'Passwords do not match')
+                messages.error(request, 'Invalid Password.Please Try Again...')
                 return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
     else:
         return render(request, 'records/CitizenLogin.html', {'title': 'Login'})

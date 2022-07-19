@@ -43,6 +43,9 @@ def CaseIndex(request):
     cases = CaseModel.objects.all()
     return render(request, 'Case/index.html', {'title': 'Case', 'obs': ob, 'cases': cases})
 
+def CaseTransfer(request):
+    return render(request, 'Case/casetransfer.html', {'title': 'Case Transfer'})
+
 
 def GenerateCase(request, id):
     case = CaseModel()
@@ -152,7 +155,7 @@ def obDisplay(request, id):
                     messages.success(request, 'OB has been successfully generated')
                     return redirect('PoliceOfficerApp:CrimesDisplay')
                 except Exception as e:
-                    messages.error(request, e)
+                    messages.error(request, 'Kindly,fill in all the details')
                     return redirect('PoliceOfficerApp:CrimesDisplay')
             else:
                 fileStorage = FileSystemStorage()

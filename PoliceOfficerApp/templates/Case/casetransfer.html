@@ -1,0 +1,75 @@
+{% extends "PoliceOfficerApp/base.html" %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages%}
+            {% if message.tags == 'error' %}
+                <div class="flex justify-center">
+                    <div class="p-4 m-4 bg-red-300 w-2/3 text-red-800 rounded border-red-600 border-2">
+                        <span>
+                            {{message}}
+                        </span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="flex justify-center">
+                    <div class="p-4 m-4 bg-green-300 w-2/3 text-green-800 rounded border-green-600 border-2">
+                        <span>
+                            {{message}}
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif%}
+
+    <div class="flex justify-center">
+        <div class="my-20 mx-20 w-full rounded-lg flex flex-row">
+            <div class="w-2/3 p-4 bg-gray-100 rounded-l-lg">
+                <div class="form-container w-2/3 m-auto flex flex-col justify-center my-4">
+                    <div class="flex flex-col my-10">
+                        <div class="flex flex-col">
+                            <span class="text-4xl">
+                                Case Transfer
+                            </span>
+                        </div>
+                    </div>
+                    <form action="" method="POST" class="flex flex-col w-full">
+                        {% csrf_token %}
+                        <div class="form-group w-full flex flex-col my-4">
+                            <div class="form-label">
+                                <label for="station" class="text-base my-2">
+                                 Receiving Police Station
+                                </label>
+                            </div>
+                            <div class="form-input my-2 flex">
+                                    <select name="station" id="station" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <option value="station 1"></option>
+                                        <option value="station 2"></option>
+                                        <option value="station 3"></option>
+                                    </select>
+                            </div>
+
+                         <div class="form-group w-full flex flex-col my-4">
+                            <div class="form-label">
+                                <label for="caseNo" class="text-base my-2">
+                                 Case Number
+                                </label>
+                            </div>
+                            <div class="form-input my-2 flex">
+                                <input type="text" id="caseNo" name="caseNo" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                            </div>
+                         </div>
+
+                        <div class="form-button w-full flex flex-col my-4">
+                            <button name="addCrime" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
+                               Approve Case Transferal
+                            </button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}

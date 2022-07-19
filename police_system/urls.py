@@ -33,7 +33,7 @@ urlpatterns = [
     #path('emailVerification/<uidb64>/<token>', record_views.activate, name='emailActivate'),
 
 
-    path('casetransfer/', record_views.casetransfer, name='casetransfer'),
+    # path('casetransfer/', record_views.casetransfer, name='casetransfer'),
     path('caseapproval/', record_views.caseapproval, name='caseapproval'),
     path('issueforms/', record_views.issueforms, name='issueforms'),
     path('signup/',record_views.signup, name='userSignUp'),
