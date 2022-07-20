@@ -21,19 +21,23 @@ def CitizenLogin(request):
         if request.POST.get('loginEmail') and request.POST.get('loginPassword'):
             loginEmail = request.POST.get('loginEmail')
             loginPassword = request.POST.get('loginPassword')
-            citizen = CitizenModel.objects.get(email=loginEmail)
+            try:
+                citizen = CitizenModel.objects.get(email=loginEmail)
 
-            if check_password(loginPassword, citizen.password):
-                # TODO create single variable that stores individual column of the citizen table.
-                request.session['citizenID'] = citizen.id
-                request.session['citizenName'] = citizen.fName + ' ' + citizen.lName
-                request.session['citizenImage'] = citizen.citizenImage.url
+                if check_password(loginPassword, citizen.password):
+                    # TODO create single variable that stores individual column of the citizen table.
+                    request.session['citizenID'] = citizen.id
+                    request.session['citizenName'] = citizen.fName + ' ' + citizen.lName
+                    request.session['citizenImage'] = citizen.citizenImage.url
 
-                # currentCitizen = CitizenClass(citizen.id,citizen.fName,citizen.lName,citizen.email,citizen.tel,citizen.password,citizen.nationalID,citizen.gender,citizen.address)
+                    # currentCitizen = CitizenClass(citizen.id,citizen.fName,citizen.lName,citizen.email,citizen.tel,citizen.password,citizen.nationalID,citizen.gender,citizen.address)
 
-                # return render(request, 'records/CitizenLogin.html')
-                return redirect(landingpage)
-            else:
+                    # return render(request, 'records/CitizenLogin.html')
+                    return redirect(landingpage)
+                else:
+                    messages.error(request, 'Invalid Password.Please Try Again...')
+                    return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
+            except Exception as e:
                 messages.error(request, 'Invalid Password.Please Try Again...')
                 return render(request, 'records/CitizenLogin.html', {'title': 'Login'})
     else:
