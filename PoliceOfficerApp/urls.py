@@ -22,6 +22,7 @@ urlpatterns = [
 
     path('casetransfer/<int:id>', officer_views.CaseTransfer, name='CaseTransfer'),
     path('ob/<int:id>', officer_views.obDisplay, name='ob'),
+    path('viewCase/<int:id>', officer_views.ViewCase, name='ViewCase'),
     path('approveCase/<int:id>', officer_views.ApproveCase, name='ApproveCase'),
     path('viewOB/<int:id>', officer_views.ViewOB, name='ViewOB'),
     path('showStation/<int:id>', officer_views.ShowStation, name='ShowStation'),

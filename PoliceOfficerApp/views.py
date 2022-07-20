@@ -103,6 +103,29 @@ def GenerateCase(request, id):
         return redirect('PoliceOfficerApp:CaseIndex')
 
 
+def ViewCase(request, id):
+    case = CaseModel.objects.get(id=id)
+    ob = OBModel.objects.get(hasCase=case.pk)
+    crime = CrimeModel.objects.get(hasOB=ob.pk)
+    criminal = CriminalModel.objects.get(crimeID=crime.pk)
+    station = PoliceStationModel.objects.get(id=case.currentStation)
+    officer = OfficerModel.objects.get(id=ob.officerID)
+    citizen = CitizenModel.objects.get(id=ob.citizenID)
+    criminalImages = []
+    if criminal.criminalImage is not None:
+        for file in json.loads(criminal.criminalImage):
+            criminalImages.append(file)
+    crimeSceneImages = []
+    crimeSceneVideos = []
+    if crime.files is not None:
+        for file in json.loads(crime.files):
+            fileExtension = (file).split(".", 1)[1]
+            if fileExtension == 'jpg' or fileExtension == 'jpeg' or fileExtension == 'JPEG' or fileExtension == 'JPG':
+                crimeSceneImages.append(file)
+            else:
+                crimeSceneVideos.append(file)
+    return render(request, 'Case/viewCase.html', {'title': 'View Case','case':case,'crimeSceneVideos':crimeSceneVideos,'crimeSceneImages':crimeSceneImages,'criminalImages':criminalImages,'citizen':citizen,'ob':ob,'crime':crime,'officer':officer,'criminal':criminal,'station':station})
+
 def addCrimes(request):
     if request.method == 'POST':
         if request.POST.get('crimeName'):
@@ -327,16 +350,28 @@ def criminalbooking(request):
             saverecord.gender = request.POST.get('criminalGender')
             saverecord.crimeID = request.POST.get('crimeID')
             saverecord.criminalStatus = request.POST.get('criminalStatus')
-            saverecord.locationArrested = request.POST.get('arrestLocation')
+            saverecord.locationArrest = request.POST.get('arrestLocation')
             saverecord.arrestDate = request.POST.get('arrestDate')
             try:
                 saverecord.save()
-            except IntegrityError as e:
-                messages.error(request, "Criminal email is already in the system.")
-                return redirect('PoliceOfficerApp:criminalbooking')
+                fileStorage = FileSystemStorage()
+                counter = 0
+                filesList = []
+                for file in request.FILES.getlist('criminalImage'):
+                    fileExtension = file.name.split(".", 1)[1]
+                    uploadedFileName = 'Criminal-%s-%d.%s' % (saverecord.pk, counter, fileExtension)
+                    fileStorage.save('%s' % uploadedFileName, file)
+                    filesList.append(uploadedFileName)
+                    counter += 1
+                jsonList = json.dumps(filesList)
+                saverecord.criminalImage = jsonList
+                saverecord.save()
+            except Exception as e:
+                messages.error(request, e)
+                return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking','crimes': crimes, 'pageID': 4})
             else:
                 messages.success(request, 'Criminal has been booked!')
-                return redirect('PoliceOfficerApp:criminalbooking')
+                return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking','crimes': crimes, 'pageID': 4})
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
             return render(request, 'PoliceOfficerApp/criminalbooking.html', {'title': 'Criminal Booking','crimes': crimes, 'pageID': 4})

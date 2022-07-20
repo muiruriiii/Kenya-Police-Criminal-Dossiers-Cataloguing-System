@@ -64,7 +64,7 @@ class CrimeList(models.Model):
 class Crime(models.Model):
     description = models.CharField(max_length=400)
     crimeID = models.IntegerField()
-    citizenID = models.IntegerField(default=0)
+    citizenID = models.IntegerField()
     reportTime = models.DateTimeField(auto_now_add=True)
     files = models.JSONField()
     hasOB = models.IntegerField()
@@ -108,10 +108,11 @@ class Criminal(models.Model):
     address = models.CharField(max_length=400)
     nationalID = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
-    crimeID = models.CharField(max_length=100)
+    crimeID = models.IntegerField()
+    criminalImage = models.JSONField()
     criminalStatus = models.CharField(max_length=100)
-    locationArrested = models.CharField(max_length=100)
-    arrestDate = models.DateTimeField()
+    locationArrest = models.CharField(max_length=100)
+    arrestDate = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "tbl_criminal"

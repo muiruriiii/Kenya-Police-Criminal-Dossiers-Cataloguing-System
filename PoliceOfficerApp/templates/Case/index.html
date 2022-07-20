@@ -145,7 +145,7 @@
                                 {{case.caseNumber}}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="">
+                                <a href="{% url 'PoliceOfficerApp:ViewCase' case.id%}">
                                     <button class="bg-blue-500 text-white p-2 rounded" name="generateCase">
                                         View Case
                                     </button>

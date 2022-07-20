@@ -87,6 +87,8 @@ def CrimeListDisplay(request):
                     crime = CrimeModel()
                     crime.crimeID = CrimeListModel.objects.get(crimeID=request.POST.get('crimeID')).pk
                     crime.description = request.POST.get('crimeDescription')
+                    crime.citizenID = request.session['citizenID']
+                    crime.hasOB = 0
                     try:
                         crime.save()
                         fileStorage = FileSystemStorage()
