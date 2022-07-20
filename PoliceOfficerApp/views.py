@@ -106,25 +106,30 @@ def GenerateCase(request, id):
 def ViewCase(request, id):
     case = CaseModel.objects.get(id=id)
     ob = OBModel.objects.get(hasCase=case.pk)
-    crime = CrimeModel.objects.get(hasOB=ob.pk)
-    criminal = CriminalModel.objects.get(crimeID=crime.pk)
-    station = PoliceStationModel.objects.get(id=case.currentStation)
     officer = OfficerModel.objects.get(id=ob.officerID)
     citizen = CitizenModel.objects.get(id=ob.citizenID)
-    criminalImages = []
-    if criminal.criminalImage is not None:
-        for file in json.loads(criminal.criminalImage):
-            criminalImages.append(file)
-    crimeSceneImages = []
-    crimeSceneVideos = []
-    if crime.files is not None:
-        for file in json.loads(crime.files):
-            fileExtension = (file).split(".", 1)[1]
-            if fileExtension == 'jpg' or fileExtension == 'jpeg' or fileExtension == 'JPEG' or fileExtension == 'JPG':
-                crimeSceneImages.append(file)
-            else:
-                crimeSceneVideos.append(file)
-    return render(request, 'Case/viewCase.html', {'title': 'View Case','case':case,'crimeSceneVideos':crimeSceneVideos,'crimeSceneImages':crimeSceneImages,'criminalImages':criminalImages,'citizen':citizen,'ob':ob,'crime':crime,'officer':officer,'criminal':criminal,'station':station})
+    crime = CrimeModel.objects.get(hasOB=ob.pk)
+    station = PoliceStationModel.objects.get(id=case.currentStation)
+    try:
+        criminal = CriminalModel.objects.get(crimeID=crime.pk)
+    except Exception as e:
+        return render(request, 'Case/viewCase.html', {'title': 'View Case','case':case,'citizen':citizen,'ob':ob,'crime':crime,'officer':officer,'criminal':None,'station':station})
+        #return redirect("PoliceOfficerApp:CaseIndex")
+    else:
+        criminalImages = []
+        if criminal.criminalImage is not None:
+            for file in json.loads(criminal.criminalImage):
+                criminalImages.append(file)
+        crimeSceneImages = []
+        crimeSceneVideos = []
+        if crime.files is not None:
+            for file in json.loads(crime.files):
+                fileExtension = (file).split(".", 1)[1]
+                if fileExtension == 'jpg' or fileExtension == 'jpeg' or fileExtension == 'JPEG' or fileExtension == 'JPG':
+                    crimeSceneImages.append(file)
+                else:
+                    crimeSceneVideos.append(file)
+        return render(request, 'Case/viewCase.html', {'title': 'View Case','case':case,'crimeSceneVideos':crimeSceneVideos,'crimeSceneImages':crimeSceneImages,'criminalImages':criminalImages,'citizen':citizen,'ob':ob,'crime':crime,'officer':officer,'criminal':criminal,'station':station})
 
 def addCrimes(request):
     if request.method == 'POST':
