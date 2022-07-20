@@ -101,11 +101,11 @@
                 </td>
                 <td class="px-6 py-4">
                     {% if crimeAnonymous.obNumberAnonymous == 0 %}
-                        <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ob' crimeAnonymous.idAnonymous %}">
+                        <a class="text-blue-500" href="">
                             Generate OB
                         </a>
                     {% else %}
-                        <a class="text-blue-500" href="{% url 'PoliceOfficerApp:ViewOB' crimeAnonymous.obNumberAnonymous %}">
+                        <a class="text-blue-500" href="">
                             View OB
                         </a>
                     {% endif %}
