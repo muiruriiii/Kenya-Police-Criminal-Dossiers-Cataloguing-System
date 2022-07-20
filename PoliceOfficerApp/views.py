@@ -46,17 +46,20 @@ def CaseIndex(request):
 
 
 def ApproveCase(request, id):
-    case = CaseModel.objects.get(id=id)
-    case.caseStatus = 'APPROVED'
-    try:
-        case.save()
-    except Exception as e:
-        messages.error(request, e)
-        return redirect('PoliceOfficerApp:CaseIndex')
+    if  request.session['officerRank'] == 'OCS':
+        case = CaseModel.objects.get(id=id)
+        case.caseStatus = 'APPROVED'
+        try:
+            case.save()
+        except Exception as e:
+            messages.error(request, e)
+            return redirect('PoliceOfficerApp:CaseIndex')
+        else:
+            messages.success(request, "Case has been successfully approved.")
+            return redirect('PoliceOfficerApp:CaseIndex')
     else:
-        messages.success(request, "Case has been successfully approved.")
+        messages.error(request, 'You are not authorized to approve cases.')
         return redirect('PoliceOfficerApp:CaseIndex')
-
 
 def CaseTransfer(request, id):
     case = CaseModel.objects.get(id=id)
@@ -400,6 +403,7 @@ def login(request):
                 if check_password(loginPassword, officer.password):
                     # TODO create single variable that stores individual column of the citizen table.
                     request.session['officerID'] = officer.id
+                    request.session['officerRank'] = officer.rank
                     request.session['officerStation'] = officer.stationID
                     request.session['officerName'] = officer.fName + ' ' + officer.lName
 

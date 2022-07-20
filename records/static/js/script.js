@@ -1,78 +1,90 @@
-'use strict'
+     if ($(".reg-form")) {
+         var fname_is_valid = false, lname_is_valid = false, address_is_valid = false, email_is_valid = false,
+             password_is_valid = false, idno_is_valid = false, phone_is_valid = false;
+         $("#regFName").keyup(function () {
+             if (validateText($("#regFName"), $("#regFNameError"))) {
+                 fname_is_valid = true;
+             } else {
+                 fname_is_valid = false;
+             }
 
-let log = console.log.bind(console),
-  id = val => document.getElementById(val),
-  ul = id('ul'),
-  gUMbtn = id('gUMbtn'),
-  start = id('start'),
-  stop = id('stop'),
-  stream,
-  recorder,
-  counter=1,
-  chunks,
-  media;
+         });
+
+         $("#regLName").keyup(function () {
+             if (validateText($("#regLName"), $("#regLNameError"))) {
+                 lname_is_valid = true;
+             } else {
+                 lname_is_valid = false;
+             }
+
+         });
+
+         $("#regAddress").keyup(function () {
+                if (validateText($("#regAddress"), $("#regAddressError"))) {
+                    address_is_valid = true;
+                } else {
+                    address_is_valid = false;
+                }
+        });
+            $("#regPhone").keyup(function () {
+                if (validateTel($("#regPhone"), $("#regPhoneError"))) {
+                    phone_is_valid = true;
+                } else {
+                    phone_is_valid = false;
+                }
+        });
+        $("#regEmail").keyup(function () {
+            if (validateEmail($("#regEmail"), $("#regEmailError"))) {
+                email_is_valid = true;
+            } else {
+                email_is_valid = false;
+            }
+            });
 
 
-gUMbtn.onclick = e => {
-  let mv = id('mediaVideo'),
-      mediaOptions = {
-        video: {
-          tag: 'video',
-          type: 'video/webm',
-          ext: '.mp4',
-          gUM: {video: true, audio: true}
-        },
-        audio: {
-          tag: 'audio',
-          type: 'audio/ogg',
-          ext: '.ogg',
-          gUM: {audio: true}
+        $("#regPassword").keyup(function () {
+            value = $("#regPassword").val()
+            if (value.length > 5) {
+                if (validateText($("#regPassword"), $("#regPasswordError"))) {
+                    password_is_valid = true;
+                } else {
+                    password_is_valid = false;
+                }
+            }
+            else{
+                $("#regPasswordError").innerHTML = 'The password must be greater than 4 characters.';
+                $("#regPasswordError").removeClass('hidden');
+            }
+        });
+        $("#regConPassword").keyup(function () {
+            if ($("#regPassword").val() != $("#regConPassword").val()) {
+                $("#regPasswordError").html("Password mismatch.");
+                $("#regPasswordError").removeClass("hidden");
+                $("#regConPassword").addClass("border-red-700");
+                $("#regPassword").addClass("border-red-700");
+                $("#regPassword").removeClass("border-green-500");
+                $("#regConPassword").removeClass("border-green-500");
+            } else {
+                $("#regPasswordError").hide();
+                $("#regConPassword").removeClass("border-red-700");
+                $("#regPassword").removeClass("border-red-700");
+                $("#regPassword").addClass("border-green-500");
+                $("#regConPassword").addClass("border-green-500");
+                password_is_valid = true;
+                ;
+            }
+        });
+        $("#regBtn").click(function (e) {
+            $(".reg-btn-text").hide();
+            e.preventDefault();
+            if (fname_is_valid == true && lname_is_valid == true && address_is_valid == true && email_is_valid == true && password_is_valid == true) {
+                $('reg-form').submit()
+            } else {
+                $(".reg-error-alert").html("Fill in all the fields");
+                showAlert($(".reg-error-alert"));
+            }
+        });
         }
-      };
-  media = mv.checked ? mediaOptions.video : mediaOptions.audio;
-  navigator.mediaDevices.getUserMedia(media.gUM).then(_stream => {
-    stream = _stream;
-    id('gUMArea').style.display = 'none';
-    id('btns').style.display = 'inherit';
-    start.removeAttribute('disabled');
-    recorder = new MediaRecorder(stream);
-    recorder.ondataavailable = e => {
-      chunks.push(e.data);
-      if(recorder.state == 'inactive')  makeLink();
-    };
-    log('got media successfully');
-  }).catch(log);
-}
-
-start.onclick = e => {
-  start.disabled = true;
-  stop.removeAttribute('disabled');
-  chunks=[];
-  recorder.start();
-}
-
-
-stop.onclick = e => {
-  stop.disabled = true;
-  recorder.stop();
-  start.removeAttribute('disabled');
-}
 
 
 
-function makeLink(){
-  let blob = new Blob(chunks, {type: media.type })
-    , url = URL.createObjectURL(blob)
-    , li = document.createElement('li')
-    , mt = document.createElement(media.tag)
-    , hf = document.createElement('a')
-  ;
-  mt.controls = true;
-  mt.src = url;
-  hf.href = url;
-  hf.download = `${counter++}${media.ext}`;
-  hf.innerHTML = `donwload ${hf.download}`;
-  li.appendChild(mt);
-  li.appendChild(hf);
-  ul.appendChild(li);
-}

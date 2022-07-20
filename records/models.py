@@ -46,7 +46,6 @@ class PoliceStation(models.Model):
 
 class Evidence(models.Model):
     description = models.CharField(max_length=400)
-    evidenceFiles = models.ImageField()
     Form=models.ImageField()
 
     class Meta:

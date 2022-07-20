@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.utils.datastructures import MultiValueDictKeyError
 
 from records.models import Citizen as CitizenModel, CrimeList as CrimeListModel, Crime as CrimeModel, \
-    CrimeAnonymous as CrimeAnonymousModel, Evidence as EvidenceModel
+    CrimeAnonymous as CrimeAnonymousModel, Evidence as EvidenceModel, Case as CaseModel
 from django.shortcuts import render
 
 
@@ -16,10 +16,9 @@ from django.shortcuts import render
 def evidence(request):
     context = {}
     if request.method == 'POST':
-       if  request.FILES['evidenceFiles'] and request.FILES['Form']  and request.POST.get('description') :
+       if   request.FILES['Form']  and request.POST.get('description') :
 
            fileStorage = FileSystemStorage()
-           evidenceFiles = request.FILES['evidenceFiles']
            Form = request.FILES['Form']
            saverecord = EvidenceModel()
            saverecord.description = request.POST.get('description')
@@ -27,18 +26,15 @@ def evidence(request):
            try:
                saverecord.save()
                id = saverecord.pk
-               name = 'evidence-%s%s' % (id, '.jpg')
-               name2 = 'form-%s%s' % (id, '.pdf')
+               name = 'form-%s%s' % (id, '.pdf')
 
-               display = fileStorage.save('%s' % name, evidenceFiles)
+               display = fileStorage.save('%s' % name, Form)
                context['url']=fileStorage.url(display)
 
-
-               saverecord.evidenceFiles = name
-               saverecord.Form = name2
+               saverecord.Form = name
                saverecord.save()
            except IntegrityError as e:
-               messages.error(request, e)
+               messages.error(request, 'Upload Not Successful...')
                return render(request, 'records/evidence.html',context)
            else:
                messages.success(request, 'Evidence Uploaded Successfully...!')
@@ -199,4 +195,5 @@ def dashboard(request):
 
 def landingpage(request):
     return render(request, 'records/index.html', {'title': 'Landing Page', 'pageId': 8})
+
 
