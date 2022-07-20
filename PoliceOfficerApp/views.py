@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
-from records.models import Officer as OfficerModel, Case as CaseModel, PoliceStation as PoliceStationModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
+from records.models import Officer as OfficerModel, Case as CaseModel, PoliceStation as PoliceStationModel, CrimeAnonymous as CrimeAnonymousModel, Crime as CrimeModel, Criminal as CriminalModel, Citizen as CitizenModel, CrimeList as CrimeListModel, OB as OBModel
 from django.core.files.storage import FileSystemStorage
 
 
@@ -468,8 +468,10 @@ def CrimesDisplay(request):
         return redirect('PoliceOfficerApp:OfficerLogin')
     else:
         crimes = CrimeModel.objects.all()
-        global crime_list
-        crime_list=[]
+        crimesAnonymous = CrimeAnonymousModel.objects.all()
+        global crime_list, crime_anonymous
+        crime_list = []
+        crime_anonymous = []
         for crime in crimes:
             citizenID = crime.citizenID
             citizens = CitizenModel.objects.get(id=citizenID)
@@ -480,8 +482,13 @@ def CrimesDisplay(request):
             crimeName = crimelist.crimeName
             crimesreported={'id': crime.pk, 'description': crime.description, 'citizenName': citizenName, 'crimeName': crimeName, 'obNumber': crime.hasOB}
             crime_list.append(crimesreported)
-            #crimeReportID,crimeDescription, crimeName, citizenName
-        context = {'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}
+        for crimeAnonymous in crimesAnonymous:
+            crimeID = crimeAnonymous.crimeID
+            crimelist = CrimeListModel.objects.get(crimeID=crimeID)
+            crimeName = crimelist.crimeName
+            crimesreported={'idAnonymous': crimeAnonymous.pk, 'descriptionAnonymous': crimeAnonymous.description, 'crimeNameAnonymous': crimeName, 'obNumberAnonymous': crimeAnonymous.hasOB}
+            crime_anonymous.append(crimesreported)
+        context = {'crimesAnonymous': crime_anonymous, 'crimesreported': crime_list, 'pageID': 6, 'title': 'Crime Display'}
         return render(request, 'PoliceOfficerApp/CrimesDisplay.html', context)
 
 
