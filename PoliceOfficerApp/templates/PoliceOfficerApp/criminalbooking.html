@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <hr class="text-black border-2 border-black my-4">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" class="criminal-form" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="flex flex-row justify-around w-full">
                             <div class="w-5/12 flex flex-col">
@@ -30,13 +30,16 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="criminalFName" name="criminalFName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="criminalFName" name="criminalFName" required class="text-input w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
                                     <div class="text-xs">
                                         <span class="text-gray-700">
                                             John
                                         </span>
                                     </div>
+                                    <small class="text-red-700 hidden text-error-area">
+                                        Invalid first name.
+                                    </small>
                                 </div>
                                 <div class="ml-2 w-1/2">
                                     <div class="form-label">
@@ -45,13 +48,16 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="criminalLName" name="criminalLName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="criminalLName" name="criminalLName" required class="text-input w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
                                     <div class="text-xs">
                                         <span class="text-gray-700">
                                             Doe
                                         </span>
                                     </div>
+                                    <small class="text-red-700 hidden text-error-area">
+                                        Invalid last name.
+                                    </small>
                                 </div>
                             </div>
                                 <div class="form-group w-full flex flex-row my-2 justify-between">
@@ -62,13 +68,16 @@
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="criminalPhone" name="criminalPhone" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="criminalPhone" name="criminalPhone" required class="text-tel w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
                                         <div class="text-xs">
                                             <span class="text-gray-700">
                                                 +254|
                                             </span>
                                         </div>
+                                        <small class="text-red-700 hidden tel-error-area">
+                                            Phone Number should be at least 10 digits.
+                                        </small>
                                     </div>
                                     <div class="ml-2 w-1/2">
                                         <div class="form-label">
@@ -77,13 +86,16 @@
                                             </label>
                                         </div>
                                         <div class="form-input my-2 flex">
-                                            <input type="text" id="criminalAddress" name="criminalAddress" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                            <input type="text" id="criminalAddress" name="criminalAddress" required class="text-input w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         </div>
                                         <div class="text-xs">
                                             <span class="text-gray-700">
                                                 Embakasi, Nairobi
                                             </span>
                                         </div>
+                                        <small class="text-red-700 hidden text-error-area">
+                                            Invalid Address.
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="form-group w-full flex flex-col my-2">
@@ -93,7 +105,7 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2">
-                                        <input type="text" id="criminalIDNo" name="criminalIDNo" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="criminalIDNo" name="criminalIDNo" required minlength="10" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
                                     <div class="text-xs">
                                         <span class="text-gray-700">
@@ -163,13 +175,16 @@
                                         </label>
                                     </div>
                                     <div class="form-input my-2 flex">
-                                        <input type="text" id="arrestLocation" name="arrestLocation" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <input type="text" id="arrestLocation" name="arrestLocation" required class="text-input w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                     </div>
                                     <div class="text-xs">
                                         <span class="text-gray-700">
 
                                         </span>
                                     </div>
+                                    <small class="text-red-700 hidden text-error-area">
+                                        Invalid location.
+                                    </small>
                                 </div>
                                 <div class="form-group w-full flex flex-col my-4">
                                     <div class="form-label">
@@ -199,7 +214,7 @@
                             </div>
                         </div>
                         <div class="form-button w-full flex justify-center my-4">
-                            <button name="criminalBookBtn" class="p-2 text-center w-1/2 rounded bg-blue-600 text-white text-lg">
+                            <button name="criminalBookBtn" class="submit-btn p-2 text-center w-1/2 rounded bg-blue-600 text-white text-lg">
                                 Book Criminal
                             </button>
                         </div>
