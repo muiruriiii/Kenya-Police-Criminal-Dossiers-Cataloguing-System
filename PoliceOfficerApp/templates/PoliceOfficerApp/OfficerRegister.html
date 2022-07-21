@@ -1,5 +1,7 @@
 {% extends "PoliceOfficerApp/base.html" %}
 {% block content %}
+
+
 <h2 class="text-center"> <a href="{% url 'PoliceOfficerApp:OfficerRegister' %}"> Register An Officer </a>  | <a class="text-blue-500" href="{% url 'PoliceOfficerApp:OfficersDisplay' %}"> View Officers </a> </h2>
 
 
@@ -18,149 +20,202 @@
                             </div>
                         </div>
                         <hr class="text-black border-2 border-black my-4">
-                        <form action="" method="POST" id="reg-form" enctype="multipart/form-data">
+                       <form action="" method="POST" id="officer-form" class="flex flex-col w-full" enctype="multipart/form-data">
+
                             {% csrf_token %}
-                            <div class="flex flex-row w-full justify-around">
-                                <div class="flex flex-col w-5/12">
-                                    <div class="form-group w-full flex flex-row my-2 justify-between">
-                                    <div class="w-1/2 mr-2 ">
-                                        <div class="form-label">
-                                            <label for="regFName" class="text-base my-2">
-                                                First Name
-                                            </label>
-                                        </div>
-                                        <div class="form-input my-2 flex">
-                                            <input type="text" id="regFName" name="regFName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                        </div>
-                                        <div class="text-xs">
-                                            <span class="text-gray-700">
-                                                John
-                                            </span>
-                                        </div>
-                                          <small class="text-red-700 hidden" id="regFNameError">
-                                        Invalid first name.
-                                          </small>
+                             <div class="form-group w-full flex flex-row my-2 justify-between">
+                                <div class="w-1/2 mr-2 ">
+                                    <div class="form-label">
+                                        <label for="OFName" class="text-base my-2">
+                                            First Name
+                                        </label>
                                     </div>
-                                    <div class="ml-2 w-1/2">
-                                        <div class="form-label">
-                                            <label for="regLName" class="text-base my-2">
-                                                Last Name
-                                            </label>
-                                        </div>
-                                        <div class="form-input my-2 flex">
-                                            <input type="text" id="regLName" name="regLName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                        </div>
-                                        <div class="text-xs">
-                                            <span class="text-gray-700">
-                                                Doe
-                                            </span>
-                                        </div>
-                                           <small class="text-red-700 hidden" id="regLNameError">
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="OFName" name="regFName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            John
+                                        </span>
+                                    </div>
+                                    <small class="text-red-700 hidden" id="OFNameError">
+                                        Invalid first name.
+                                    </small>
+                                </div>
+                                <div class="ml-2 w-1/2">
+                                    <div class="form-label">
+                                        <label for="OLName" class="text-base my-2">
+                                            Last Name
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="OLName" name="regLName" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            Doe
+                                        </span>
+                                    </div>
+                                     <small class="text-red-700 hidden" id="OLNameError">
                                         Invalid last name.
                                     </small>
-                                    </div>
                                 </div>
-                                    <div class="form-group w-full flex flex-row my-2 justify-between">
-                                        <div class="w-1/2 mr-2 ">
-                                            <div class="form-label">
-                                                <label for="regPhone" class="text-base my-2">
-                                                    Telephone
-                                                </label>
-                                            </div>
-                                            <div class="form-input my-2 flex">
-                                                <input type="text" id="regPhone" name="regPhone" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                            </div>
-                                            <div class="text-xs">
-                                                <span class="text-gray-700">
+                            </div>
+                            <div class="form-group w-full flex flex-row my-2 justify-between">
+                                <div class="w-1/2 mr-2 ">
+                                    <div class="form-label">
+                                        <label for="OPhone" class="text-base my-2">
+                                            Telephone
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="OPhone" name="regPhone" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
                                             Should be 10 digits
                                         </span>
                                     </div>
-                                       <small class="text-red-700 hidden" id="regPhoneError">
+                                       <small class="text-red-700 hidden" id="OPhoneError">
                                         Invalid phone number.
                                     </small>
-                                        </div>
-                                        <div class="ml-2 w-1/2">
-                                            <div class="form-label">
-                                                <label for="regAddress" class="text-base my-2">
-                                                    Address
-                                                </label>
-                                            </div>
-                                            <div class="form-input my-2 flex">
-                                                <input type="text" id="regAddress" name="regAddress" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                            </div>
-                                            <div class="text-xs">
-                                                <span class="text-gray-700">
-                                                    Embakasi, Nairobi
-                                                </span>
-                                            </div>
-                                              <small class="text-red-700 hidden" id="regAddressError">
+                                </div>
+                                <div class="ml-2 w-1/2">
+                                    <div class="form-label">
+                                        <label for="OAddress" class="text-base my-2">
+                                            Address
+                                        </label>
+                                    </div>
+                                    <div class="form-input my-2 flex">
+                                        <input type="text" id="OAddress" name="regAddress" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                    </div>
+                                    <div class="text-xs">
+                                        <span class="text-gray-700">
+                                            Embakasi, Nairobi
+                                        </span>
+                                    </div>
+                                       <small class="text-red-700 hidden" id="OAddressError">
                                         Invalid Address.
                                     </small>
-                                        </div>
-                                    </div>
-                                    <div class="form-group w-full flex flex-col my-2">
-                                        <div class="form-label">
-                                            <label for="regIDNo" class="text-base my-2">
-                                                National ID/Passport/Birth Certificate Number
-                                            </label>
-                                        </div>
-                                        <div class="form-input my-2">
-                                            <input type="text" id="regIDNo" name="regIDNo" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                        </div>
-                                        <div class="text-xs">
-                                            <span class="text-gray-700">
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="OIDNo" class="text-base my-2">
+                                        National ID/Passport/Birth Certificate Number
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="text" id="OIDNo" name="regIDNo" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
 
-                                            </span>
-                                        </div>
-                                    </div>
+                                    </span>
                                 </div>
-                                <div class="flex flex-col w-5/12">
-                                    <div class="form-group w-full flex flex-col my-2">
-                                        <div class="form-label">
-                                            <label for="regGender" class="text-base my-2">
-                                                Gender
-                                            </label>
-                                        </div>
-                                        <div class="form-input my-2">
-                                            <select name="regGender" id="regGender" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                                <option value="">-</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group w-full flex flex-col mt-7">
-                                    <div class="form-label">
-                                        <label for="regEmail" class="text-base my-2">
-                                            Email
-                                        </label>
-                                    </div>
-                                    <div class="form-input my-2 flex">
-                                        <input type="email" id="regEmail" name="regEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                    </div>
+
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="OGender" class="text-base my-2">
+                                        Gender
+                                    </label>
                                 </div>
-                                    <div class="form-group w-full flex flex-col my-8">
-                                    <div class="form-label">
-                                        <label for="regRank" class="text-base my-2">
-                                            Officer Rank
-                                        </label>
-                                    </div>
-                                    <div class="form-input my-2 flex">
-                                        <input type="text" id="regRank" name="regRank" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                    </div>
+                                <div class="form-input my-2">
+                                    <select name="regGender" id="OGender" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                        <option value="">-</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-4">
+                                <div class="form-label">
+                                    <label for="OEmail" class="text-base my-2">
+                                        Email
+                                    </label>
+                                </div>
+                                <div class="form-input my-2 flex">
+                                    <input type="email" id="OEmail" name="regEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                  <small class="text-red-700 hidden" id="regEmailError">
+                                        Invalid Email.
+                                  </small>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="OPassword" class="text-base my-2">
+                                        Password
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="password" id="OPassword" name="regPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        Minimum length is 4 letters.
+                                    </span>
+                                </div>
+                                   <small class="text-red-700 hidden" id="OPasswordError">
+                                        Invalid Password.
+                                  </small>
+                            </div>
+                            <div class="form-group w-full flex flex-col my-2">
+                                <div class="form-label">
+                                    <label for="OConPassword" class="text-base my-2">
+                                        Confirm Password
+                                    </label>
+                                </div>
+                                <div class="form-input my-2">
+                                    <input type="password" id="OConPassword" name="regConPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                </div>
+                                <div class="text-xs">
+                                    <span class="text-gray-700">
+                                        Passwords must match.
+                                    </span>
+                                </div>
+                                  <small class="text-red-700 hidden" id="OConPasswordError">
+                                        Invalid Password.
+                                  </small>
+                            </div>
+
+                            <div class="form-group w-full flex flex-row my-4 justify-between">
+                                <div class="flex">
+                                    <div class="form-label mx-2">
+                                    <small class=" float-left py-3 text-sm text-blue-600 cursor-pointer showPasswordToggle">SHOW</small>
                                 </div>
                                 </div>
                             </div>
-
-                            <div class="justify-center form-button w-full flex my-2">
-                                <button name="regBtn" class="p-2 text-center w-1/2 rounded bg-blue-600 text-white text-lg">
+                            <div class="form-button w-full flex flex-col my-4">
+                                <button name="regBtn" id="OBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
                                     Sign Up
                                 </button>
                             </div>
-                        </form>
+                       </form>
                     </div>
                 </div>
-            </div>
+        </div>
     </div>
 
+<script>
+const regPassword = document.querySelector("#regPassword");
+const regConPassword = document.querySelector("#regConPassword");
+const showPasswordToggle = document.querySelector(".showPasswordToggle");
+
+
+const handleToggleInput = (e) => {
+    if (showPasswordToggle.textContent === "SHOW"){
+      showPasswordToggle.textContent = "HIDE";
+       regConPassword.setAttribute("type","text");
+      regPassword.setAttribute("type","text");
+    }else{
+           showPasswordToggle.textContent = "SHOW";
+           regPassword.setAttribute("type","password");
+            regConPassword.setAttribute("type","password");
+    }
+};
+
+showPasswordToggle.addEventListener('click',handleToggleInput);
+
+</script>
 {% endblock content %}
