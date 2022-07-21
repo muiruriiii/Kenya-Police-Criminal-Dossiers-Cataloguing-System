@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="text-xs">
                                         <span class="text-gray-700">
-                                            Embakasi, Nairobi
+                                            Embakasi
                                         </span>
                                     </div>
                                        <small class="text-red-700 hidden" id="OAddressError">
@@ -138,53 +138,23 @@
                                 <div class="form-input my-2 flex">
                                     <input type="email" id="OEmail" name="regEmail" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
-                                  <small class="text-red-700 hidden" id="regEmailError">
+                                  <small class="text-red-700 hidden" id="OEmailError">
                                         Invalid Email.
                                   </small>
                             </div>
-                            <div class="form-group w-full flex flex-col my-2">
-                                <div class="form-label">
-                                    <label for="OPassword" class="text-base my-2">
-                                        Password
-                                    </label>
-                                </div>
-                                <div class="form-input my-2">
-                                    <input type="password" id="OPassword" name="regPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                </div>
-                                <div class="text-xs">
-                                    <span class="text-gray-700">
-                                        Minimum length is 4 letters.
-                                    </span>
-                                </div>
-                                   <small class="text-red-700 hidden" id="OPasswordError">
-                                        Invalid Password.
-                                  </small>
-                            </div>
-                            <div class="form-group w-full flex flex-col my-2">
-                                <div class="form-label">
-                                    <label for="OConPassword" class="text-base my-2">
-                                        Confirm Password
-                                    </label>
-                                </div>
-                                <div class="form-input my-2">
-                                    <input type="password" id="OConPassword" name="regConPassword" required minlength="4" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
-                                </div>
-                                <div class="text-xs">
-                                    <span class="text-gray-700">
-                                        Passwords must match.
-                                    </span>
-                                </div>
-                                  <small class="text-red-700 hidden" id="OConPasswordError">
-                                        Invalid Password.
-                                  </small>
-                            </div>
 
-                            <div class="form-group w-full flex flex-row my-4 justify-between">
-                                <div class="flex">
-                                    <div class="form-label mx-2">
-                                    <small class=" float-left py-3 text-sm text-blue-600 cursor-pointer showPasswordToggle">SHOW</small>
+                            <div class="form-group w-full flex flex-col my-4">
+                                <div class="form-label">
+                                    <label for="ORank" class="text-base my-2">
+                                        Rank
+                                    </label>
                                 </div>
+                                <div class="form-input my-2 flex">
+                                    <input type="email" id="ORank" name="regRank" required class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                 </div>
+                                  <small class="text-red-700 hidden" id="ORankError">
+                                        Invalid Rank.
+                                  </small>
                             </div>
                             <div class="form-button w-full flex flex-col my-4">
                                 <button name="regBtn" id="OBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
@@ -198,20 +168,20 @@
     </div>
 
 <script>
-const regPassword = document.querySelector("#regPassword");
-const regConPassword = document.querySelector("#regConPassword");
+const OPassword = document.querySelector("#OPassword");
+const OConPassword = document.querySelector("#OConPassword");
 const showPasswordToggle = document.querySelector(".showPasswordToggle");
 
 
 const handleToggleInput = (e) => {
     if (showPasswordToggle.textContent === "SHOW"){
       showPasswordToggle.textContent = "HIDE";
-       regConPassword.setAttribute("type","text");
-      regPassword.setAttribute("type","text");
+       OConPassword.setAttribute("type","text");
+      OPassword.setAttribute("type","text");
     }else{
            showPasswordToggle.textContent = "SHOW";
-           regPassword.setAttribute("type","password");
-            regConPassword.setAttribute("type","password");
+           OPassword.setAttribute("type","password");
+            OConPassword.setAttribute("type","password");
     }
 };
 

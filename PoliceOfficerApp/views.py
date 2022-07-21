@@ -409,7 +409,7 @@ def login(request):
 
                     return redirect('PoliceOfficerApp:OfficerDashboard')
                 else:
-                    messages.error(request, 'Passwords do not match')
+                    messages.error(request, 'Invalid Password.Please Try Again...')
                     return render(request, 'records/CitizenLogin.html', {'title': 'Police Login'})
         return render(request, 'records/CitizenLogin.html', {'title': 'Police Login'})
 

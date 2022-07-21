@@ -143,6 +143,13 @@
                     address_is_valid = false;
                 }
         });
+          $("#ORank").keyup(function () {
+                if (validateText($("#ORank"), $("#ORankError"))) {
+                    address_is_valid = true;
+                } else {
+                    address_is_valid = false;
+                }
+        });
             $("#OPhone").keyup(function () {
                 if (validateTel($("#OPhone"), $("#OPhoneError"))) {
                     phone_is_valid = true;
@@ -159,7 +166,7 @@
             });
 
 
-        $("#OPassword").keyup(function () {
+          $("#OPassword").keyup(function () {
             value = $("#OPassword").val()
             if (value.length > 5) {
                 if (validateText($("#OPassword"), $("#OPasswordError"))) {
@@ -173,17 +180,17 @@
                 $("#OPasswordError").removeClass('hidden');
             }
         });
-        $("#regConPassword").keyup(function () {
-            if ($("#OPassword").val() != $("#OPasswordError").val()) {
+        $("#OConPassword").keyup(function () {
+            if ($("#OPassword").val() != $("#OConPassword").val()) {
                 $("#OPasswordError").html("Password mismatch.");
                 $("#OPasswordError").removeClass("hidden");
                 $("#OConPassword").addClass("border-red-700");
                 $("#OPassword").addClass("border-red-700");
                 $("#OPassword").removeClass("border-green-500");
-                $("#0ConPassword").removeClass("border-green-500");
+                $("#OConPassword").removeClass("border-green-500");
             } else {
                 $("#OPasswordError").hide();
-                $("#0ConPassword").removeClass("border-red-700");
+                $("#OConPassword").removeClass("border-red-700");
                 $("#OPassword").removeClass("border-red-700");
                 $("#OPassword").addClass("border-green-500");
                 $("#OConPassword").addClass("border-green-500");
