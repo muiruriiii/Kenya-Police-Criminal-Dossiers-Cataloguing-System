@@ -1,5 +1,5 @@
-     if ($(".officer-form")) {
-
+     if ($("#officer-form")) {
+    alert('hello');
          var fname_is_valid = false, lname_is_valid = false, address_is_valid = false, email_is_valid = false,
              password_is_valid = false, phone_is_valid = false;
 
