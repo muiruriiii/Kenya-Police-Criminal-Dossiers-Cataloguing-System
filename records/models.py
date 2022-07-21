@@ -128,7 +128,7 @@ class Officer(models.Model):
     rank = models.CharField(max_length=100)
     password = models.CharField(max_length=400)
     employmentStatus = models.BooleanField(default=False)
-    employmentDate = models.DateTimeField()
+    employmentDate = models.DateTimeField(auto_now_add=True)
     stationID = models.IntegerField()
 
     class Meta:

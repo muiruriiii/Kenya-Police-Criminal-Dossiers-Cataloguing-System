@@ -324,16 +324,24 @@ def OfficerRegister(request):
             try:
                 saverecord.save()
             except IntegrityError as e:
-                messages.error(request, "The email is already in use.")
-                return render(request, 'PoliceOfficerApp/OfficerRegister.html')
+                messages.error(request, e)
+                return render(request, 'PoliceOfficerApp/OfficerRegister.html',
+                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+
             else:
+
                 messages.success(request, 'Officer successfully registered.')
-                return render(request, 'PoliceOfficerApp/OfficerRegister.html')
+                return render(request, 'PoliceOfficerApp/OfficerRegister.html',
+                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+
+
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
-            return render(request, 'PoliceOfficerApp/OfficerRegister.html')
+            return render(request, 'PoliceOfficerApp/OfficerRegister.html',
+                          {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+
     else:
-        return render(request, 'PoliceOfficerApp/OfficerRegister.html', {'title': 'Police Officer Register'})
+        return render(request, 'PoliceOfficerApp/OfficerRegister.html', {'title': 'Police Officer Register','officerRank': request.session['officerRank']})
 
 
 def criminalbooking(request):

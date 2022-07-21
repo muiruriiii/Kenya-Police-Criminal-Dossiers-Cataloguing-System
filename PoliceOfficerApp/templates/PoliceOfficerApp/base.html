@@ -146,9 +146,9 @@
         });
           $("#ORank").keyup(function () {
                 if (validateText($("#ORank"), $("#ORankError"))) {
-                    address_is_valid = true;
+                    rank_is_valid = true;
                 } else {
-                    address_is_valid = false;
+                    rank_is_valid = false;
                 }
         });
             $("#OPhone").keyup(function () {
@@ -167,46 +167,11 @@
             });
 
 
-          $("#OPassword").keyup(function () {
-            value = $("#OPassword").val()
-            if (value.length > 5) {
-                if (validateText($("#OPassword"), $("#OPasswordError"))) {
-                    password_is_valid = true;
-                } else {
-                    password_is_valid = false;
-                }
-            }
-            else{
-                $("#OPasswordError").innerHTML = 'The password must be greater than 4 characters.';
-                $("#OPasswordError").removeClass('hidden');
-            }
-        });
-        $("#OConPassword").keyup(function () {
-            if ($("#OPassword").val() != $("#OConPassword").val()) {
-                $("#OPasswordError").html("Password mismatch.");
-                $("#OPasswordError").removeClass("hidden");
-                $("#OConPassword").addClass("border-red-700");
-                $("#OPassword").addClass("border-red-700");
-                $("#OPassword").removeClass("border-green-500");
-                $("#OConPassword").removeClass("border-green-500");
-            } else {
-                $("#OPasswordError").hide();
-                $("#OConPassword").removeClass("border-red-700");
-                $("#OPassword").removeClass("border-red-700");
-                $("#OPassword").addClass("border-green-500");
-                $("#OConPassword").addClass("border-green-500");
-                password_is_valid = true;
-                ;
-            }
-        });
+
         $("#OBtn").click(function (e) {
-            $(".reg-btn-text").hide();
             e.preventDefault();
-            if (fname_is_valid == true && lname_is_valid == true && address_is_valid == true && email_is_valid == true && password_is_valid == true) {
-                $('officer-form').submit()
-            } else {
-                $(".reg-error-alert").html("Fill in all the fields");
-                showAlert($(".reg-error-alert"));
+            if (fname_is_valid == true && lname_is_valid == true && address_is_valid == true && email_is_valid == true && rank_is_valid == true) {
+                $('#officer-form').submit()
             }
         });
         }

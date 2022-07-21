@@ -81,9 +81,6 @@
                 <th scope="col" class="px-6 py-3">
                 Crime Name
             </th>
-                <th scope="col" class="px-6 py-3">
-                Action
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -98,17 +95,6 @@
                 </td>
                    <td class="px-6 py-4">
                     {{crimeAnonymous.crimeNameAnonymous}}
-                </td>
-                <td class="px-6 py-4">
-                    {% if crimeAnonymous.obNumberAnonymous == 0 %}
-                        <a class="text-blue-500" href="">
-                            Generate OB
-                        </a>
-                    {% else %}
-                        <a class="text-blue-500" href="">
-                            View OB
-                        </a>
-                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

@@ -80,7 +80,7 @@
             $(".reg-btn-text").hide();
             e.preventDefault();
             if (fname_is_valid == true && lname_is_valid == true && address_is_valid == true && email_is_valid == true && password_is_valid == true) {
-                $('CitizenLogin.html').submit()
+                $('#reg-form').submit()
             } else {
                 $(".reg-error-alert").html("Fill in all the fields");
                 showAlert($(".reg-error-alert"));
