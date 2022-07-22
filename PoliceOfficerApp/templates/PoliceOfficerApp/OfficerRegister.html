@@ -142,7 +142,20 @@
                                         Invalid Email.
                                   </small>
                             </div>
-
+                           <div class="form-group w-full flex flex-col my-4">
+                                <div class="form-label">
+                                    <label for="stationID" class="text-base my-2">
+                                        Police Station Posted
+                                    </label>
+                                </div>
+                                <div class="form-input my-2 flex">
+                                      <select name="stationID" id="stationID" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                          {% for station in stations %}
+                                          <option value="{{station.id}}">{{station.location}}</option>
+                                          {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group w-full flex flex-col my-4">
                                 <div class="form-label">
                                     <label for="ORank" class="text-base my-2">
@@ -150,7 +163,7 @@
                                     </label>
                                 </div>
                                 <div class="form-input my-2 flex">
-                                      <select name="regRank" id="ORank" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
+                                      <select name="regRank" class="w-full p-2 rounded hover:border-blue invalid:border-red-500 valid:border-green-500 required:border-red-500 border-2">
                                         <option value="">-</option>
                                         <option value="Constable">Constable</option>
                                           {% if officerRank == 'OCS' %}
@@ -158,9 +171,6 @@
                                           {% endif %}
                                     </select>
                                 </div>
-                                  <small class="text-red-700 hidden" id="ORankError">
-                                        Invalid Rank.
-                                  </small>
                             </div>
                             <div class="form-button w-full flex flex-col my-4">
                                 <button name="regBtn" id="OBtn" class="p-2 text-center w-full rounded bg-blue-600 text-white text-lg">
@@ -172,26 +182,4 @@
                 </div>
         </div>
     </div>
-
-<script>
-const OPassword = document.querySelector("#OPassword");
-const OConPassword = document.querySelector("#OConPassword");
-const showPasswordToggle = document.querySelector(".showPasswordToggle");
-
-
-const handleToggleInput = (e) => {
-    if (showPasswordToggle.textContent === "SHOW"){
-      showPasswordToggle.textContent = "HIDE";
-       OConPassword.setAttribute("type","text");
-      OPassword.setAttribute("type","text");
-    }else{
-           showPasswordToggle.textContent = "SHOW";
-           OPassword.setAttribute("type","password");
-            OConPassword.setAttribute("type","password");
-    }
-};
-
-showPasswordToggle.addEventListener('click',handleToggleInput);
-
-</script>
 {% endblock content %}

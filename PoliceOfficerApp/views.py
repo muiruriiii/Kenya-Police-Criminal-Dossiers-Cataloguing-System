@@ -300,6 +300,7 @@ def OfficerEdit(request, id):
 
 
 def OfficerRegister(request):
+    policeStation =  PoliceStationModel.objects.all()
     if request.method == 'POST':
         if request.POST.get('regFName') and \
                 request.POST.get('regLName') and \
@@ -308,6 +309,7 @@ def OfficerRegister(request):
                 request.POST.get('regRank') and \
                 request.POST.get('regIDNo') and \
                 request.POST.get('regGender') and \
+                request.POST.get('stationID') and \
                 request.POST.get('regAddress'):
             saverecord = OfficerModel()
             saverecord.fName = request.POST.get('regFName')
@@ -315,7 +317,7 @@ def OfficerRegister(request):
             saverecord.email = request.POST.get('regEmail')
             saverecord.tel = request.POST.get('regPhone')
             saverecord.rank = request.POST.get('regRank')
-
+            saverecord.stationID = request.POST.get('stationID')
             #default password is KenyaPolice2022
             saverecord.password = make_password('KenyaPolice2022')
             saverecord.nationalID = request.POST.get('regIDNo')
@@ -326,22 +328,22 @@ def OfficerRegister(request):
             except IntegrityError as e:
                 messages.error(request, e)
                 return render(request, 'PoliceOfficerApp/OfficerRegister.html',
-                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank'],'stations':policeStation})
 
             else:
 
                 messages.success(request, 'Officer successfully registered.')
                 return render(request, 'PoliceOfficerApp/OfficerRegister.html',
-                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+                              {'title': 'Police Officer Register', 'officerRank': request.session['officerRank'],'stations':policeStation})
 
 
         else:
             messages.error(request, 'An error has occurred. Please contact an administrator.')
             return render(request, 'PoliceOfficerApp/OfficerRegister.html',
-                          {'title': 'Police Officer Register', 'officerRank': request.session['officerRank']})
+                          {'title': 'Police Officer Register', 'officerRank': request.session['officerRank'],'stations':policeStation})
 
     else:
-        return render(request, 'PoliceOfficerApp/OfficerRegister.html', {'title': 'Police Officer Register','officerRank': request.session['officerRank']})
+        return render(request, 'PoliceOfficerApp/OfficerRegister.html', {'title': 'Police Officer Register','officerRank': request.session['officerRank'],'stations':policeStation})
 
 
 def criminalbooking(request):
